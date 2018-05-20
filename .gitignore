@@ -1,0 +1,6 @@
+dbsave.sql
+#Don't include database or csv files anywhere in project
+**.db
+**.csv
+trash/
+
