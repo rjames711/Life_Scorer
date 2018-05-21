@@ -11,10 +11,11 @@ def log_tasks_tui():
     for task in tasks: print(task,': ', tasks[task])
     task = input('Select a task: ')
     qty = input('Enter a quantity: ')
+    note = input('Enter a note: ')
     confirm = input('Confirm submit task "' + tasks[int(task)] + 
             '" with qty '+qty+ ' (y/n): ' )
     if confirm == 'y':
-        log_task(task, qty)
+        log_task(task, qty, note)
         conn.commit()
     else:
         print('canceled')
@@ -37,12 +38,14 @@ def add_category_tui():
     add_category(name)
 
 
-
 def add_task_tui():
+    c.execute('select * from categories')
+    categories = c.fetchall()
     name = input('Enter new task name: ')
     points = input('Enter point value: ')
     #TODO fix hardcoding on this 
-    category = input('Select category (1:exercise 2:Learning : ') 
+    print (categories)
+    category = input('Select a category: ') 
     add_task(name,points,category)
 
 
@@ -51,9 +54,9 @@ def add_task(name,points, category):
     c.execute('insert into tasks (name,points,categories_id) values(?,?,?)',holder)
     conn.commit()
 
-def log_task(task, qty):
-    holder = (task,qty)
-    c.execute('insert into log (task_id,qty) values(?,?)',holder)
+def log_task(task, qty, note):
+    holder = (task,qty,note)
+    c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
 
 main_menu = {
         1:log_tasks_tui,

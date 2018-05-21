@@ -15,5 +15,6 @@ CREATE TABLE log (
         task_id integer,
         qty integer,
         Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, 
+        note text, 
         FOREIGN KEY(task_id) REFERENCES tasks(id)
         );
