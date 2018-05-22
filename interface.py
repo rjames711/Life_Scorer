@@ -1,10 +1,9 @@
-import sqlite3
-conn = sqlite3.connect('test.db')
-c = conn.cursor()
-c.execute('select id, name from tasks')
-task_list = c.fetchall()
-tasks = { k:v for k,v in task_list}
+#!/usr/bin/env python3
+#TODO alter schema and logic to allow for one time tasks which dissapear when done
+#TODO Think of new name for tasks and refactor
+#TODO Implement menu by category
 
+import sqlite3
 
 def log_tasks_tui():
     print()
@@ -43,7 +42,6 @@ def add_task_tui():
     categories = c.fetchall()
     name = input('Enter new task name: ')
     points = input('Enter point value: ')
-    #TODO fix hardcoding on this 
     print (categories)
     category = input('Select a category: ') 
     add_task(name,points,category)
@@ -57,6 +55,14 @@ def add_task(name,points, category):
 def log_task(task, qty, note):
     holder = (task,qty,note)
     c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
+    conn.commit()
+
+
+conn = sqlite3.connect('test.db')
+c = conn.cursor()
+c.execute('select id, name from tasks')
+task_list = c.fetchall()
+tasks = { k:v for k,v in task_list}
 
 main_menu = {
         1:log_tasks_tui,
@@ -64,6 +70,7 @@ main_menu = {
         3:add_task_tui,
         4:add_category_tui
         }
+
 while True:
     for key in main_menu: 
         print( key, ': ', main_menu[key].__name__)
@@ -73,20 +80,6 @@ while True:
     except:
         break
         
-    '''
-    # check out this implementation at somepoint https://www.pydanny.com/why-doesnt-python-have-switch-case.html
-    if choice =='1':
-        log_tasks_tui()
-    elif choice == '2':
-        show_log()
-    elif choice == '3':
-        add_task_tui()
-    elif choice == '4':
-        add_category_tui()
-    else:
-        break
-    '''
-
 print('exiting')
 conn.commit()
 c.close()
