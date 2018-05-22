@@ -3,4 +3,5 @@ dbsave.sql
 **.db
 **.csv
 trash/
-
+__pycache__/
+**.pyc

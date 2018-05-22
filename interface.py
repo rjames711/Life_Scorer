@@ -20,7 +20,10 @@ class Task:
 
 def read_tasks():
     c.execute('select id,name,points,categories_id,recurring,display from tasks')
-    c.fetchall()
+    tasks = c.fetchall()
+    task_list = [ Task(*x) for x in tasks ] 
+    return task_list
+
 
 def log_task(task, qty, note):
     holder = (task,qty,note)
@@ -113,6 +116,6 @@ if __name__ == '__main__':
         
 print('exiting')
 conn.commit()
-c.close()
-conn.close()
+#c.close()
+#conn.close()
 
