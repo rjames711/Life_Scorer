@@ -34,7 +34,7 @@ def log_tasks_tui():
     tasks  = read_tasks()
     for t in tasks: 
         if t.display: 
-            print(t.task_id,': ',t.name)
+            print(t.task_id,': ',t.name,t.recurring)
     task = input('Select a task: ')
     qty = input('Enter a quantity: ')
     note = input('Enter a note: ')
@@ -83,19 +83,19 @@ def add_task_tui():
     points = input('Enter point value: ')
     print (categories)
     category = input('Select a category: ') 
-    displays = ('true','once')
-    print('1: Recurring task  2: One Time Task')
-    display_type = input('Select task type: ')
-    display_type = displays[int(display_type)-1]
-    add_task(name,points,category, display_type)
+    print('1: One Time Task 2: Recurring task')
+    recurring = input('Select task type: ')
+    recurring = int(recurring) - 1  
+    add_task(name,points,category, recurring)
 
 
-def add_task(name,points, category, display_type):
-    holder =(name,points,category,display_type)
-    c.execute('insert into tasks (name,points,categories_id, display) values(?,?,?,?)',holder)
+def add_task(name,points, category, recurring):
+    holder =(name,points,category,recurring)
+    c.execute('insert into tasks (name,points,categories_id, recurring) values(?,?,?,?)',holder)
     conn.commit()
 
 #TODO update task list ( for display in menu )
+
 #update tasks set display = "true" where id=15 <- Statment for changing display val
 #test
 
