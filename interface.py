@@ -8,6 +8,20 @@
 
 import sqlite3
 
+class Task:
+    def __init__(self, task_id, name, points, category, recurring, display):
+        self.task_id = task_id
+        self.name = name
+        self.points = points
+        self.category = category
+        self.recurring = recurring
+        self.display = display
+
+
+def read_tasks():
+    c.execute('select id,name,points,categories_id,recurring,display from tasks')
+    c.fetchall()
+
 def log_task(task, qty, note):
     holder = (task,qty,note)
     c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
@@ -75,26 +89,27 @@ def add_task(name,points, category, display_type):
 
 conn = sqlite3.connect('test.db')
 c = conn.cursor()
-c.execute('select id, name from tasks where not display = "false"')
-task_list = c.fetchall()
-tasks = { k:v for k,v in task_list}
-#TODO main_menu change to list or tuple 
-main_menu = {
-        1:log_tasks_tui,
-        2:show_log,
-        3:add_task_tui,
-        4:add_category_tui
-        }
+if __name__ == '__main__':
+    c.execute('select id, name from tasks where not display = "false"')
+    task_list = c.fetchall()
+    tasks = { k:v for k,v in task_list}
+    #TODO main_menu change to list or tuple 
+    main_menu = {
+            1:log_tasks_tui,
+            2:show_log,
+            3:add_task_tui,
+            4:add_category_tui
+            }
 
-while True:
-    for key in main_menu: 
-        print( key, ': ', main_menu[key].__name__)
-    choice = input('Select a function: ')
-    try: 
-        main_menu[int(choice)]()
-    except Exception as error:
-        print(error)
-        break
+    while True:
+        for key in main_menu: 
+            print( key, ': ', main_menu[key].__name__)
+        choice = input('Select a function: ')
+        try: 
+            main_menu[int(choice)]()
+        except Exception as error:
+            print(error)
+            break
         
 print('exiting')
 conn.commit()
