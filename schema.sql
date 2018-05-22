@@ -7,7 +7,9 @@ CREATE TABLE tasks (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     points INTEGER,
-    categories_id INTEGER, display text default true,
+    categories_id INTEGER, 
+    recurring integer, 
+    display integer default 1, 
     FOREIGN KEY(categories_id ) REFERENCES categories(id)
 );
 CREATE TABLE log ( 
