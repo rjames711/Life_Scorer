@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
-#TODO alter schema and logic to allow for one time tasks which dissapear when done
 #TODO Think of new name for tasks and refactor
 #TODO Implement menu by category
-#TODO task class 
-#TODO In schema, remove change display column to bool and add 'reccurring' column
 #TODO Add some functionality for plain notes
+#TODO Add functionality to view days score 
 
 import sqlite3
 
@@ -33,15 +31,26 @@ def log_task(task, qty, note):
 
 def log_tasks_tui():
     print()
-    for task in tasks: print(task,': ', tasks[task])
+    tasks  = read_tasks()
+    for t in tasks: 
+        if t.display: 
+            print(t.task_id,': ',t.name)
     task = input('Select a task: ')
     qty = input('Enter a quantity: ')
     note = input('Enter a note: ')
-    confirm = input('Confirm submit task "' + tasks[int(task)] + 
+    task = tasks[int(task)-1]
+    #TODO will need to update here if task list changed to dict (indexing could conflict)
+    #Otherwise if list style is kept could keep this implentation but change what is
+    # passed back to db to task.id instead of the raw user input (this may be better)
+    confirm = input('Confirm submit task "' + task.name + 
             '" with qty '+qty+ ' (y/n): ' )
     if confirm == 'y':
-        log_task(task, qty, note)
+        log_task(task.task_id, qty, note)
         conn.commit()
+        if not task.recurring:
+            task.display = 0
+            c.execute('update tasks set display = 0 where id = ?',(str(task.task_id),))
+            conn.commit()
     else:
         print('canceled')
 
@@ -93,9 +102,6 @@ def add_task(name,points, category, display_type):
 conn = sqlite3.connect('test.db')
 c = conn.cursor()
 if __name__ == '__main__':
-    c.execute('select id, name from tasks where not display = "false"')
-    task_list = c.fetchall()
-    tasks = { k:v for k,v in task_list}
     #TODO main_menu change to list or tuple 
     main_menu = {
             1:log_tasks_tui,
