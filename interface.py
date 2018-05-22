@@ -2,8 +2,17 @@
 #TODO alter schema and logic to allow for one time tasks which dissapear when done
 #TODO Think of new name for tasks and refactor
 #TODO Implement menu by category
+#TODO task class 
+#TODO In schema, remove change display column to bool and add 'reccurring' column
+#TODO Add some functionality for plain notes
 
 import sqlite3
+
+def log_task(task, qty, note):
+    holder = (task,qty,note)
+    c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
+    conn.commit()
+
 
 def log_tasks_tui():
     print()
@@ -19,6 +28,7 @@ def log_tasks_tui():
     else:
         print('canceled')
 
+
 def show_log():
     c.execute("select tasks.name, log.qty, log.timestamp from tasks inner join log on log.task_id=tasks.id")
     log = c.fetchall()
@@ -27,14 +37,17 @@ def show_log():
     for i in log: print(i[1],'\t', i[0],'\t',i[2])
     print()
 
+
 def add_category(name):
     holder =(name,)
     c.execute('insert into categories (name) values(?)',holder)
     conn.commit()
 
+
 def add_category_tui():
     name = input('Enter new category name: ')
     add_category(name)
+
 
 #TODO finish implementing one time task functionality
 def add_task_tui():
@@ -58,11 +71,7 @@ def add_task(name,points, category, display_type):
 
 #TODO update task list ( for display in menu )
 #update tasks set display = "true" where id=15 <- Statment for changing display val
-def log_task(task, qty, note):
-    holder = (task,qty,note)
-    c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
-    conn.commit()
-
+#test
 
 conn = sqlite3.connect('test.db')
 c = conn.cursor()
@@ -91,6 +100,4 @@ print('exiting')
 conn.commit()
 c.close()
 conn.close()
-
-
 
