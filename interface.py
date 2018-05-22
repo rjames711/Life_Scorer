@@ -36,7 +36,7 @@ def add_category_tui():
     name = input('Enter new category name: ')
     add_category(name)
 
-
+#TODO finish implementing one time task functionality
 def add_task_tui():
     c.execute('select * from categories')
     categories = c.fetchall()
@@ -44,14 +44,20 @@ def add_task_tui():
     points = input('Enter point value: ')
     print (categories)
     category = input('Select a category: ') 
-    add_task(name,points,category)
+    displays = ('true','once')
+    print('1: Recurring task  2: One Time Task')
+    display_type = input('Select task type: ')
+    display_type = displays[int(display_type)-1]
+    add_task(name,points,category, display_type)
 
 
-def add_task(name,points, category):
-    holder =(name,points,category)
-    c.execute('insert into tasks (name,points,categories_id) values(?,?,?)',holder)
+def add_task(name,points, category, display_type):
+    holder =(name,points,category,display_type)
+    c.execute('insert into tasks (name,points,categories_id, display) values(?,?,?,?)',holder)
     conn.commit()
 
+#TODO update task list ( for display in menu )
+#update tasks set display = "true" where id=15 <- Statment for changing display val
 def log_task(task, qty, note):
     holder = (task,qty,note)
     c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
@@ -60,10 +66,10 @@ def log_task(task, qty, note):
 
 conn = sqlite3.connect('test.db')
 c = conn.cursor()
-c.execute('select id, name from tasks')
+c.execute('select id, name from tasks where not display = "false"')
 task_list = c.fetchall()
 tasks = { k:v for k,v in task_list}
-
+#TODO main_menu change to list or tuple 
 main_menu = {
         1:log_tasks_tui,
         2:show_log,
@@ -77,7 +83,8 @@ while True:
     choice = input('Select a function: ')
     try: 
         main_menu[int(choice)]()
-    except:
+    except Exception as error:
+        print(error)
         break
         
 print('exiting')
