@@ -1,0 +1,20 @@
+-Implement basic web interface.
+--Basic UI with big buttons which are reasonable usable on desktop and mobile
+--Deploy on server
+
+-Implement very basic login functionality for single user
+
+-Implement multiple users
+--User table
+--User column forien key in tasks, log etc
+--Implement multiple user login
+
+-Change how time is handled
+--Remove timestamp column from log 
+--add month day year time columns to make for easier queries
+--Get time date from client (browser or whatever) and do any necessary conversion or formatting in python.
+--Or just a date and time column but formatted so its simple to query using python datetime
+--Ex:       In [3]: print (datetime.date.today()+datetime.timedelta(2))
+            2018-05-31
+
+Implement some way of handling units and attirbutes
