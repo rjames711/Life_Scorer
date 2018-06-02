@@ -30,8 +30,8 @@ def read_tasks():
     return task_list
 
 
-def log_task(task, qty, note):
-    holder = (task,qty,note)
+def log_task(task_name, qty, note):
+    holder = (task_name,qty,note)
     conn = get_task_db()
     c = conn.cursor()
     c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)

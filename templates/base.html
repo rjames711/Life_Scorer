@@ -1,18 +1,18 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<div>
-  {{g}}
-</div>
+<title>{% block title %}{% endblock %} Day Scorer</title>
+
 <div>
   {{session['username']}}
 </div>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>Flaskr</h1>
+  <h1>Day Scorer</h1>
   <ul>
     {% if session['username'] %}
       <li><span>{{ session['username'] }}</span>
       <li><a href="{{ url_for('logout') }}">Log Out</a>
+      <li><a href="{{ url_for('create_log') }}">Create Log</a>
+      <li><a href="{{ url_for('show_log') }}">Show Log</a>
     {% else %}
       <li><a href="{{ url_for('register') }}">Register</a>
       <li><a href="{{ url_for('login') }}">Log In</a>

@@ -3,7 +3,7 @@ from flask import (
 )
 
 from user import add_user , validate_user 
-from interface import get_log
+from interface import get_log, read_tasks
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -16,6 +16,18 @@ def debug(func):
 def show_log():
     log = get_log()
     return render_template('log.html', log=log)
+    
+@app.route('/index')
+def index():
+    return render_template('index')
+
+@app.route('/create_log', methods=('GET', 'POST'))
+def create_log():
+    if request.method == 'POST':
+        print (request)
+        print(request.form['submit'])
+    tasks = read_tasks()
+    return render_template('create_log.html', tasks=tasks)
     
 
 @app.route('/')
