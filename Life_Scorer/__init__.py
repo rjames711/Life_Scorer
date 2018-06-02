@@ -1,9 +1,10 @@
 from flask import (
    Flask, Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
-
-from user import add_user , validate_user 
-from interface import get_log, read_tasks, log_task, get_task_by_name
+import os 
+print (os.getcwd())
+from Life_Scorer.user import add_user , validate_user 
+from Life_Scorer.interface import get_log, read_tasks, log_task, get_task_by_name
 from functools import wraps
 
 app = Flask(__name__)

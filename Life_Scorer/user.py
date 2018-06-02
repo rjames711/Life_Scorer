@@ -1,9 +1,12 @@
-import sqlite3
+import sqlite3, os
 from werkzeug.security import check_password_hash, generate_password_hash
 
 #TODO need to rework how database is handled even if this works.
 
 def get_db():
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, 'user.db')
+    return sqlite3.connect(filename)
     conn = sqlite3.connect('user.db')
     #c = conn.cursor()
     return conn

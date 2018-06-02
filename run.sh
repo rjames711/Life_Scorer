@@ -1,6 +1,6 @@
 . /home/ubuntu/workspace/Life_Scorer/venv/bin/activate
 python --version
-export FLASK_APP=app.py
+export FLASK_APP=Life_Scorer
 export FLASK_ENV=development
 echo $PORT
 echo $IP

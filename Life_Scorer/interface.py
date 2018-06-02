@@ -5,7 +5,7 @@
 #TODO Add functionality to view days score 
 #Maybe rename file
 
-import sqlite3
+import sqlite3, os
 
 class Task:
     def __init__(self, task_id, name, points, category, recurring, display):
@@ -18,7 +18,9 @@ class Task:
 
 
 def get_task_db():
-    return sqlite3.connect('test.db')
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, 'test.db')
+    return sqlite3.connect(filename)
     
 
 def read_tasks():
