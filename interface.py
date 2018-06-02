@@ -3,6 +3,7 @@
 #TODO Implement menu by category
 #TODO Add some functionality for plain notes
 #TODO Add functionality to view days score 
+#Maybe rename file
 
 import sqlite3
 
@@ -16,7 +17,13 @@ class Task:
         self.display = display
 
 
+def get_task_db():
+    return sqlite3.connect('test.db')
+    
+
 def read_tasks():
+    conn = get_task_db()
+    c = conn.cursor()
     c.execute('select id,name,points,categories_id,recurring,display from tasks')
     tasks = c.fetchall()
     task_list = [ Task(*x) for x in tasks ] 
@@ -25,11 +32,15 @@ def read_tasks():
 
 def log_task(task, qty, note):
     holder = (task,qty,note)
+    conn = get_task_db()
+    c = conn.cursor()
     c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
     conn.commit()
 
 
 def log_tasks_tui():
+    conn = get_task_db()
+    c = conn.cursor()
     print()
     tasks  = read_tasks()
     for t in tasks: 
@@ -54,10 +65,14 @@ def log_tasks_tui():
     else:
         print('canceled')
 
+def get_log():
+    conn = get_task_db()
+    c = conn.cursor()
+    c.execute("select tasks.name, log.qty, log.timestamp from tasks inner join log on log.task_id=tasks.id")
+    return c.fetchall()
 
 def show_log():
-    c.execute("select tasks.name, log.qty, log.timestamp from tasks inner join log on log.task_id=tasks.id")
-    log = c.fetchall()
+    log = get_log()
     print('Qty\tTask')
     print(5*'-'+'\t'+5*'-')
     for i in log: print(i[1],'\t', i[0],'\t',i[2])
@@ -66,6 +81,8 @@ def show_log():
 
 def add_category(name):
     holder =(name,)
+    conn = get_task_db()
+    c = conn.cursor()
     c.execute('insert into categories (name) values(?)',holder)
     conn.commit()
 
@@ -77,6 +94,8 @@ def add_category_tui():
 
 #TODO finish implementing one time task functionality
 def add_task_tui():
+    conn = get_task_db()
+    c = conn.cursor()
     c.execute('select * from categories')
     categories = c.fetchall()
     name = input('Enter new task name: ')
@@ -91,6 +110,8 @@ def add_task_tui():
 
 def add_task(name,points, category, recurring):
     holder =(name,points,category,recurring)
+    conn = get_task_db()
+    c = conn.cursor()
     c.execute('insert into tasks (name,points,categories_id, recurring) values(?,?,?,?)',holder)
     conn.commit()
 
@@ -99,8 +120,7 @@ def add_task(name,points, category, recurring):
 #update tasks set display = "true" where id=15 <- Statment for changing display val
 #test
 
-conn = sqlite3.connect('test.db')
-c = conn.cursor()
+
 if __name__ == '__main__':
     #TODO main_menu change to list or tuple 
     main_menu = {
@@ -121,7 +141,5 @@ if __name__ == '__main__':
             break
         
 print('exiting')
-conn.commit()
-#c.close()
-#conn.close()
+
 

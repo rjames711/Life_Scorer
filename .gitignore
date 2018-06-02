@@ -5,3 +5,4 @@ dbsave.sql
 trash/
 __pycache__/
 **.pyc
+venv/
