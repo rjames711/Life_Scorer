@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+<div>
+<a href="{{ url_for('create_log') }}"><button type="button" 
+style="height:100px;width:400px;font-size:40px">Log a new Record</button></a>
+</div>
+<br>
 <table style="width:100%">
   {% for item in log %}
     <tr>
@@ -14,9 +19,4 @@
     </tr>
   {% endfor %}
 </table>
-<br>
-<div>
-<a href="{{ url_for('create_log') }}"><button type="button" 
-style="height:100px;width:400px;font-size:40px">Log a new Record</button></a>
-</div>
 {% endblock %}

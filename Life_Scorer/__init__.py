@@ -30,6 +30,7 @@ def login_required(view):
 @login_required
 def show_log():
     log = get_log()
+    log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
     
 @app.route('/index')

@@ -6,3 +6,4 @@ trash/
 __pycache__/
 **.pyc
 venv/
+**.wsgi
