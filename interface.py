@@ -29,9 +29,16 @@ def read_tasks():
     task_list = [ Task(*x) for x in tasks ] 
     return task_list
 
+def get_task_by_name(task_name):
+    conn = get_task_db()
+    c = conn.cursor()
+    c.execute('SELECT id FROM tasks WHERE name=?',(task_name,))
+    task_id = c.fetchone()
+    return task_id[0]
 
-def log_task(task_name, qty, note):
-    holder = (task_name,qty,note)
+def log_task(task_id, qty, note):
+    print('entering log', task_id,qty, note)
+    holder = (task_id,qty,note)
     conn = get_task_db()
     c = conn.cursor()
     c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
@@ -58,6 +65,7 @@ def log_tasks_tui():
     if confirm == 'y':
         log_task(task.task_id, qty, note)
         conn.commit()
+        #TODO This should be be happnening in log task since this will only happne in tui
         if not task.recurring:
             task.display = 0
             c.execute('update tasks set display = 0 where id = ?',(str(task.task_id),))
@@ -68,7 +76,7 @@ def log_tasks_tui():
 def get_log():
     conn = get_task_db()
     c = conn.cursor()
-    c.execute("select tasks.name, log.qty, log.timestamp from tasks inner join log on log.task_id=tasks.id")
+    c.execute("select tasks.name, log.qty, log.timestamp, log.note from tasks inner join log on log.task_id=tasks.id")
     return c.fetchall()
 
 def show_log():

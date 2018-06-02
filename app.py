@@ -3,7 +3,8 @@ from flask import (
 )
 
 from user import add_user , validate_user 
-from interface import get_log, read_tasks
+from interface import get_log, read_tasks, log_task, get_task_by_name
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -12,7 +13,20 @@ def debug(func):
     print(func.__name__,' in wrappe')
     func()
 
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        #Changed below to use session instead of g. 
+        if 'username' not in session:
+            print('no user in login required')
+            return redirect(url_for('login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
 @app.route('/show_log')
+@login_required
 def show_log():
     log = get_log()
     return render_template('log.html', log=log)
@@ -21,11 +35,22 @@ def show_log():
 def index():
     return render_template('index')
 
+
+
+
+
 @app.route('/create_log', methods=('GET', 'POST'))
+@login_required
 def create_log():
     if request.method == 'POST':
-        print (request)
-        print(request.form['submit'])
+        note = request.form['notes']
+        qty = request.form['quantity']
+        task_name = request.form['selection']
+        #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
+        task_id = get_task_by_name(task_name)
+        log_task(task_id, qty, note)
+        return redirect(url_for('show_log'))
+        
     tasks = read_tasks()
     return render_template('create_log.html', tasks=tasks)
     
@@ -49,6 +74,8 @@ def login():
             session['username'] = request.form['username']
             return redirect(url_for('show_log'))
     return render_template('auth/login.html')
+
+
 
 @app.route('/register')
 def register():

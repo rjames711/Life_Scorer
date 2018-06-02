@@ -7,13 +7,41 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% endblock %}
 
 {% block content %}
+
   <form method="post">
   {% for task in tasks %}
-  <input type="submit" name="submit" class="btn btn-primary btn-lg" 
-  value={{ task.name }}>
+  <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg" onclick="myFunction(this)"
+  value="{{ task.name }}", style="background-color:#4156f4">
   {% endfor %}
+  <input type="text" id="selection" name="selection" value="" placeholder="Make a selection above">
+  <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+  <input type="text" name="quantity" id="numIN" placeholder="Roll slider or enter number">
+  <input type="text" name="notes" placeholder="Enter Notes Here">
+  <input type = "submit" class="btn btn-primary btn-lg" 
+  value="Submit", style="background-color:#4156f4">
   </form>
+
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("numIN");
+output.value = slider.value;
+
+slider.oninput = function() {
+  output.value = this.value;
+}
+
+function myFunction(btn) {
+  var old_select = document.getElementById("selection").value;
+  console.log(old_select);
+  document.getElementById("selection").value = btn.id;
+  btn.style.background='#000000';
+  document.getElementById(old_select).style.background="#4170f4";
+}
+</script>
 {% endblock %}
+
