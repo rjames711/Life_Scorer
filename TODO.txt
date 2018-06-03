@@ -1,13 +1,10 @@
--Implement basic web interface.
---Basic UI with big buttons which are reasonable usable on desktop and mobile
---Deploy on server
-
--Implement very basic login functionality for single user
-
 -Implement multiple users
---User table
---User column forien key in tasks, log etc
---Implement multiple user login
+--data base file per user ex: username.db
+--Get registration page working
+
+-Create pages for creating new tasks and categories
+
+-Make decent index page which gives the top level options with big buttons
 
 -Change how time is handled
 --Remove timestamp column from log 

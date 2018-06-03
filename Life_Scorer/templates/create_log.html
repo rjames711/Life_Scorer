@@ -37,10 +37,19 @@ slider.oninput = function() {
 
 function myFunction(btn) {
   var old_select = document.getElementById("selection").value;
-  console.log(old_select);
+  
   document.getElementById("selection").value = btn.id;
   btn.style.background='#000000';
-  document.getElementById(old_select).style.background="#4170f4";
+  console.log("Selected task: " + old_select);
+  try{
+    document.getElementById(old_select).style.background="#4170f4";
+  }
+  catch(error){
+    console.error(error);
+  }
+  //window.scrollTo(0,document.body.scrollHeight);  //vanilla js (no animate)
+  setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
+  
 }
 </script>
 {% endblock %}
