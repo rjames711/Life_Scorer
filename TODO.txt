@@ -23,3 +23,7 @@
 --Other types of queries and visualition
 
 -Some sort of input for plain notes..
+
+-Color coding of buttons by category and type (recurring nonrecurring)
+
+-Make non recurrent tasks go away once complete.

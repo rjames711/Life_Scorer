@@ -45,7 +45,8 @@ def create_task():
         category = request.form['category']
         add_task(taskname,points,category,recur)
         return redirect(url_for('show_log'))
-    return render_template('create_task.html',categories=categories)
+    import sys #testing delate later
+    return render_template('create_task.html',categories=categories, version =sys.version)
     
 
 @app.route('/show_log')
