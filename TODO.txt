@@ -6,6 +6,9 @@
 
 -Make decent index page which gives the top level options with big buttons
 
+-In tasks add a column for parent tasks to allow for nested sub tasks
+--Potentially implement categories in this way as special task with no parent
+
 -Change how time is handled
 --Remove timestamp column from log 
 --add month day year time columns to make for easier queries
@@ -14,4 +17,9 @@
 --Ex:       In [3]: print (datetime.date.today()+datetime.timedelta(2))
             2018-05-31
 
-Implement some way of handling units and attirbutes
+-Implement some way of handling units and attirbutes
+
+-Implement a way of getting scores by day 
+--Other types of queries and visualition
+
+-Some sort of input for plain notes..

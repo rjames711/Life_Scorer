@@ -4,8 +4,11 @@ from flask import (
 import os 
 print (os.getcwd())
 from Life_Scorer.user import add_user , validate_user 
-from Life_Scorer.interface import get_log, read_tasks, log_task, get_task_by_name
+from Life_Scorer.interface import (
+    get_log, read_tasks, log_task, get_task_by_name, get_categories, add_task
+    )
 from functools import wraps
+
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -13,6 +16,7 @@ def debug(func):
     print('wrapped')
     print(func.__name__,' in wrappe')
     func()
+
 
 def login_required(view):
     @wraps(view)
@@ -26,19 +30,35 @@ def login_required(view):
 
     return wrapped_view
 
+
+@app.route('/create_task', methods=('GET', 'POST'))
+@login_required
+def create_task():
+    categories = get_categories()
+    if request.method == 'POST':
+        print(request.form)
+        taskname = request.form['taskname']
+        points = request.form['points']
+        #Need further testing or refactor of below (also error handling)
+        r = {'recurring': 1 , 'non-recurring' : 0 }
+        recur = r[request.form['recurring']]
+        category = request.form['category']
+        add_task(taskname,points,category,recur)
+        return redirect(url_for('show_log'))
+    return render_template('create_task.html',categories=categories)
+    
+
 @app.route('/show_log')
 @login_required
 def show_log():
     log = get_log()
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
+ 
     
 @app.route('/index')
 def index():
     return render_template('index')
-
-
-
 
 
 @app.route('/create_log', methods=('GET', 'POST'))
@@ -61,9 +81,11 @@ def create_log():
 def hello_world():
     return redirect(url_for('login'))
 
+
 @app.route('/hello')
 def hello_world2():
     return 'Hello, World!2222222'
+
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
@@ -78,10 +100,10 @@ def login():
     return render_template('auth/login.html')
 
 
-
 @app.route('/register')
 def register():
     return render_template('auth/register.html')
+    
     
 @app.route('/logout')
 def logout():

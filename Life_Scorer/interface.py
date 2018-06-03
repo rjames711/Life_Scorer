@@ -101,13 +101,15 @@ def add_category_tui():
     name = input('Enter new category name: ')
     add_category(name)
 
-
-#TODO finish implementing one time task functionality
-def add_task_tui():
+def get_categories():
     conn = get_task_db()
     c = conn.cursor()
     c.execute('select * from categories')
-    categories = c.fetchall()
+    return c.fetchall()
+
+#TODO finish implementing one time task functionality
+def add_task_tui():
+    categories = get_categories()
     name = input('Enter new task name: ')
     points = input('Enter point value: ')
     print (categories)
