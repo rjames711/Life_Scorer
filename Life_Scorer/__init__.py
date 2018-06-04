@@ -3,15 +3,16 @@ from flask import (
 )
 import os 
 print (os.getcwd())
-from Life_Scorer.user import add_user , validate_user 
-from Life_Scorer.interface import (
-    get_log, read_tasks, log_task, get_task_by_name, get_categories, add_task
-    )
+import Life_Scorer.user as user
+import Life_Scorer.interface as interface
 from functools import wraps
 
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
+
+
+
 def debug(func):
     print('wrapped')
     print(func.__name__,' in wrappe')
@@ -21,7 +22,7 @@ def debug(func):
 def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
-        #Changed below to use session instead of g. 
+        #Changed below to use session instead of g.
         if 'username' not in session:
             print('no user in login required')
             return redirect(url_for('login'))
@@ -34,7 +35,7 @@ def login_required(view):
 @app.route('/create_task', methods=('GET', 'POST'))
 @login_required
 def create_task():
-    categories = get_categories()
+    categories = interface.get_categories()
     if request.method == 'POST':
         print(request.form)
         taskname = request.form['taskname']
@@ -43,7 +44,7 @@ def create_task():
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
-        add_task(taskname,points,category,recur)
+        interface.add_task(taskname,points,category,recur)
         return redirect(url_for('show_log'))
     import sys #testing delate later
     return render_template('create_task.html',categories=categories, version =sys.version)
@@ -52,7 +53,7 @@ def create_task():
 @app.route('/show_log')
 @login_required
 def show_log():
-    log = get_log()
+    log = interface.get_log()
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
  
@@ -70,11 +71,11 @@ def create_log():
         qty = request.form['quantity']
         task_name = request.form['selection']
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
-        task_id = get_task_by_name(task_name)
-        log_task(task_id, qty, note)
+        task_id = interface.get_task_by_name(task_name)
+        interface.log_task(task_id, qty, note)
         return redirect(url_for('show_log'))
         
-    tasks = read_tasks()
+    tasks = interface.read_tasks()
     return render_template('create_log.html', tasks=tasks)
     
 
@@ -95,18 +96,27 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if validate_user(username,password):
+        if user.validate_user (username,password):
             session['username'] = request.form['username']
             return redirect(url_for('show_log'))
     return render_template('auth/login.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=('GET', 'POST'))
 def register():
+    if request.method == 'POST':
+        #Line below is to disable this function until
+        #functionality supports multiple users (not allow to access others records)
+        return render_template('auth/register.html')
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+        user.add_user(username,password,email)
+        return redirect(url_for('show_log'))
     return render_template('auth/register.html')
     
     
-@app.route('/logout')
+@app.route('/logout', methods=('GET', 'POST'))
 def logout():
     """Clear the current session, including the stored user id."""
     session.clear()
