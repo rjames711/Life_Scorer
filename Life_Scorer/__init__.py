@@ -6,7 +6,7 @@ print (os.getcwd())
 import Life_Scorer.user as user
 import Life_Scorer.interface as interface
 from functools import wraps
-
+import datetime
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -70,6 +70,12 @@ def create_log():
         note = request.form['notes']
         qty = request.form['quantity']
         task_name = request.form['selection']
+        timestamp = request.form['timestamp'] #client local timestamp ms
+        dt = datetime.datetime.fromtimestamp(int(timestamp)/1000)
+        date = str(dt.date())
+        time = str(dt.time())
+        print('Date: ', date, 'Time: ', time)
+        #TODO insert date and time strings into db once db is setup for it
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name)
         interface.log_task(task_id, qty, note)

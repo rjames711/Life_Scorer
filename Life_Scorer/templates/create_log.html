@@ -12,7 +12,7 @@
 
 {% block content %}
 
-  <form method="post">
+  <form method="post" id = "logForm">
   {% for task in tasks %}
   <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg" onclick="myFunction(this)"
   value="{{ task.name }}", style="background-color:#4156f4">
@@ -21,7 +21,7 @@
   <input type="range" min="1" max="20" value="1" class="slider" id="myRange">
   <input type="text" name="quantity" id="numIN" placeholder="Roll slider or enter number">
   <input type="text" name="notes" placeholder="Enter Notes Here">
-  <input type = "submit" class="btn btn-primary btn-lg" 
+  <input type = "button" class="btn btn-primary btn-lg" onclick="submitForm()"
   value="Submit", style="background-color:#4156f4">
   </form>
 
@@ -33,6 +33,19 @@ output.value = slider.value;
 
 slider.oninput = function() {
   output.value = this.value;
+}
+
+//Adds a datestamp to form before submitting.
+//Needed because always want to use client local time instead of server
+function submitForm() {
+    console.log('Submitting form using script')
+    var element1 = document.createElement("input");
+    element1.type = "hidden";
+    var dt = new Date()
+    element1.value = dt.getTime(); //millisecond timestamp
+    element1.name = "timestamp";
+    document.getElementById("logForm").appendChild(element1);
+    document.getElementById("logForm").submit();
 }
 
 function myFunction(btn) {
@@ -47,7 +60,7 @@ function myFunction(btn) {
   catch(error){
     console.error(error);
   }
-  //window.scrollTo(0,document.body.scrollHeight);  //vanilla js (no animate)
+  //window.scrollTo(0,document.body.scrollHeight);  //vanilla js (no animate scroll)
   setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
   
 }
