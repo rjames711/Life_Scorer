@@ -16,11 +16,26 @@ class Task:
         self.recurring = recurring
         self.display = display
 
+#TODO DRY move this and the one in user.py to its own file or something
+def exec_sql(c, sql_file):
+    dirname = os.path.dirname(__file__)
+    sql_file = os.path.join(dirname, sql_file)
+    sql = open(sql_file)
+    sql = sql.read()
+    sql = sql.split(';')
+    for statement in sql:
+        c.execute(statement)
 
 def get_task_db():
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, 'test.db')
-    return sqlite3.connect(filename)
+    if os.path.exists(filename):
+        return sqlite3.connect(filename)
+    else:
+        conn = sqlite3.connect(filename)
+        c = conn.cursor()
+        exec_sql(c,'schema.sql')
+        return conn
     
 
 def read_tasks():
