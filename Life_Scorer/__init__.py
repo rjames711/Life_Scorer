@@ -107,7 +107,7 @@ def register():
     if request.method == 'POST':
         #Line below is to disable this function until
         #functionality supports multiple users (not allow to access others records)
-        return render_template('auth/register.html')
+        #return render_template('auth/register.html')
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']

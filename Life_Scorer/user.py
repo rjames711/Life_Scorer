@@ -3,13 +3,25 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 #TODO need to rework how database is handled even if this works.
 
+def exec_sql(c, sql_file):
+    dirname = os.path.dirname(__file__)
+    sql_file = os.path.join(dirname, sql_file)
+    sql = open(sql_file)
+    sql = sql.read()
+    sql = sql.split(';')
+    for statement in sql:
+        c.execute(statement)
+
 def get_db():
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, 'user.db')
-    return sqlite3.connect(filename)
-    conn = sqlite3.connect('user.db')
-    #c = conn.cursor()
-    return conn
+    if os.path.exists(filename):
+        return sqlite3.connect(filename)
+    else:
+        conn = sqlite3.connect(filename)
+        c = conn.cursor()
+        exec_sql(c,'user.sql')
+        return conn
 
 def add_user(username,password,email):
     conn = get_db()
