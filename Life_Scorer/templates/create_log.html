@@ -14,7 +14,7 @@
 
   <form method="post" id = "logForm">
   {% for task in tasks %}
-  <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg" onclick="myFunction(this)"
+  <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg" onclick="get_selection(this)"
   value="{{ task.name }}", style="background-color:#4156f4">
   {% endfor %}
   <input type="text" id="selection" name="selection" value="" placeholder="Make a selection above">
@@ -48,7 +48,7 @@ function submitForm() {
     document.getElementById("logForm").submit();
 }
 
-function myFunction(btn) {
+function get_selection(btn) {
   var old_select = document.getElementById("selection").value;
   
   document.getElementById("selection").value = btn.id;

@@ -1,10 +1,10 @@
+-Make decent index page which gives the top level options with big buttons
+
 -Implement multiple users
 --data base file per user ex: username.db
 --Get registration page working
 
 -Create pages for creating new tasks and categories
-
--Make decent index page which gives the top level options with big buttons
 
 -In tasks add a column for parent tasks to allow for nested sub tasks
 --Potentially implement categories in this way as special task with no parent
@@ -19,3 +19,10 @@
 -Color coding of buttons by category and type (recurring nonrecurring)
 
 -Make non recurrent tasks go away once complete.
+
+-Figure out why time is still 4 hours off (only when run on server) when  it should be being pulled from the  client browser
+--then fix the terrible hackiness. 
+
+-An edit task page so you can edit the point value and whatnot
+--A show task page (similar to page for logging)
+--When a task is clicked brings up an edit page 

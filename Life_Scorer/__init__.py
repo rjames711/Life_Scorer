@@ -91,11 +91,6 @@ def hello_world():
     return redirect(url_for('login'))
 
 
-@app.route('/hello')
-def hello_world2():
-    return 'Hello, World!2222222'
-
-
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     if 'username' in session:
@@ -122,11 +117,37 @@ def register():
         return redirect(url_for('show_log'))
     return render_template('auth/register.html')
     
-    
+
 @app.route('/logout', methods=('GET', 'POST'))
 def logout():
     """Clear the current session, including the stored user id."""
     session.clear()
     return redirect(url_for('login'))
 
-app.route('')
+
+@app.route('/edit_tasks')
+@login_required
+def edit_tasks():
+    tasks = interface.read_tasks()
+    return render_template('edit_tasks.html',tasks=tasks)
+
+@app.route('/edit_task/<task_id>', methods=('GET', 'POST'))
+@app.route('/edit_task')
+@login_required
+def edit_task(task_id=0):
+    if request.method == 'POST':
+        print(request.form)
+        taskname = request.form['taskname']
+        points = request.form['points']
+        #Need further testing or refactor of below (also error handling)
+        r = {'recurring': 1 , 'non-recurring' : 0 }
+        recur = r[request.form['recurring']]
+        category = request.form['category']
+        interface.update_task(taskname,points,category,recur,task_id)
+        return redirect(url_for('edit_tasks'))
+    if task_id is not 0:
+        task = interface.get_task(task_id)
+    categories = interface.get_categories()
+    return render_template('edit_task.html',task=task, categories=categories)
+
+
