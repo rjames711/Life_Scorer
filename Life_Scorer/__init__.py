@@ -72,6 +72,8 @@ def create_log():
         task_name = request.form['selection']
         timestamp = request.form['timestamp'] #client local timestamp ms
         dt = datetime.datetime.fromtimestamp(int(timestamp)/1000)
+        #TODO fix so this hack below is not needed
+        dt = dt - datetime.timedelta(hours = 4) #Very bad hack needed to keep system from being in unstable state
         date = str(dt.date())
         time = dt.strftime("%H:%M:%S")
         print('Date: ', date, 'Time: ', time)
