@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Create New Task{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+{{ version }}
+  <form method="post">
+    <label for="category">Enter new Category</label>
+    <input name="category" id="category" required>
+    <input type="submit" value = "Submit new category">
+  </form>
+{% endblock %}

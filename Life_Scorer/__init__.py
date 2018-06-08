@@ -150,4 +150,11 @@ def edit_task(task_id=0):
     categories = interface.get_categories()
     return render_template('edit_task.html',task=task, categories=categories)
 
-
+@app.route('/create_category', methods=('GET','POST'))
+@login_required
+def create_category():
+    if request.method == 'POST':
+        new_category = request.form['category']
+        interface.add_category(new_category)
+        return redirect(url_for('show_log'))
+    return render_template('create_category.html')
