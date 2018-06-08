@@ -53,12 +53,12 @@ def get_task_by_name(task_name):
     task_id = c.fetchone()
     return task_id[0]
 
-def log_task(task_id, qty, note):
+def log_task(task_id, qty, note, date, time):
     print('entering log', task_id,qty, note)
-    holder = (task_id,qty,note)
+    holder = ( task_id, qty, note, date, time)
     conn = get_task_db()
     c = conn.cursor()
-    c.execute('insert into log (task_id, qty, note) values(?,?,?)',holder)
+    c.execute('insert into log (task_id, qty, note, date, time) values(?,?,?,?,?)',holder)
     conn.commit()
 
 
@@ -80,7 +80,9 @@ def log_tasks_tui():
     confirm = input('Confirm submit task "' + task.name + 
             '" with qty '+qty+ ' (y/n): ' )
     if confirm == 'y':
-        log_task(task.task_id, qty, note)
+        #TODO fix this so it inputs date and time
+        print('this function needs to be fixed see above todo')
+        #log_task(task.task_id, qty, note)
         conn.commit()
         #TODO This should be be happnening in log task since this will only happne in tui
         if not task.recurring:
@@ -93,7 +95,7 @@ def log_tasks_tui():
 def get_log():
     conn = get_task_db()
     c = conn.cursor()
-    c.execute("select tasks.name, log.qty, log.timestamp, log.note from tasks inner join log on log.task_id=tasks.id")
+    c.execute("select tasks.name, log.qty, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id")
     return c.fetchall()
 
 def show_log():

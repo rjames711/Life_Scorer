@@ -10,12 +10,17 @@
 --Potentially implement categories in this way as special task with no parent
 
 -Change how time is handled
---Remove timestamp column from log 
---add month day year time columns to make for easier queries
---Get time date from client (browser or whatever) and do any necessary conversion or formatting in python.
---Or just a date and time column but formatted so its simple to query using python datetime
---Ex:       In [3]: print (datetime.date.today()+datetime.timedelta(2))
-            2018-05-31
+--(X) Get date from client and convert to python datetime
+--(X) Script to convert database
+---(X) Remove timstamp from database
+---(X) Add new date and time column to make queries easier
+---(X) Convert old timestamps to the date and time format
+--(X) Replace datetime with date and time in interface
+--(X) Replace datetime with date and time in init
+--(X) Replace datetime with date and time in show log
+--(X) Actually input date from clinet into database 
+--(X) update schema
+
 
 -Implement some way of handling units and attirbutes
 

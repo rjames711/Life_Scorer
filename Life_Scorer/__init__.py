@@ -73,12 +73,13 @@ def create_log():
         timestamp = request.form['timestamp'] #client local timestamp ms
         dt = datetime.datetime.fromtimestamp(int(timestamp)/1000)
         date = str(dt.date())
-        time = str(dt.time())
+        time = dt.strftime('%I:%M %p')
+        time = time.split('.')[0] #Don't need seconds to decimal point
         print('Date: ', date, 'Time: ', time)
         #TODO insert date and time strings into db once db is setup for it
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name)
-        interface.log_task(task_id, qty, note)
+        interface.log_task(task_id, qty, note,date, time)
         return redirect(url_for('show_log'))
         
     tasks = interface.read_tasks()
