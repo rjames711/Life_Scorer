@@ -14,8 +14,10 @@
 
   <form method="post" id = "logForm">
   {% for task in tasks %}
+    {% if task.display %}
   <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg" onclick="get_selection(this)"
   value="{{ task.name }}", style="background-color:#4156f4">
+    {% endif %}
   {% endfor %}
   <input type="text" id="selection" name="selection" value="" placeholder="Make a selection above">
   <input type="range" min="1" max="20" value="1" class="slider" id="myRange">

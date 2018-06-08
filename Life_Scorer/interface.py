@@ -67,13 +67,17 @@ def get_task(task_id):
     return Task(*task)
 
 
-
 def log_task(task_id, qty, note, date, time):
     print('entering log', task_id,qty, note)
     holder = ( task_id, qty, note, date, time)
     conn = get_task_db()
     c = conn.cursor()
     c.execute('insert into log (task_id, qty, note, date, time) values(?,?,?,?,?)',holder)
+    task = get_task(task_id)    
+    if not task.recurring:
+            task.display = 0
+            c.execute('update tasks set display = 0 where id = ?',(str(task.task_id),))
+            conn.commit()
     conn.commit()
 
 
