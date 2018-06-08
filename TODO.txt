@@ -9,19 +9,6 @@
 -In tasks add a column for parent tasks to allow for nested sub tasks
 --Potentially implement categories in this way as special task with no parent
 
--Change how time is handled
---(X) Get date from client and convert to python datetime
---(X) Script to convert database
----(X) Remove timstamp from database
----(X) Add new date and time column to make queries easier
----(X) Convert old timestamps to the date and time format
---(X) Replace datetime with date and time in interface
---(X) Replace datetime with date and time in init
---(X) Replace datetime with date and time in show log
---(X) Actually input date from clinet into database 
---(X) update schema
-
-
 -Implement some way of handling units and attirbutes
 
 -Implement a way of getting scores by day 
