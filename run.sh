@@ -5,8 +5,12 @@ export FLASK_APP=Life_Scorer
 export FLASK_ENV=development
 echo $PORT
 echo $IP
-
-flask run --host=$IP --port=$PORT #if running on cloud9
-
-#flask run #if running on localhost
+if [ -z "$PORT" ]
+then
+    echo running on localhost
+    flask run #if running on localhost
+else
+    echo running on cloud9 ide
+    flask run --host=$IP --port=$PORT #if running on cloud9
+fi
 
