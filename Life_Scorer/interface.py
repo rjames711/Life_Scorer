@@ -81,36 +81,6 @@ def log_task(task_id, qty, note, date, time):
     conn.commit()
 
 
-def log_tasks_tui():
-    conn = get_task_db()
-    c = conn.cursor()
-    print()
-    tasks  = read_tasks()
-    for t in tasks: 
-        if t.display: 
-            print(t.task_id,': ',t.name,t.recurring)
-    task = input('Select a task: ')
-    qty = input('Enter a quantity: ')
-    #note = input('Enter a note: ')
-    task = tasks[int(task)-1]
-    #TODO will need to update here if task list changed to dict (indexing could conflict)
-    #Otherwise if list style is kept could keep this implentation but change what is
-    # passed back to db to task.id instead of the raw user input (this may be better)
-    confirm = input('Confirm submit task "' + task.name + 
-            '" with qty '+qty+ ' (y/n): ' )
-    if confirm == 'y':
-        #TODO fix this so it inputs date and time
-        print('this function needs to be fixed see above todo')
-        #log_task(task.task_id, qty, note)
-        conn.commit()
-        #TODO This should be be happnening in log task since this will only happne in tui
-        if not task.recurring:
-            task.display = 0
-            c.execute('update tasks set display = 0 where id = ?',(str(task.task_id),))
-            conn.commit()
-    else:
-        print('canceled')
-
 def get_log():
     conn = get_task_db()
     c = conn.cursor()
@@ -133,27 +103,12 @@ def add_category(name):
     conn.commit()
 
 
-def add_category_tui():
-    name = input('Enter new category name: ')
-    add_category(name)
-
 def get_categories():
     conn = get_task_db()
     c = conn.cursor()
     c.execute('select * from categories')
     return c.fetchall()
 
-#TODO finish implementing one time task functionality
-def add_task_tui():
-    categories = get_categories()
-    name = input('Enter new task name: ')
-    points = input('Enter point value: ')
-    print (categories)
-    category = input('Select a category: ') 
-    print('1: One Time Task 2: Recurring task')
-    recurring = input('Select task type: ')
-    recurring = int(recurring) - 1  
-    add_task(name,points,category, recurring)
 
 #Update task attributes based on id
 def update_task(name,points, category, recurring, id):
@@ -169,32 +124,4 @@ def add_task(name,points, category, recurring):
     c = conn.cursor()
     c.execute('insert into tasks (name,points,categories_id, recurring) values(?,?,?,?)',holder)
     conn.commit()
-
-#TODO update task list ( for display in menu )
-
-#update tasks set display = "true" where id=15 <- Statment for changing display val
-#test
-
-
-if __name__ == '__main__':
-    #TODO main_menu change to list or tuple 
-    main_menu = {
-            1:log_tasks_tui,
-            2:show_log,
-            3:add_task_tui,
-            4:add_category_tui
-            }
-
-    while True:
-        for key in main_menu: 
-            print( key, ': ', main_menu[key].__name__)
-        choice = input('Select a function: ')
-        try: 
-            main_menu[int(choice)]()
-        except Exception as error:
-            print(error)
-            break
-        
-print('exiting')
-
 

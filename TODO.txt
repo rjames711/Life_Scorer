@@ -12,17 +12,12 @@
 -Implement a way of getting scores by day 
 --Other types of queries and visualition
 
--Some sort of input for plain notes..
-
 -Color coding of buttons by category and type (recurring nonrecurring)
 
 -Add ability to toggle or change display state of tasks in edit tasks
 
 -Figure out why time is still 4 hours off (only when run on server) when  it should be being pulled from the  client browser
 --then fix the terrible hackiness. 
-
--Take the TUI components out of interface ( can just run through ipython) to clean up and 
-    prepare for refactor
 
 
 
