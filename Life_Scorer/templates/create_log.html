@@ -41,12 +41,21 @@ slider.oninput = function() {
 //Needed because always want to use client local time instead of server
 function submitForm() {
     console.log('Submitting form using script')
+
     var element1 = document.createElement("input");
     element1.type = "hidden";
     var dt = new Date()
     element1.value = dt.getTime(); //millisecond timestamp
     element1.name = "timestamp";
     document.getElementById("logForm").appendChild(element1);
+
+    var element2 = document.createElement("input");
+    element2.type = "hidden";
+    var dt = new Date()
+    element2.value = dt.getTimezoneOffset();
+    element2.name = "tzoffset";
+    document.getElementById("logForm").appendChild(element2);
+
     document.getElementById("logForm").submit();
 }
 

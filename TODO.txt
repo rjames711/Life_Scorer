@@ -8,6 +8,8 @@
 --Potentially implement categories in this way as special task with no parent
 
 -Implement some way of handling units and attirbutes
+--Set additional units and attribute in create and edit task
+--Default range and type for each attribute
 
 -Implement a way of getting scores by day 
 --Other types of queries and visualition
@@ -16,8 +18,7 @@
 
 -Add ability to toggle or change display state of tasks in edit tasks
 
--Figure out why time is still 4 hours off (only when run on server) when  it should be being pulled from the  client browser
---then fix the terrible hackiness. 
+-Look into making db connection a singleton or some other pattern
 
 
 

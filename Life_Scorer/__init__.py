@@ -7,6 +7,7 @@ import Life_Scorer.user as user
 import Life_Scorer.interface as interface
 from functools import wraps
 import datetime
+import Life_Scorer.tools as tools
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -63,6 +64,8 @@ def index():
     return render_template('index')
 
 
+
+
 @app.route('/create_log', methods=('GET', 'POST'))
 @login_required
 def create_log():
@@ -70,12 +73,11 @@ def create_log():
         note = request.form['notes']
         qty = request.form['quantity']
         task_name = request.form['selection']
-        timestamp = request.form['timestamp'] #client local timestamp ms
-        dt = datetime.datetime.fromtimestamp(int(timestamp)/1000)
-        #TODO fix so this hack below is not needed
-        dt = dt - datetime.timedelta(hours = 4) #Very bad hack needed to keep system from being in unstable state
-        date = str(dt.date())
-        time = dt.strftime("%H:%M:%S")
+        timestamp = int(request.form['timestamp']) #client local timestamp ms
+        tzoffset = int(request.form['tzoffset'])   #for conversion from utc to client local
+        dt = tools.convert_timestamp(timestamp, tzoffset)
+        date = dt[0]
+        time = dt[1]
         print('Date: ', date, 'Time: ', time)
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name)
