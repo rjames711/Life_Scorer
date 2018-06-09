@@ -19,6 +19,8 @@ def debug(func):
     print(func.__name__,' in wrappe')
     func()
 
+def get_user():
+    return session['username']
 
 def login_required(view):
     @wraps(view)
@@ -36,7 +38,7 @@ def login_required(view):
 @app.route('/create_task', methods=('GET', 'POST'))
 @login_required
 def create_task():
-    categories = interface.get_categories()
+    categories = interface.get_categories(get_user())
     if request.method == 'POST':
         print(request.form)
         taskname = request.form['taskname']
@@ -45,7 +47,7 @@ def create_task():
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
-        interface.add_task(taskname,points,category,recur)
+        interface.add_task(taskname,points,category,recur,get_user())
         return redirect(url_for('show_log'))
     import sys #testing delate later
     return render_template('create_task.html',categories=categories, version =sys.version)
@@ -54,7 +56,7 @@ def create_task():
 @app.route('/show_log')
 @login_required
 def show_log():
-    log = interface.get_log()
+    log = interface.get_log(get_user())
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
  
@@ -80,11 +82,11 @@ def create_log():
         time = dt[1]
         print('Date: ', date, 'Time: ', time)
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
-        task_id = interface.get_task_by_name(task_name)
-        interface.log_task(task_id, qty, note,date, time)
+        task_id = interface.get_task_by_name(task_name, get_user())
+        interface.log_task(task_id, qty, note,date, time, get_user())
         return redirect(url_for('show_log'))
         
-    tasks = interface.read_tasks()
+    tasks = interface.read_tasks(get_user())
     return render_template('create_log.html', tasks=tasks)
     
 
@@ -130,7 +132,7 @@ def logout():
 @app.route('/edit_tasks')
 @login_required
 def edit_tasks():
-    tasks = interface.read_tasks()
+    tasks = interface.read_tasks(get_user())
     return render_template('edit_tasks.html',tasks=tasks)
 
 @app.route('/edit_task/<task_id>', methods=('GET', 'POST'))
@@ -145,11 +147,11 @@ def edit_task(task_id=0):
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
-        interface.update_task(taskname,points,category,recur,task_id)
+        interface.update_task(taskname,points,category,recur,task_id, get_user())
         return redirect(url_for('edit_tasks'))
     if task_id is not 0:
-        task = interface.get_task(task_id)
-    categories = interface.get_categories()
+        task = interface.get_task(task_id, get_user())
+    categories = interface.get_categories(get_user())
     return render_template('edit_task.html',task=task, categories=categories)
 
 @app.route('/create_category', methods=('GET','POST'))
@@ -157,6 +159,6 @@ def edit_task(task_id=0):
 def create_category():
     if request.method == 'POST':
         new_category = request.form['category']
-        interface.add_category(new_category)
+        interface.add_category(new_category,get_user())
         return redirect(url_for('show_log'))
     return render_template('create_category.html')
