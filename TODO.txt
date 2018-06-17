@@ -1,18 +1,22 @@
--Make decent index page which gives the top level options with big buttons
-
--Implement multiple users
---data base file per user ex: username.db
---Get registration page working
-
--In tasks add a column for parent tasks to allow for nested sub tasks
---Potentially implement categories in this way as special task with no parent
+Since scoring functionality is finally working getting it to make sense
+would probably be top priority now.
+-Set point values by compound units
+--Ex: 10 benchpress @ 150 lbs =20 points or something 
+        and divide to get single point value
 
 -Implement some way of handling units and attirbutes
 --Set additional units and attribute in create and edit task
 --Default range and type for each attribute
+--Maybe set attributes by having a attribute column containing json
 
--Implement a way of getting scores by day 
---Other types of queries and visualition
+-Should be able to click on each dayscore and see further details
+
+-Make decent index page which gives the top level options with big buttons
+
+-In tasks add a column for parent tasks to allow for nested sub tasks
+--Potentially implement categories in this way as special task with no parent
+
+
 
 -Color coding of buttons by category and type (recurring nonrecurring)
 
@@ -20,6 +24,4 @@
 
 -Look into making db connection a singleton or some other pattern
 
--Need to figure out the import issue (circular)
-
-
+-filter as you type for tasks

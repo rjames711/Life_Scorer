@@ -1,4 +1,3 @@
-#import Life_Scorer.interface as interface
 import sqlite3
 import datetime
 import Life_Scorer.interface as interface
@@ -15,11 +14,10 @@ def get_day_score(day, user):
         task_id = act['task_id']
         task = interface.get_task(task_id,user)
         try:
-            score += act['qty'] * task.points
+            score += float(act['qty']) * float(task.points)
         except Exception as e:
             print("type error: " + str(e))
-        print( task.name, act['qty'], task.points, score)
-    return score
+    return round(score)
 
 def get_month_scores(user):
     #TODO fix timezone hardcoding below
@@ -28,7 +26,8 @@ def get_month_scores(user):
     for days in range(30):
         offdt = dt - datetime.timedelta(days = days)
         date = str(offdt.date())
-        scores.append((date, get_day_score(date, user)))
+        score = get_day_score(date, user)
+        scores.append((date, score))
     return scores
 
 

@@ -2,9 +2,11 @@
 
 {% block header %}
   <h1>{% block title %}This Months Scores{% endblock %}</h1>
+  
 {% endblock %}
 
 {% block content %}
+<h2>Average for month: {{average}}</h2>
 <table style="width:100%">
   {% for day in month %}
     <tr>

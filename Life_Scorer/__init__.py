@@ -168,4 +168,6 @@ def create_category():
 @login_required
 def show_month():
     month = scoring.get_month_scores(get_user())
-    return render_template('show_month.html', month = month)
+    scores = [x[1] for x in month]
+    average = round(sum(scores)/len(scores))
+    return render_template('show_month.html', month = month, average = average)
