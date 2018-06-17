@@ -6,7 +6,12 @@
 {% endblock %}
 
 {% block content %}
-<h2>Average for month: {{average}}</h2>
+
+<div style="white-space: nowrap">
+    <h2>Average for month: {{average}}</h2>
+  <a href="{{ url_for('create_log') }}"><button type="button" 
+  style="height:50px;width:200px;font-size:20px">Log a new Record</button></a>
+  </div>
 <table style="width:100%">
   {% for day in month %}
     <tr>
