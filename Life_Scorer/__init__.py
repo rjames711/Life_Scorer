@@ -8,6 +8,7 @@ import Life_Scorer.interface as interface
 from functools import wraps
 import datetime
 import Life_Scorer.tools as tools
+import Life_Scorer.scoring as scoring
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -84,7 +85,7 @@ def create_log():
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name, get_user())
         interface.log_task(task_id, qty, note,date, time, get_user())
-        return redirect(url_for('show_log'))
+        return redirect(url_for('show_month'))
         
     tasks = interface.read_tasks(get_user())
     return render_template('create_log.html', tasks=tasks)
@@ -98,13 +99,13 @@ def hello_world():
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     if 'username' in session:
-        return render_template('base.html')
+        return redirect(url_for('show_month'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         if user.validate_user (username,password):
             session['username'] = request.form['username']
-            return redirect(url_for('show_log'))
+            return redirect(url_for('show_month'))
     return render_template('auth/login.html')
 
 
@@ -162,3 +163,9 @@ def create_category():
         interface.add_category(new_category,get_user())
         return redirect(url_for('show_log'))
     return render_template('create_category.html')
+
+@app.route('/show_month')
+@login_required
+def show_month():
+    month = scoring.get_month_scores(get_user())
+    return render_template('show_month.html', month = month)

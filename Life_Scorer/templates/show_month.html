@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}This Months Scores{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<table style="width:100%">
+  {% for day in month %}
+    <tr>
+      <td>{{ day[0] }}</td>
+      <td>{{ day[1] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -20,5 +20,6 @@
 
 -Look into making db connection a singleton or some other pattern
 
+-Need to figure out the import issue (circular)
 
 
