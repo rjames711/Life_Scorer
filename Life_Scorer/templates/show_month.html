@@ -8,6 +8,7 @@
 {% block content %}
 
 <div style="white-space: nowrap">
+    <h2>Todays Score: {{todays_score}}</h2>
     <h2>Average for month: {{average}}</h2>
   <a href="{{ url_for('create_log') }}"><button type="button" 
   style="height:50px;width:200px;font-size:20px">Log a new Record</button></a>

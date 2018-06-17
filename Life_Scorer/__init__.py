@@ -170,4 +170,8 @@ def show_month():
     month = scoring.get_month_scores(get_user())
     scores = [x[1] for x in month]
     average = round(sum(scores)/len(scores))
-    return render_template('show_month.html', month = month, average = average)
+    #Below method of get todays score could break if out of order
+    #TODO get todays score by dictionary method instead of just last score in list
+    todays_score = scores[0]
+    return render_template('show_month.html', 
+    month = month, average = average, todays_score = todays_score)
