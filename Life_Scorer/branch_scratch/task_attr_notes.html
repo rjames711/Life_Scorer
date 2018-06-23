@@ -1,0 +1,50 @@
+
+
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The HTML5 Herald</title>
+</head>
+<body>
+  <p>
+      Scratch pad to work out how to store task attributes (units etc) in json
+      There would be two places where json would be stored; In the task definition
+      which would describe the attribute and units, and in log where the value would be recorded
+      <br>
+      For instance a bench press might have attributes: 
+      [ reps , lbs ]
+      And the log record might have 
+      [reps: 10, lbs: 135]
+      Other issue to work is how to score the type of compound units. I think the simplest way 
+      would be mulplicative relationship with an additional muliplicative modifier. So for instance 
+      the user would what the think a typical log would be:
+      <br>
+      10 reps at 135 lbs is 20 points
+      modifier would be 20/10*135 = .015 
+      <br>
+      so the attributes def would become:
+      <br>
+      { 'attr':['reps','lbs'], 'mod': .015   }
+  </p>
+  <p>
+    Also for user epxeriance, would like to store the min, max and default expected value for each value.
+    This would set the default, min, max values on an input slider to make loggin easier and quicker.
+    So for benchpress the def might become: 
+    { 'attr':['reps','lbs'], 'mod': .015, 'val_defaults': {'min': 45 , 'max':200, 'default':135}  }
+  </p>
+  <script>
+    var attr ={ "attr":["reps","lbs"], "mod":0.015, "val_defaults": {"min": 45 , "max":200, "default":135}  }
+    var log = {'reps':10, 'lbs':135,}
+    function score(attr, log){
+      score  = 1;
+       for ( var key in log){
+          score *= log[key]
+       }
+       return score*attr.mod
+    }
+  </script>
+</body>
+</html>
