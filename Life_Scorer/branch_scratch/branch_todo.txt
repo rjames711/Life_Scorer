@@ -1,0 +1,16 @@
+Add functionality for task attirbutes with units
+-(X) Create json format to store task attributes
+-- (X) units, score moidifier, default values for attributes
+
+-Create column attributes in tasks and log table  to store the json
+-Fix log method to input the attribute data as json in log
+- Fix web pages to take additional attribute input
+--Create task
+--log task (with sliders initialized based on default values)
+-Fix scoring method to read in and use attribute to score log entries
+-Convert old data to new format (scripting)
+--Convert qty column into json
+--Manually convert values that weren't really qty anyway ( minutes etc)
+--Manually add in data that was missing ( weight for barbell exercise)
+-Remove qty column 
+

@@ -2,6 +2,10 @@
 
 {% block header %}
   <h1>{% block title %}Create New Task{% endblock %}</h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,9 +22,39 @@
     <label for="non-recurring">
     <input type="radio" name="recurring" value="non-recurring">Non-Recurring
     </label>
-    {{ categories }}
-    <label for="category">Enter Category id</label>
-    <input type="number" name="category" id="category" >
+
+    <button type="button" id="cat_select" class="btn btn-primary btn-lg"> Select category</button>
+    <div id="categories">
+    {%for category in categories%}
+    <input type = "button" input id="{{ category[0] }}"  class="btn btn-primary btn-lg" onclick="get_selection(this)"
+          value="{{ category[1] }}", style="background-color:#4156f4">
+    {% endfor %}
+    <br>
+    <input type="text" id="selection" name="category" value="" placeholder="Make a selection above">
+    </div>
     <input type="submit" value="Submit new task">
   </form>
+  <script> 
+   $( "#cat_select" ).click(function() {
+    $( "#categories" ).toggle();
+});
+
+function get_selection(btn) {
+  var old_select = document.getElementById("selection").value;
+  
+  document.getElementById("selection").value = btn.id;
+  btn.style.background='#000000';
+  console.log("Selected task: " + old_select);
+  try{
+    document.getElementById(old_select).style.background="#4170f4";
+  }
+  catch(error){
+    console.error(error);
+  }
+  //window.scrollTo(0,document.body.scrollHeight);  //vanilla js (no animate scroll)
+  setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
+  
+}
+
+  </script>
 {% endblock %}
