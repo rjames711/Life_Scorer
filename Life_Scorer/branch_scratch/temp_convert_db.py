@@ -39,35 +39,31 @@ def convert_db(db_file_path):
 
 #Function to remove column from table
 #TODO not working, need to add parameters
-def remove_col():
-    conn = sqlite3.connect('test.db')
+def remove_col(db_file_path):
+    conn = sqlite3.connect(db_file_path)
     c = conn.cursor()
-    c.execute('CREATE TEMPORARY TABLE log_backup(id, task_id, qty, note )')
-    c.execute('INSERT INTO log_backup SELECT id, task_id, qty, note FROM log')
+    c.execute('CREATE TEMPORARY TABLE log_backup(id, task_id, date, time, attributes,note )')
+    c.execute('INSERT INTO log_backup SELECT id, task_id,date,time, attributes, note FROM log')
     c.execute('DROP TABLE log')
     c.execute('''CREATE TABLE log(
         id integer primary key, 
         task_id integer, 
-        qty integer, 
-        note text,
         date text,
         time text,
+        attributes text,
+        note text,
         FOREIGN KEY(task_id) REFERENCES tasks(id)
         )''')
-    c.execute('INSERT INTO log (id, task_id, qty, note) SELECT id, task_id, qty, note FROM log_backup;')
+    c.execute('''INSERT INTO log (id, task_id, date, time, attributes, note) 
+                           SELECT id, task_id, date, time, attributes, note 
+                           FROM log_backup''')
     c.execute('DROP TABLE log_backup')
     conn.commit()
-    '''
-    CREATE TEMPORARY TABLE t1_backup(a,b);
-    INSERT INTO t1_backup SELECT a,b FROM t1;
-    DROP TABLE t1;
-    CREATE TABLE t1(a,b);
-    INSERT INTO t1 SELECT a,b FROM t1_backup;
-    DROP TABLE t1_backup;
-    COMMIT;
-    '''
+
 
 
 for path in get_db_files():
     convert_db(path)
+    remove_col(path)
+
 
