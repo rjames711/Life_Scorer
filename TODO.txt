@@ -13,8 +13,12 @@ would probably be top priority now.
 
 -Make decent index page which gives the top level options with big buttons
 
--In tasks add a column for parent tasks to allow for nested sub tasks
---Potentially implement categories in this way as special task with no parent
+
+-For time being need to just group by category in log screen. Should be 
+relatively easy to do. In future do more complex recursive implementation as below.
+For now just need something to deal with the large volume of tasks on the screen (59! as of now)
+^-In tasks add a column for parent tasks to allow for nested sub tasks
+^--Potentially implement categories in this way as special task with no parent
 
 -Color coding of buttons by category and type (recurring nonrecurring)
 
@@ -28,3 +32,12 @@ would probably be top priority now.
 
 -Double check and possible fix the select category part of create task since this was done 
 quickly on the fly 
+
+-Make sure decimal entries (floats) dont cause issues any where
+--I check on input for log qty and that seems to work.
+--Checked on making point value for tasks a float and it rejects it in client
+
+Enhanced features for journal style entries.
+--Larger text fields
+--Some sort of concatenations for display based on certain query parameters
+
