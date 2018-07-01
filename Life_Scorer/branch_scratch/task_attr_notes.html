@@ -37,7 +37,9 @@
   </p>
   <script>
     var attr ={ "attr":["reps","lbs"], "mod":0.015, "val_defaults": {"min": 45 , "max":200, "default":135}  }
-    var log = {'reps':10, 'lbs':135,}
+    
+    var attr2 = {"attr":{"reps":{"min": 0 , "max":30, "default":10, "mod":1}, "lbs":{"min": 45 , "max":200, "default":135, "mod":1}}, "default_score":20};
+    var log = {"reps":10, "lbs":135,};
     function score(attr, log){
       score  = 1;
        for ( var key in log){

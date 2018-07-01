@@ -1,4 +1,4 @@
-import os, sqlite3
+import os, sqlite3, json
 
 #Checks if file has db extension
 #Maybe would be better to use subprocess to call unix file cmd
@@ -20,6 +20,8 @@ def get_db_files():
 
 
 def convert_db(db_file_path):
+    #Convert log table
+    print (db_file_path)
     conn = sqlite3.connect(db_file_path)
     #conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
@@ -31,14 +33,30 @@ def convert_db(db_file_path):
         id = record[0]
         qty = record[1]
         print('id: ',id,' qty: ', qty)
-        json = '{"qty":' + str(qty) + '}'
-        conn.execute('UPDATE log SET attributes = ? where id = ?', (json,id))
+        json_string = '{"qty":' + str(qty) + '}'
+        conn.execute('UPDATE log SET attributes = ? where id = ?', (json_string,id))
+
+    #Convert tasks table
+    cursor.execute('ALTER TABLE tasks ADD COLUMN attributes text')
+    cursor.execute('UPDATE tasks SET attributes = "( json here )"')
+    test = cursor.execute('SELECT id, points FROM tasks')
+    test = test.fetchall()
+    for record in test:
+        id = record[0]
+        points = record[1]
+        print('id: ',id,' points: ', points)
+        default = { 'attr':{'qty':{"min": 0 , "max":30, "default":10, "scored":1}}, 'default_score': 10 }
+        default['default_score'] = points
+        json_string = json.dumps(default)
+        conn.execute('UPDATE tasks SET attributes = ? where id = ?', (json_string,id))
 
     conn.commit()
     
 
 #Function to remove column from table
 #TODO not working, need to add parameters
+#Could parameterize by giving column want to remove and getting list of existing 
+#Columns from fetchall 
 def remove_col(db_file_path):
     conn = sqlite3.connect(db_file_path)
     c = conn.cursor()

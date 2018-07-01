@@ -70,12 +70,12 @@ def get_task(task_id, user):
     return Task(*task)
 
 
-def log_task(task_id, qty, note, date, time,user):
-    print('entering log', task_id,qty, note)
-    holder = ( task_id, qty, note, date, time)
+def log_task(task_id, attributes, note, date, time,user):
+    print('entering log', task_id,attributes, note)
+    holder = ( task_id, attributes, note, date, time)
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('insert into log (task_id, qty, note, date, time) values(?,?,?,?,?)',holder)
+    c.execute('insert into log (task_id, attributes, note, date, time) values(?,?,?,?,?)',holder)
     task = get_task(task_id, user)    
     if not task.recurring:
             task.display = 0
@@ -87,7 +87,7 @@ def log_task(task_id, qty, note, date, time,user):
 def get_log(user):
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute("select tasks.name, log.qty, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id")
+    c.execute("select tasks.name, log.attributes, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id")
     return c.fetchall()
 
 def show_log(user):

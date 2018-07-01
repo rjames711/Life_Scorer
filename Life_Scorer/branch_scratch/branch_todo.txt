@@ -11,10 +11,15 @@ Add functionality for task attirbutes with units
 ---(X) open each db file
 ---(X) Add json column
 ---(X) pull the qty num from the qty column and put in a deafult qty json
----Delete the qty column 
-
+---(X) Delete the qty column (might actually leave for time being until I'm sure conversion works)
+-STILL NEED TO ADD ATTRIBUTE TO THE TASK COLUMN!
+--set the default inputs as {min:0, max: 20, default: 1 }
+--set the default_score 
 
 -Fix log method to input the attribute data as json in log
+-- ()
+
+
 - Fix web pages to take additional attribute input
 --Create task
 --log task (with sliders initialized based on default values)

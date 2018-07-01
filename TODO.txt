@@ -9,7 +9,17 @@ would probably be top priority now.
 --Default range and type for each attribute
 --Maybe set attributes by having a attribute column containing json
 
+-(Easy!) add toggle to edit task page so display can be set manually
+
+-Maybe a sort of modifed subtask which won't actually be saved in the task table.
+--Could be called 'steps'
+--So for instance things like grocery shopping items could be put under a task 
+without cluttering the database
+
+
 -Should be able to click on each dayscore and see further details
+
+-Ability to edit log items
 
 -Make decent index page which gives the top level options with big buttons
 
