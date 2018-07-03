@@ -57,7 +57,7 @@ def convert_db(db_file_path):
 #TODO not working, need to add parameters
 #Could parameterize by giving column want to remove and getting list of existing 
 #Columns from fetchall 
-def remove_col(db_file_path):
+def remove_log_qty(db_file_path):
     conn = sqlite3.connect(db_file_path)
     c = conn.cursor()
     c.execute('CREATE TEMPORARY TABLE log_backup(id, task_id, date, time, attributes,note )')
@@ -78,10 +78,51 @@ def remove_col(db_file_path):
     c.execute('DROP TABLE log_backup')
     conn.commit()
 
+#Should work unless column has forien key constraint in which may require tweaking
+def remove_column(db_path, table, col):
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute('SELECT * FROM '+ table)
+    columns = [ d[0] for d in c.description]
+    columns.remove(col) #Take out column we want to remove
+    columns = str.join(', ', columns) 
+    #Building a command manually since I don't know how to do a variable # of ? an
+    # since this script won't be exposed to the webapp.
+    c.execute('CREATE TEMPORARY TABLE backup ' +'(' +columns+')')
+    cmd = 'INSERT INTO backup SELECT ' + columns + ' FROM ' + table
+    c.execute(cmd)
+    c.execute("SELECT * from sqlite_master where type='table'")
+    schemas = c.fetchall()
+    print(schemas)
+    for schema in schemas:
+        if schema[1] == table:
+            break
+    schema = schema[4:len(schema)]
+    schema = schema[0]
+    #Remove the column from the schema before recreating
+    a = schema.split('\n    ')
+    for i in range(len(a)):
+        ccol =a[i].split(' ')
+        if ccol[0] == col:
+            break
+    a.pop(i)
+    schema = '\n    '.join(a)
+    print(schema)
+    c.execute('DROP TABLE '+table)
+    c.execute(schema)
+    cmd = "INSERT INTO " + table+ ' (' + columns +") SELECT " + columns + " FROM backup"
+    print(cmd)
+    c.execute(cmd)
+    conn.commit()
+    
 
+    
+remove_column('../db_files/Rob.db','log','qty')
+    
 
+"""
 for path in get_db_files():
     convert_db(path)
     remove_col(path)
-
+"""
 
