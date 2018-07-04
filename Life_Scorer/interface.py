@@ -5,16 +5,17 @@
 #TODO Add functionality to view days score 
 #Maybe rename file
 
-import sqlite3, os
+import sqlite3, os, json
 
 class Task:
-    def __init__(self, task_id, name, points, category, recurring, display):
+    def __init__(self, task_id, name, points, category, recurring, display, attributes):
         self.task_id = task_id
         self.name = name
         self.points = points
         self.category = category
         self.recurring = recurring
         self.display = display
+        self.attributes = json.loads(attributes)
     
     def __repr__(self):
         return str(self.task_id) + ': ' + self.name
@@ -67,6 +68,7 @@ def get_task(task_id, user):
     c = conn.cursor()
     c.execute( 'SELECT * FROM tasks WHERE id = ?', (task_id,))
     task = c.fetchone()
+    print(task)
     return Task(*task)
 
 

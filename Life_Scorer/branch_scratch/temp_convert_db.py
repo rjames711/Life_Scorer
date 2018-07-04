@@ -46,8 +46,9 @@ def convert_db(db_file_path):
         id = record[0]
         points = record[1]
         print('id: ',id,' points: ', points)
-        default = { 'attr':{'qty':{"min": 0 , "max":30, "default":10, "scored":1}}, 'unit_points': 10 }
-        default['unit_points'] = points
+        #default = { 'attr':{'qty':{"min": 0 , "max":30, "default":10, "scored":1}}, 'unit_points': 10 }
+        #default['unit_points'] = points
+        default = { 'qty':{"min": 0 , "max":30, "default":10, "scored":1}}
         json_string = json.dumps(default)
         conn.execute('UPDATE tasks SET attributes = ? where id = ?', (json_string,id))
 
@@ -96,7 +97,7 @@ def remove_column(db_path, table, col):
 
 for path in get_db_files():
     convert_db(path)
-    #remove_column(path,'log','qty')
+    remove_column(path,'log','qty')
     #remove_column(path,'tasks','points')
 
 
