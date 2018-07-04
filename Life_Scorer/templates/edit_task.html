@@ -1,42 +1,22 @@
-{% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Edit Task{% endblock %}</h1>
-{% endblock %}
-
-{% block content %}
-
-{{ version }}
-  <form method="post">
-    <label for="taskname">Task Name</label>
-    <input name="taskname" value = "{{task.name}}" id="taskname" required>
-    
-    <label for="points">Point Value</label>
-    <input type="number" name="points" value={{task.points}} id="points" >
-    
-    <label for="recurring">
-    <input type="radio" id="recurring" name="recurring" value="recurring">Recurring 
-    </label>
-    <label for="non-recurring">
-    <input type="radio" id = "nonrecurring" name="recurring" value="non-recurring">Non-Recurring
-    </label>
-    {{ categories }}
-    <label for="category">Enter Category id</label>
-    <input type="number" name="category" value = {{task.category}} id="category" >
-    <input type="submit" value="Submit changes">
-  </form>
+{% extends 'task_base.html' %}
+{% block title %}Edit Task{% endblock %}
+{% block morescripts %}
 <script>
-  window.onload = setRadioCheck();
-  function setRadioCheck(){
-    var recurrence = "{{task.recurring}}"
-    if (recurrence === "1"){
-      radiobtn = document.getElementById("recurring");
-    }
-    else{
-      radiobtn = document.getElementById("nonrecurring");
-    }
-    radiobtn.checked = true;
+function initialize_fields() {
+  document.getElementById("taskname").value = "{{task.name}}";
+  document.getElementById("points").value = "{{task.points}}";
+  document.getElementById("taskname").value = "{{task.name}}";
+  document.getElementById("taskname").value = "{{task.name}}";
+  if ( "{{task.recurring}}" === "1"){
+    document.getElementById("recurring").checked = true;
   }
+  else{
+    document.getElementById("nonrecurring").checked = true;
+  }
+  //Putting the jinja expression in double quotes and parseint to mollify linter
+  btn = document.getElementById(parseInt("{{task.category}}"));
+  get_selection(btn);
+}
+window.onload = initialize_fields;
 </script>
-
 {% endblock %}

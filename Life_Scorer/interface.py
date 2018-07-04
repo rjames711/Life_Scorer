@@ -48,7 +48,8 @@ def get_task_db(user):
 def read_tasks(user):
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('select id,name,points,categories_id,recurring,display from tasks')
+    c.execute('''select id,name,points,categories_id
+    ,recurring,display, attributes from tasks''')
     tasks = c.fetchall()
     task_list = [ Task(*x) for x in tasks ] 
     return task_list

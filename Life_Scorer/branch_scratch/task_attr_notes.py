@@ -10,10 +10,13 @@ attributes = """{"attr":
             """
 log = '{"reps":10, "lbs":135}'
 
+
+
 entry = json.loads(log)
 attributes = json.loads(attributes)
 
 #Tested and seems to be working
+
 def score_entry(entry, attributes):
   score = 1
   default_qty = 1
