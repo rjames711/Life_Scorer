@@ -18,7 +18,8 @@ def get_db_files():
     files = [os.path.abspath(file) for file in files]
     return files
 
-
+#Converts log and tasks table to use a json attributes column based on 
+#the qty and points column values respectively.
 def convert_db(db_file_path):
     #Convert log table
     print (db_file_path)
@@ -45,38 +46,14 @@ def convert_db(db_file_path):
         id = record[0]
         points = record[1]
         print('id: ',id,' points: ', points)
-        default = { 'attr':{'qty':{"min": 0 , "max":30, "default":10, "scored":1}}, 'default_score': 10 }
-        default['default_score'] = points
+        default = { 'attr':{'qty':{"min": 0 , "max":30, "default":10, "scored":1}}, 'unit_points': 10 }
+        default['unit_points'] = points
         json_string = json.dumps(default)
         conn.execute('UPDATE tasks SET attributes = ? where id = ?', (json_string,id))
 
     conn.commit()
     
 
-#Function to remove column from table
-#TODO not working, need to add parameters
-#Could parameterize by giving column want to remove and getting list of existing 
-#Columns from fetchall 
-def remove_log_qty(db_file_path):
-    conn = sqlite3.connect(db_file_path)
-    c = conn.cursor()
-    c.execute('CREATE TEMPORARY TABLE log_backup(id, task_id, date, time, attributes,note )')
-    c.execute('INSERT INTO log_backup SELECT id, task_id,date,time, attributes, note FROM log')
-    c.execute('DROP TABLE log')
-    c.execute('''CREATE TABLE log(
-        id integer primary key, 
-        task_id integer, 
-        date text,
-        time text,
-        attributes text,
-        note text,
-        FOREIGN KEY(task_id) REFERENCES tasks(id)
-        )''')
-    c.execute('''INSERT INTO log (id, task_id, date, time, attributes, note) 
-                           SELECT id, task_id, date, time, attributes, note 
-                           FROM log_backup''')
-    c.execute('DROP TABLE log_backup')
-    conn.commit()
 
 #Should work unless column has forien key constraint in which may require tweaking
 def remove_column(db_path, table, col):
@@ -94,6 +71,7 @@ def remove_column(db_path, table, col):
     c.execute("SELECT * from sqlite_master where type='table'")
     schemas = c.fetchall()
     print(schemas)
+
     for schema in schemas:
         if schema[1] == table:
             break
@@ -116,13 +94,9 @@ def remove_column(db_path, table, col):
     conn.commit()
     
 
-    
-remove_column('../db_files/Rob.db','log','qty')
-    
-
-"""
 for path in get_db_files():
     convert_db(path)
-    remove_col(path)
-"""
+    #remove_column(path,'log','qty')
+    #remove_column(path,'tasks','points')
+
 
