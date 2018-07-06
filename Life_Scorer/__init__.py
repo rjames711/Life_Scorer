@@ -9,6 +9,7 @@ from functools import wraps
 import datetime
 import Life_Scorer.tools as tools
 import Life_Scorer.scoring as scoring
+import json
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
@@ -41,15 +42,28 @@ def login_required(view):
 def create_task():
     categories = interface.get_categories(get_user())
     if request.method == 'POST':
-        print(request.form)
+        attributes = {}
+        i=1
+        while 'attribute_name-'+str(i) in request.form:
+            name = request.form['attribute_name-'+str(i)]
+            attributes[name] ={}
+            attributes[name]['min'] = request.form['min-'+str(i)]
+            attributes[name]['max'] = request.form['max-'+str(i)]
+            attributes[name]['default'] = request.form['default-'+str(i)]
+            attributes[name]['scored'] = request.form['scored-'+str(i)]
+            print(json.dumps(attributes))
+            i+=1
+            
         taskname = request.form['taskname']
         points = request.form['points']
         #Need further testing or refactor of below (also error handling)
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
-        interface.add_task(taskname,points,category,recur,get_user())
+        interface.add_task(taskname, points, category, recur, 
+        json.dumps(attributes), get_user())
         return redirect(url_for('show_log'))
+
     import sys #testing delate later
     return render_template('create_task.html',categories=categories, version =sys.version)
     

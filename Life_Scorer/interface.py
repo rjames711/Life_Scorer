@@ -124,9 +124,9 @@ def update_task(name,points, category, recurring, id,user):
     c.execute('update tasks set name = ?, points = ?, categories_id = ?, recurring = ? where id = ?' ,holder)
     conn.commit()
 
-def add_task(name,points, category, recurring, user):
-    holder =(name,points,category,recurring)
+def add_task(name,points, category, recurring, attributes, user):
+    holder =(name,points,category,recurring, attributes)
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('insert into tasks (name,points,categories_id, recurring) values(?,?,?,?)',holder)
+    c.execute('insert into tasks (name,points,categories_id, recurring, attributes) values(?,?,?,?,?)',holder)
     conn.commit()
