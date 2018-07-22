@@ -10,6 +10,10 @@ would probably be top priority now.
 --Maybe set attributes by having a attribute column containing json
 
 -(Easy!) add toggle to edit task page so display can be set manually
+-(Easy!) Add a description feild to task_base.html
+
+-Make create log and edit tasks (which both display the list of tasks
+to choose from ) descend from the same base template
 
 -Maybe a sort of modifed subtask which won't actually be saved in the task table.
 --Could be called 'steps'

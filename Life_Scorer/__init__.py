@@ -15,7 +15,6 @@ app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
 
 
-
 def debug(func):
     print('wrapped')
     print(func.__name__,' in wrappe')
@@ -31,9 +30,7 @@ def login_required(view):
         if 'username' not in session:
             print('no user in login required')
             return redirect(url_for('login'))
-
         return view(**kwargs)
-
     return wrapped_view
 
 
@@ -81,8 +78,6 @@ def index():
     return render_template('index')
 
 
-
-
 @app.route('/create_log', methods=('GET', 'POST'))
 @login_required
 def create_log():
@@ -102,7 +97,12 @@ def create_log():
         return redirect(url_for('show_month'))
         
     tasks = interface.read_tasks(get_user())
-    return render_template('create_log.html', tasks=tasks)
+    attr = {task.name:task.attributes for task in tasks}
+    print(attr)
+    attr = json.dumps(attr)
+    print()
+    print(attr)
+    return render_template('create_log.html', tasks=tasks, attr=attr)
     
 
 @app.route('/')
