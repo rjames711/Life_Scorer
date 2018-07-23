@@ -28,8 +28,7 @@ input[type=submit] { align-self: start; min-width: 10em; }
 
 div.inline { 
     white-space: nowrap;
-    height: 50px;
-    
+    height: 40px;
     } 
 
 #selection{

@@ -12,7 +12,9 @@
 
 {% block content %}
 <div class='inline'>
-    <input type="text" id="selection" name="selection" value="" onkeyup="task_text()" placeholder="Make a selection below">
+    <input type="text" id="selection" name="selection" value="" 
+    onkeyup="task_text()" placeholder="Make a selection below"
+    autocomplete="off">
     <button id='clear' onclick="clear_sel()">CLEAR</button>
     </div>
   <form method="post" id = "logForm">
