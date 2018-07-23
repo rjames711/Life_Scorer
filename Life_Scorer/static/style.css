@@ -33,13 +33,13 @@ div.inline {
 
 #selection{
     background-color: aqua;
-    width: 85%;
+    width: 75%;
     height: 100%;
     font-size: 20px;
 }
 
 #clear{
-    width:15%;
+    width:25%;
     height:100%;
     font-size: 20px;
 }

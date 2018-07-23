@@ -68,3 +68,10 @@ function clear_sel(){
   document.getElementById('selection').value = '';
   task_text();
 }
+
+function hideTop(){
+  var elements = document.getElementsByClassName('top');
+    for (var i = 0; i < elements.length; i++){
+        elements[i].style.display = 'none';
+    }
+}

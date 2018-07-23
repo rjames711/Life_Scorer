@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Log a Task{% endblock %}</h1>
+  <h1 class="top" >{% block title %}Log a Task  {{session['username']}}{% endblock %}</h1>
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,8 +13,8 @@
 {% block content %}
 <div class='inline'>
     <input type="text" id="selection" name="selection" value="" 
-    onkeyup="task_text()" placeholder="Make a selection below"
-    autocomplete="off">
+    onkeyup="task_text()" onclick="hideTop()" 
+    placeholder="Select below or type" autocomplete="off">
     <button id='clear' onclick="clear_sel()">CLEAR</button>
     </div>
   <form method="post" id = "logForm">
