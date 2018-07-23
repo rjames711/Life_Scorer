@@ -1,5 +1,5 @@
 Current place:
-Got temp script to loop through and connect to all the db files
+Working on getting the attributes inputs working
 
 Add functionality for task attirbutes with units
 -(X) Create json format to store task attributes

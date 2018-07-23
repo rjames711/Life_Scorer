@@ -30,9 +30,10 @@ function submitForm() {
 
 function get_selection(btn) {
   var old_select = document.getElementById("selection").value;
-  document.getElementById("selection").value = btn.id;
+  taskName = btn.id;
+  document.getElementById("selection").value = taskName;
   btn.style.background='#000000';
-  console.log("New selection: " + btn.id);
+  console.log("New selection: " + taskName);
   console.log("Old selection: " + old_select);
   try{
     document.getElementById(old_select).style.background="#4170f4";
@@ -43,6 +44,7 @@ function get_selection(btn) {
   //window.scrollTo(0,document.body.scrollHeight);  //vanilla js (no animate scroll)
   //setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
   task_text()
+  populateForms(taskName);
 }
 
 function task_text() {
@@ -74,4 +76,29 @@ function hideTop(){
     for (var i = 0; i < elements.length; i++){
         elements[i].style.display = 'none';
     }
+}
+
+
+function populateForms(taskName){
+  var vForm = document.getElementById('variableForm');
+  vForm.innerHTML='';
+  var task = attr[taskName];
+  for (var attribute in task){
+    console.log(attribute);
+    var slider = document.getElementById("myRange").cloneNode(true);
+    var numIn = document.getElementById("numIN").cloneNode(true);
+    var label = document.getElementById("attrLabel").cloneNode(true);
+    slider.min = task[attribute]['min'];
+    slider.max = task[attribute]['max'];
+    slider.value = task[attribute]['default'];
+    numIn.value = task[attribute]['default'];
+    label.textContent = attribute;
+    vForm.appendChild(label);
+    vForm.appendChild(slider);
+    vForm.appendChild(numIn);
+   
+  }
+  var notes = document.getElementById("notes").cloneNode(true);
+  vForm.appendChild(notes);
+
 }
