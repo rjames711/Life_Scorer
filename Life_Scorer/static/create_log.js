@@ -1,10 +1,10 @@
-var slider = document.getElementById("myRange");
-var output = document.getElementById("numIN");
-output.value = slider.value;
+var select = document.getElementById("selection");
+select.focus();
+var t = 'test';
 
-slider.oninput = function() {
-  output.value = this.value;
-}
+
+
+
 
 //Adds a datestamp to form before submitting.
 //Needed because always want to use client local time instead of server
@@ -45,6 +45,7 @@ function get_selection(btn) {
   //setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
   task_text()
   populateForms(taskName);
+
 }
 
 function task_text() {
@@ -85,9 +86,12 @@ function populateForms(taskName){
   var task = attr[taskName];
   for (var attribute in task){
     console.log(attribute);
-    var slider = document.getElementById("myRange").cloneNode(true);
-    var numIn = document.getElementById("numIN").cloneNode(true);
-    var label = document.getElementById("attrLabel").cloneNode(true);
+    var label = document.getElementById("tempAttrLabel").cloneNode(true);
+    label.id = "attrLabel"+attribute;
+    var slider = document.getElementById("tempSlider").cloneNode(true);
+    slider.id = "slider"+attribute;
+    var numIn = document.getElementById("tempNumIn").cloneNode(true);
+    numIn.id = "numIn"+attribute;
     slider.min = task[attribute]['min'];
     slider.max = task[attribute]['max'];
     slider.value = task[attribute]['default'];
@@ -96,9 +100,22 @@ function populateForms(taskName){
     vForm.appendChild(label);
     vForm.appendChild(slider);
     vForm.appendChild(numIn);
-   
+    console.log('above closure ' + numIn.id);
+    function makeFunc(numIn) {
+      var numIn = numIn;
+      console.log('in closure '+numIn.id);
+      function func() {
+        console.log(this);
+        console.log(numIn);
+        numIn.value = this.value;
+      }
+      return func;
+    }
+    var slide = makeFunc(numIn);
+    slider.oninput = slide;
   }
-  var notes = document.getElementById("notes").cloneNode(true);
+  var notes = document.getElementById("tempNotes").cloneNode(true);
   vForm.appendChild(notes);
-
 }
+
+

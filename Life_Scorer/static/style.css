@@ -48,9 +48,10 @@ div.inline {
     font-size: 20px;
 }
 
-#submit{background-color: green;}
+#submitBtn{background-color: green;}
 #variableForm{background-color: lightblue;}
 
 #templateForm{
     background-color: yellow; 
-    display:none;}
+    //display:none;
+}
