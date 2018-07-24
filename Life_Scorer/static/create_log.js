@@ -1,51 +1,44 @@
 var select = document.getElementById("selection");
 select.focus();
 var t = 'test';
-
-
-
-
+var old_select=''
 
 //Adds a datestamp to form before submitting.
 //Needed because always want to use client local time instead of server
 function submitForm() {
     console.log('Submitting form using script')
-
     var element1 = document.createElement("input");
     element1.type = "hidden";
     var dt = new Date()
     element1.value = dt.getTime(); //millisecond timestamp
     element1.name = "timestamp";
     document.getElementById("logForm").appendChild(element1);
-
     var element2 = document.createElement("input");
     element2.type = "hidden";
     var dt = new Date()
     element2.value = dt.getTimezoneOffset();
     element2.name = "tzoffset";
     document.getElementById("logForm").appendChild(element2);
-
     document.getElementById("logForm").submit();
 }
 
 function get_selection(btn) {
-  var old_select = document.getElementById("selection").value;
   taskName = btn.id;
   document.getElementById("selection").value = taskName;
   btn.style.background='#000000';
   console.log("New selection: " + taskName);
   console.log("Old selection: " + old_select);
   try{
+    if(old_select){
     document.getElementById(old_select).style.background="#4170f4";
+    }
   }
   catch(error){
     console.error(error);
   }
-  //window.scrollTo(0,document.body.scrollHeight);  //vanilla js (no animate scroll)
-  //setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
   task_text()
   populateForms(taskName);
-
+  old_select = taskName;
 }
 
 function task_text() {
@@ -100,13 +93,10 @@ function populateForms(taskName){
     vForm.appendChild(label);
     vForm.appendChild(slider);
     vForm.appendChild(numIn);
-    console.log('above closure ' + numIn.id);
+    //Closure so slider function bind to right num input
     function makeFunc(numIn) {
-      var numIn = numIn;
-      console.log('in closure '+numIn.id);
+      var numIn = numIn; 
       function func() {
-        console.log(this);
-        console.log(numIn);
         numIn.value = this.value;
       }
       return func;
