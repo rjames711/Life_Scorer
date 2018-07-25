@@ -3,16 +3,26 @@ $( "#cat_select" ).click(function() {
 });
 
 //Converts the point value with compound units to a single unit qty
-document.getElementById("taskForm").onsubmit = function() {
+document.getElementById("taskForm").onsubmit = setPoints;
+
+function setPoints(){
     points = document.getElementById('points').value;
     defaults = document.getElementsByClassName('default');
-    var arr = [].slice.call(defaults)
+    scored = document.getElementsByClassName('scored');
+    var defaults = [].slice.call(defaults)
+    var scored = [].slice.call(scored)
     defUnitQty = 1
-    for(i =0;i < arr.length ; i++){
-        defUnitQty*=arr[i].value
+    for(i =0;i < scored.length ; i++){
+        if(scored[i].value ==="1" ){
+        defUnitQty*=defaults[i].value;
+        console.log(scored[i]);
+        }
     }
-    document.getElementById('points').value = (points / defUnitQty);
-};
+    newPoints = (points / defUnitQty);
+    document.getElementById('points').value =  newPoints;
+    return [newPoints, defUnitQty];
+}
+
 
 function get_selection(btn) {
   var old_select = document.getElementById("selection").value;
@@ -41,7 +51,7 @@ function addAttribute(){
                 '<label for="default-' + attr_num + '" >Default Value</label><br>' +
                 '<input type="number" class="default" name="default-' + attr_num + '" id="default-' + attr_num + '" required onkeyup="updateLabel()"><br>'+
                 '<label for="scored-' + attr_num + '">Scored?</label><br>' +
-                '<input type="number" name="scored-' + attr_num + '" id="scored-' + attr_num + '" required><br>'+
+                '<input type="number" class="scored" name="scored-' + attr_num + '" id="scored-' + attr_num + '" required><br>'+
                 '<br>';
     document.getElementById('attributes').insertAdjacentHTML('beforeend', attr_string);
     updateLabel();
