@@ -12,11 +12,12 @@ def score_entry(task, log):
     attributes = task.attributes
     #entry = json.loads(log['attributes'])
     for attr in log:
-        if attributes[attr]['scored'] == 1:
+        print(attr, attributes[attr]['scored'], )
+        if int(attributes[attr]['scored']) == 1:
             unit_qty *= log[attr]
+    #print(task.points, unit_qty)
     return task.points * unit_qty
             
-
 
 #Takes score in str form YYYY-MM-DD
 def get_day_score(day, user):
