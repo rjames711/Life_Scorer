@@ -85,6 +85,7 @@ function populateForms(taskName){
     slider.id = "slider"+attribute;
     var numIn = document.getElementById("tempNumIn").cloneNode(true);
     numIn.id = "numIn"+attribute;
+    numIn.name = attribute;
     slider.min = task[attribute]['min'];
     slider.max = task[attribute]['max'];
     slider.value = task[attribute]['default'];
@@ -105,6 +106,7 @@ function populateForms(taskName){
     slider.oninput = slide;
   }
   var notes = document.getElementById("tempNotes").cloneNode(true);
+  notes
   vForm.appendChild(notes);
 }
 

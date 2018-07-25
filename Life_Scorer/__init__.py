@@ -82,26 +82,27 @@ def index():
 @login_required
 def create_log():
     if request.method == 'POST':
-        note = request.form['notes']
-        qty = request.form['quantity']
-        task_name = request.form['selection']
-        timestamp = int(request.form['timestamp']) #client local timestamp ms
-        tzoffset = int(request.form['tzoffset'])   #for conversion from utc to client local
+        form = dict(request.form)
+        print(form)
+        note = form.pop('notes')[0]
+        task_name = form.pop('selection')[0]
+        timestamp = int(form.pop('timestamp')[0]) #client local timestamp ms
+        tzoffset = int(form.pop('tzoffset')[0])   #for conversion from utc to client local
         dt = tools.convert_timestamp(timestamp, tzoffset)
         date = dt[0]
         time = dt[1]
-        print('Date: ', date, 'Time: ', time)
+        form = { key:int(val[0]) for key, val in form.items() }
+        attributes = json.dumps(form)
+        print(attributes)
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name, get_user())
-        interface.log_task(task_id, qty, note,date, time, get_user())
+        interface.log_task(task_id, attributes, note, date, time, get_user())
         return redirect(url_for('show_month'))
+        
         
     tasks = interface.read_tasks(get_user())
     attr = {task.name:task.attributes for task in tasks}
-    print(attr)
     attr = json.dumps(attr)
-    print()
-    print(attr)
     return render_template('create_log.html', tasks=tasks, attr=attr)
     
 

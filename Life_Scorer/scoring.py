@@ -1,11 +1,13 @@
 import sqlite3
 import datetime
-import Life_Scorer.interface as interface
-#import interface # For testing as standalone file
+
+if __name__ == '__main__':
+    import interface # For testing as standalone file
+else:
+    import Life_Scorer.interface as interface
 import json
 
 def score_entry(task, log):
-    print('in scoring ',task, log)
     unit_qty = 1
     attributes = task.attributes
     #entry = json.loads(log['attributes'])
