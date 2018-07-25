@@ -99,7 +99,6 @@ def create_log():
         interface.log_task(task_id, attributes, note, date, time, get_user())
         return redirect(url_for('show_month'))
         
-        
     tasks = interface.read_tasks(get_user())
     attr = {task.name:task.attributes for task in tasks}
     attr = json.dumps(attr)
@@ -168,7 +167,9 @@ def edit_task(task_id=0):
     if task_id is not 0:
         task = interface.get_task(task_id, get_user())
     categories = interface.get_categories(get_user())
-    return render_template('edit_task.html',task=task, categories=categories)
+    attr = task.attributes
+    attr = json.dumps(attr)
+    return render_template('edit_task.html',task=task, categories=categories,attr=attr)
 
 @app.route('/create_category', methods=('GET','POST'))
 @login_required

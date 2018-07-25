@@ -2,9 +2,23 @@
 {% block title %}Edit Task{% endblock %}
 {% block morescripts %}
 <script>
+var attrs = JSON.parse({{attr|tojson}});
+
+
+
+
 function initialize_fields() {
+  unitQty=1;
+for(var attr in attrs){
+  if (attrs.hasOwnProperty(attr)) {           
+    a=attrs[attr]
+    addAttribute(attr,a.min,a.max,a.default,a.scored);
+    unitQty *= a.default;
+}
+}
+  points = parseFloat("{{ task.points }}")*unitQty;
   document.getElementById("taskname").value = "{{task.name}}";
-  document.getElementById("points").value = "{{task.points}}";
+  document.getElementById("points").value = points;
   document.getElementById("taskname").value = "{{task.name}}";
   document.getElementById("taskname").value = "{{task.name}}";
   if ( "{{task.recurring}}" === "1"){

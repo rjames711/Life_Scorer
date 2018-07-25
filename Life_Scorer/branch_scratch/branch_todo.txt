@@ -1,5 +1,5 @@
 Current place:
-Working on getting the attributes inputs working
+Get current attribute to populate in edit task then should be good to test and merge
 
 Add functionality for task attirbutes with units
 -(X) Create json format to store task attributes

@@ -40,7 +40,8 @@ function get_selection(btn) {
   setTimeout(function(){ $('html,body').animate({ scrollTop: 9999 }, 'slow'); }, 250);
 }
 var attr_num = 0;
-function addAttribute(){
+
+function addAttribute(name, min, max, deflt, scored){
     attr_num += 1;
     attr_string = '<label for="attribute_name-' + attr_num + '">Attribute-' + attr_num + ' Name </label><br>' +
                 '<input name="attribute_name-' + attr_num + '" id="attribute_name-' + attr_num + '" required><br>'+
@@ -53,7 +54,14 @@ function addAttribute(){
                 '<label for="scored-' + attr_num + '">Scored?</label><br>' +
                 '<input type="number" class="scored" name="scored-' + attr_num + '" id="scored-' + attr_num + '" required><br>'+
                 '<br>';
+    
     document.getElementById('attributes').insertAdjacentHTML('beforeend', attr_string);
+    document.getElementById('attribute_name-'+attr_num).value=name;
+    document.getElementById('min-'+attr_num).value=min;
+    document.getElementById('max-'+attr_num).value=max;
+    document.getElementById('scored-'+attr_num).value=scored;
+    document.getElementById('default-'+attr_num).value=deflt;
+   
     updateLabel();
 }
 
