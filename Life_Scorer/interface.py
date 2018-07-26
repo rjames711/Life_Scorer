@@ -117,11 +117,11 @@ def get_categories(user):
 
 
 #Update task attributes based on id
-def update_task(name,points, category, recurring, id,user):
-    holder =(name,points,category,recurring,id)
+def update_task(name,points, category, recurring, attributes, id,user):
+    holder =(name,points,category,recurring, attributes, id)
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('update tasks set name = ?, points = ?, categories_id = ?, recurring = ? where id = ?' ,holder)
+    c.execute('update tasks set name = ?, points = ?, categories_id = ?, recurring = ?, attributes = ? where id = ?' ,holder)
     conn.commit()
 
 def add_task(name,points, category, recurring, attributes, user):

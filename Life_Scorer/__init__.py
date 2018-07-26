@@ -50,7 +50,6 @@ def create_task():
             attributes[name]['scored'] = request.form['scored-'+str(i)]
             print(json.dumps(attributes))
             i+=1
-            
         taskname = request.form['taskname']
         points = request.form['points']
         #Need further testing or refactor of below (also error handling)
@@ -155,14 +154,25 @@ def edit_tasks():
 @login_required
 def edit_task(task_id=0):
     if request.method == 'POST':
-        print(request.form)
+        attributes = {}
+        i=1
+        while 'attribute_name-'+str(i) in request.form:
+            name = request.form['attribute_name-'+str(i)]
+            attributes[name] ={}
+            attributes[name]['min'] = request.form['min-'+str(i)]
+            attributes[name]['max'] = request.form['max-'+str(i)]
+            attributes[name]['default'] = request.form['default-'+str(i)]
+            attributes[name]['scored'] = request.form['scored-'+str(i)]
+            print(json.dumps(attributes))
+            i+=1
         taskname = request.form['taskname']
         points = request.form['points']
         #Need further testing or refactor of below (also error handling)
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
-        interface.update_task(taskname,points,category,recur,task_id, get_user())
+        interface.update_task(taskname, points, category, recur, 
+        json.dumps(attributes),task_id, get_user())
         return redirect(url_for('edit_tasks'))
     if task_id is not 0:
         task = interface.get_task(task_id, get_user())
