@@ -153,6 +153,10 @@ def edit_tasks():
 @app.route('/edit_task')
 @login_required
 def edit_task(task_id=0):
+    is_id = interface.get_task_by_name(task_id, get_user()) 
+    #Basically sloppy way to get request to work with either id or name
+    if is_id:
+        task_id = is_id
     if request.method == 'POST':
         attributes = {}
         i=1
@@ -173,7 +177,7 @@ def edit_task(task_id=0):
         category = request.form['category']
         interface.update_task(taskname, points, category, recur, 
         json.dumps(attributes),task_id, get_user())
-        return redirect(url_for('edit_tasks'))
+        return redirect(url_for('show_month'))
     if task_id is not 0:
         task = interface.get_task(task_id, get_user())
     categories = interface.get_categories(get_user())

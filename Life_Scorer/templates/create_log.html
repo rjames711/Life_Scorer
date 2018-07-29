@@ -29,11 +29,17 @@
   {% for task in tasks %}
     {% if task.display %}
       {% if task.recurring %}
-          <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel" onclick="get_selection(this)"
+        <div class='inline buttons' id="{{ task.name }}-div">
+          <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel perc75" onclick="get_selection(this)"
           value="{{ task.name }}", style="background-color:#4156f4">
+          <input type="button" id="{{ task.task_id }}" class="btn btn-primary btn-lg sel perc25" onclick='editTask(this)' value="Edit Task" />
+        </div>
       {% else %}
-          <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel" onclick="get_selection(this)"
+      <div class='inline buttons' id="{{ task.name }}-div">
+          <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel perc75" onclick="get_selection(this)"
           value="{{ task.name }}", style="background-color:#ff0000">
+          <input type="button" id="{{ task.task_id }}" class="btn btn-primary btn-lg sel perc25" onclick='editTask(this)' value="Edit Task" />
+        </div>
       {% endif %}
     {% endif %}
   {% endfor %}
@@ -49,7 +55,12 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'create_log.js') }}"></script>
 <script> 
+  var test='feh';
   var attr = JSON.parse({{attr|tojson}});
+  function editTask(btn){
+      window.location = "{{url_for('edit_task')}}/"+(btn.id).toString();  
+  }
+  
 </script>
 
 {% endblock %}

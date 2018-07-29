@@ -55,13 +55,16 @@ def read_tasks(user):
     return task_list
 
 #TODO this returns task id. Should return a task need to refactor
-#Returns task id from task name
+#Returns task id from task name, false if not in db
 def get_task_by_name(task_name, user):
     conn = get_task_db(user)
     c = conn.cursor()
     c.execute('SELECT id FROM tasks WHERE name=?',(task_name,))
     task_id = c.fetchone()
-    return task_id[0]
+    if task_id:
+        return task_id[0]
+    else:
+        return False
 
 #Return task object from task id 
 def get_task(task_id, user):
