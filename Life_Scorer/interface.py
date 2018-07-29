@@ -133,3 +133,27 @@ def add_task(name,points, category, recurring, attributes, user):
     c = conn.cursor()
     c.execute('insert into tasks (name,points,categories_id, recurring, attributes) values(?,?,?,?,?)',holder)
     conn.commit()
+
+#Renames all the necessary log records when a rename is done on attribute
+#A questionable strategy to be sure but here we are.
+def rename_attribute(task_name, old_name,new_name, user):
+    conn = get_task_db(user)
+    c = conn.cursor()
+    task = get_task_by_name(task_name, user)
+    c.execute('select attributes, id from log where task_id=?',(task,))
+    results = c.fetchall()
+    for item in results:
+        item = list(item)
+        attr=json.loads(item[0])
+        if old_name in attr:
+            attr[new_name] = attr.pop(old_name)
+            item[0] = json.dumps(attr)
+        item = tuple(item)
+        c.execute('update log set attributes=? where id =?', item)
+        print(item)
+    conn.commit()
+    return results
+
+
+rename_attribute('rows', 'qty', 'reps', 'Rob')
+
