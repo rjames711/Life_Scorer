@@ -90,7 +90,11 @@ def create_log():
         dt = tools.convert_timestamp(timestamp, tzoffset)
         date = dt[0]
         time = dt[1]
-        form = { key:int(val[0]) for key, val in form.items() }
+        #dont judge. This is so they still show up as ints when pulled directly from db 
+        def get_number(s):
+            n=float(s)
+            return int(n) if n.is_integer() else n
+        form = { key:get_number(val[0]) for key, val in form.items() }
         attributes = json.dumps(form)
         print(attributes)
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
