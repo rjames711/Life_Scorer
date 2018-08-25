@@ -72,7 +72,6 @@ def get_task(task_id, user):
     c = conn.cursor()
     c.execute( 'SELECT * FROM tasks WHERE id = ?', (task_id,))
     task = c.fetchone()
-    print(task)
     return Task(*task)
 
 
@@ -155,5 +154,5 @@ def rename_attribute(task_name, old_name,new_name, user):
     return results
 
 
-rename_attribute('rows', 'qty', 'reps', 'Rob')
+
 

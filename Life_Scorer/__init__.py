@@ -48,7 +48,7 @@ def create_task():
             attributes[name]['max'] = request.form['max-'+str(i)]
             attributes[name]['default'] = request.form['default-'+str(i)]
             attributes[name]['scored'] = request.form['scored-'+str(i)]
-            print(json.dumps(attributes))
+            #print(json.dumps(attributes))
             i+=1
         taskname = request.form['taskname']
         points = request.form['points']
@@ -82,7 +82,7 @@ def index():
 def create_log():
     if request.method == 'POST':
         form = dict(request.form)
-        print(form)
+        #print(form)
         note = form.pop('notes')[0]
         task_name = form.pop('selection')[0]
         timestamp = int(form.pop('timestamp')[0]) #client local timestamp ms
@@ -96,7 +96,7 @@ def create_log():
             return int(n) if n.is_integer() else n
         form = { key:get_number(val[0]) for key, val in form.items() }
         attributes = json.dumps(form)
-        print(attributes)
+        #print(attributes)
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name, get_user())
         interface.log_task(task_id, attributes, note, date, time, get_user())
@@ -171,7 +171,7 @@ def edit_task(task_id=0):
             attributes[name]['max'] = request.form['max-'+str(i)]
             attributes[name]['default'] = request.form['default-'+str(i)]
             attributes[name]['scored'] = request.form['scored-'+str(i)]
-            print(json.dumps(attributes))
+            #print(json.dumps(attributes))
             i+=1
         taskname = request.form['taskname']
         points = request.form['points']

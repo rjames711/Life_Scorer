@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
         <input type="text" id="selection" name="selection" value="" 
         onkeyup="task_text()" onclick="hideTop()" 
         placeholder="Select below or type" autocomplete="off">
-        <button id='clear' onclick="clear_sel()">CLEAR</button>
+        <button type="button" id='clear' onclick="clear_sel()">CLEAR</button>
         </div>
   {% for task in tasks %}
     {% if task.display %}

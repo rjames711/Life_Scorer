@@ -12,7 +12,7 @@ def score_entry(task, log):
     attributes = task.attributes
     #entry = json.loads(log['attributes'])
     for attr in log:
-        print(attr, attributes[attr]['scored'], )
+        #print(attr, attributes[attr]['scored'], )
         if int(attributes[attr]['scored']) == 1:
             unit_qty *= log[attr]
     #print(task.points, unit_qty)
