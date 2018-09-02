@@ -8,9 +8,12 @@
 <div>
 <a href="{{ url_for('create_log') }}"><button type="button" 
 style="height:100px;width:400px;font-size:40px; float:right; margin: 10px;">Log a new Record</button></a>
+<br><br><br><br><br><br><br>
 </div>
-<input type="text" id="selection" style="height: 40px" 
+<div class="inline">
+<input type="text" id="selection"
 placeholder="Type to filter" onkeyup="task_text()">
+</div>
 <br>
 <table style="width:100%">
   {% for item in log %}
