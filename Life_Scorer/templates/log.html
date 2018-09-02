@@ -17,7 +17,7 @@ placeholder="Type to filter" onkeyup="task_text()">
 <br>
 <table style="width:100%">
   {% for item in log %}
-    <tr id= {{item[0]}} class="inline buttons">
+    <tr id= "{{item[0]}}" class="inline buttons">
       {% for field in item %}
       <td>{{ field }}</td>
       {% endfor %}
