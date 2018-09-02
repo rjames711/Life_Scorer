@@ -7,9 +7,10 @@
 {% block content %}
 <div>
 <a href="{{ url_for('create_log') }}"><button type="button" 
-style="height:100px;width:400px;font-size:40px; float:right">Log a new Record</button></a>
+style="height:100px;width:400px;font-size:40px; float:right; margin: 10px;">Log a new Record</button></a>
 </div>
-<input type="text" id="selection" onkeyup="task_text()">
+<input type="text" id="selection" style="height: 40px" 
+placeholder="Type to filter" onkeyup="task_text()">
 <br>
 <table style="width:100%">
   {% for item in log %}
