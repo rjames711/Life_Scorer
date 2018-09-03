@@ -66,3 +66,8 @@ div.inline {
     background-color: yellow; 
     display:none;
 }
+
+.content{
+    background-color:#282b2d;
+    color: green;
+    }
