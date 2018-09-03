@@ -4,10 +4,7 @@
   <h1 class="top" >{% block title %}Log a Task  {{session['username']}}{% endblock %}</h1>
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -31,13 +28,13 @@
       {% if task.recurring %}
         <div class='inline buttons' id="{{ task.name }}-div">
           <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel perc75" onclick="get_selection(this)"
-          value="{{ task.name }}", style="background-color:#4156f4">
+          value="{{ task.name }}">
           <input type="button" id="{{ task.task_id }}" class="btn btn-primary btn-lg sel perc25" onclick='editTask(this)' value="Edit➜" />
         </div>
       {% else %}
       <div class='inline buttons' id="{{ task.name }}-div">
           <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel perc75" onclick="get_selection(this)"
-          value="{{ task.name }}", style="background-color:#ff0000">
+          value="{{ task.name }}">
           <input type="button" id="{{ task.task_id }}" class="btn btn-primary btn-lg sel perc25" onclick='editTask(this)' value="Edit➜" />
         </div>
       {% endif %}

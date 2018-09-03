@@ -1,0 +1,6 @@
+Using this branch just to refactor. Looking at pretty much everything. 
+-Redo styling from scratch
+-Refactor python flask code
+-Refactor web code.
+
+Goal is generally to make it all better organized and smaller.

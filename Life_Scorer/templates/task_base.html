@@ -3,9 +3,7 @@
 {% block header %}
 <h1>{% block title %}{% endblock %}</h1>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -26,7 +24,7 @@
     <div id="categories">
     {%for category in categories%}
     <input type = "button" input id="{{ category[0] }}"  class="btn btn-primary btn-lg" onclick="get_selection(this)"
-          value="{{ category[1] }}", style="background-color:#4156f4">
+          value="{{ category[1] }}">
     {% endfor %}
     <br>
     <input type="text" id="selection" name="category" value="" placeholder="Make a selection above">

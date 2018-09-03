@@ -7,13 +7,12 @@
 
 {% block content %}
 
-<div style="white-space: nowrap">
+<div>
     <h2>Todays Score: {{todays_score}}</h2>
     <h2>Average for month: {{average}}</h2>
-  <a href="{{ url_for('create_log') }}"><button type="button" 
-  style="height:50px;width:200px;font-size:20px">Log a new Record</button></a>
+  <a href="{{ url_for('create_log') }}"><button type="button">Log a new Record</button></a>
   </div>
-<table style="width:100%">
+<table>
   {% for day in month %}
     <tr>
       <td>{{ day[0] }}</td>
