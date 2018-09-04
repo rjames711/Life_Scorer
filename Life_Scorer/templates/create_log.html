@@ -14,14 +14,17 @@
     <input id="tempSlider" type="range" min="1" max="20" value="1" class="slider" >
     <input id="tempNumIn" type="number" name="quantity"  placeholder="Roll slider or enter number">
     <input id="tempNotes" type="text" name="notes" placeholder="Enter Notes Here">
+    <input type = "button" id="submitBtn" class="btn btn-primary btn-lg" 
+  onclick="submitForm()" value="Submit">
 </div>
 
   <form method="post" id = "logForm">
     <div class='inline'>
         <input type="text" id="selection" name="selection" value="" 
-        onkeyup="task_text()" onclick="hideTop()" 
+        onkeyup="task_text()" onclick="hideTop()" class="perc75"
         placeholder="Select below or type" autocomplete="off">
-        <button type="button" id='clear' onclick="clear_sel()">CLEAR</button>
+        
+        <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
         </div>
   {% for task in tasks %}
     {% if task.display %}
@@ -32,10 +35,9 @@
 
   
   <div id="variableForm">
-     placeholder for attribute content 
+     <!-- Place holder for variable form content -->
   </div>
-  <input type = "button" id="submitBtn" class="btn btn-primary btn-lg" onclick="submitForm()"
-  value="Submit">
+  
   </form>
 
 

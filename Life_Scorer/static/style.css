@@ -3,6 +3,22 @@
     color: #02fda9;
 }
 
-.button{
+.button, button,input[type="button"]{
     font-size: 14pt;
+}
+
+#selection{
+    margin-bottom: 14px;
+    font-size:16pt;
+}
+
+.inline {
+    white-space: nowrap;
+}
+
+.perc25{
+    width:25%;
+}
+.perc75{
+    width:75%;
 }

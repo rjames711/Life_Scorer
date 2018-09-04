@@ -47,7 +47,7 @@ function task_text() {
   input = document.getElementById('selection');
   filter = input.value.toUpperCase();
 
-  var tasks = document.getElementsByClassName("inline buttons");
+  var tasks = document.getElementsByClassName("inline button");
   // Loop through all list items, and hide those who don't match the search query
   for (i = 0; i < tasks.length; i++) {
     task = tasks[i];
@@ -90,6 +90,7 @@ function populateForms(taskName){
     slider.value = task[attribute]['default'];
     numIn.value = task[attribute]['default'];
     label.textContent = attribute;
+    var submitBtn = document.getElementById("submitBtn");
     vForm.appendChild(label);
     vForm.appendChild(slider);
     vForm.appendChild(numIn);
@@ -107,6 +108,7 @@ function populateForms(taskName){
   var notes = document.getElementById("tempNotes").cloneNode(true);
   notes
   vForm.appendChild(notes);
+   vForm.appendChild(submitBtn);
 }
 
 
