@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<div id="templateForm">
+<div id="templateForm" hidden>
     <label id="tempAttrLabel" for="numIN">Attribute Name</label>
     <input id="tempSlider" type="range" min="1" max="20" value="1" class="slider" >
     <input id="tempNumIn" type="number" name="quantity"  placeholder="Roll slider or enter number">
@@ -25,19 +25,8 @@
         </div>
   {% for task in tasks %}
     {% if task.display %}
-      {% if task.recurring %}
-        <div class='inline buttons' id="{{ task.name }}-div">
-          <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel perc75" onclick="get_selection(this)"
-          value="{{ task.name }}">
-          <input type="button" id="{{ task.task_id }}" class="btn btn-primary btn-lg sel perc25" onclick='editTask(this)' value="Edit➜" />
-        </div>
-      {% else %}
-      <div class='inline buttons' id="{{ task.name }}-div">
-          <input type = "button" input id="{{ task.name }}"  class="btn btn-primary btn-lg sel perc75" onclick="get_selection(this)"
-          value="{{ task.name }}">
-          <input type="button" id="{{ task.task_id }}" class="btn btn-primary btn-lg sel perc25" onclick='editTask(this)' value="Edit➜" />
-        </div>
-      {% endif %}
+    <input type = "button" input id="{{ task.name }}"  
+    class="inline button" onclick="get_selection(this)" value="{{ task.name }}">  
     {% endif %}
   {% endfor %}
 
