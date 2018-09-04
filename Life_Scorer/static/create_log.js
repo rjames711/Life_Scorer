@@ -25,7 +25,7 @@ function submitForm() {
 function get_selection(btn) {
   taskName = btn.id;
   document.getElementById("selection").value = taskName;
-  btn.style.background='#000000';
+  btn.style.background='white';
   console.log("New selection: " + taskName);
   console.log("Old selection: " + old_select);
   try{
@@ -61,6 +61,7 @@ function task_text() {
 
 function clear_sel(){
   document.getElementById('selection').value = '';
+  document.getElementById('variableForm').innerHTML='';
   task_text();
 }
 
@@ -90,7 +91,7 @@ function populateForms(taskName){
     slider.value = task[attribute]['default'];
     numIn.value = task[attribute]['default'];
     label.textContent = attribute;
-    var submitBtn = document.getElementById("submitBtn");
+    var submitBtn = document.getElementById("submitBtn").cloneNode(true);
     vForm.appendChild(label);
     vForm.appendChild(slider);
     vForm.appendChild(numIn);
