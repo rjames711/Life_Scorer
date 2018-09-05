@@ -2,10 +2,10 @@
 <title>{% block title %}{% endblock %} Day Scorer</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav class="top">
+
   <h1>Day Scorer</h1>
-  <ul>
-    {% if session['username'] %}
-      <li><span>{{ session['username'] }}</span>
+  {% if session['username'] %}
+  <ul> 
       <li><a href="{{ url_for('logout') }}">Log Out</a>
       <li><a href="{{ url_for('create_log') }}">Create Log</a>
       <li><a href="{{ url_for('show_log') }}">Show Log</a>
@@ -13,8 +13,6 @@
       <li><a href="{{ url_for('edit_tasks') }}">Edit Tasks</a>
       <li><a href="{{ url_for('create_category') }}">Create Category</a>
       <li><a href="{{ url_for('show_month') }}">Show Month</a>
-
-        
     {% else %}
       <li><a href="{{ url_for('register') }}">Register</a>
       <li><a href="{{ url_for('login') }}">Log In</a>
