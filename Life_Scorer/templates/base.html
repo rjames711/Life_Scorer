@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav class="top">
 
-  <h1>Day Scorer</h1>
+  <h1><a href="{{ url_for('show_month') }}">Day Scorer</a></h1>
   {% if session['username'] %}
   <ul> 
       <li><a href="{{ url_for('logout') }}">Log Out</a>

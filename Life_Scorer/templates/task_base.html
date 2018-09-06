@@ -12,14 +12,17 @@
   <form method="post" id='taskForm'>
     <label for="taskname">Task Name</label>
     <input name="taskname" id="taskname" required>
-    
-    <label for="recurring">
-    <input type="radio" name="recurring" id="recurring" value="recurring">Recurring 
-    </label>
-    <label for="non-recurring">
-    <input type="radio" name="recurring" id="nonrecurring" value="non-recurring">Non-Recurring
-    </label>
-
+    <br>
+    <label for="recurring">Recurring</label>
+    <input type="radio" name="recurring" id="recurring" value="recurring"> 
+    <label for="non-recurring">Non-Recurring</label>
+    <input type="radio" name="recurring" id="nonrecurring" value="non-recurring">
+    <br>
+    <label for="display">Display</label>
+    <input type="radio" name="display" id="display" value="display"> 
+    <label for="hide">Hide</label>
+    <input type="radio" name="display" id="hide" value="hide">
+    <br>
     <button type="button" id="cat_select" class="btn btn-primary btn-lg"> Select category</button>
     <div id="categories">
     {%for category in categories%}

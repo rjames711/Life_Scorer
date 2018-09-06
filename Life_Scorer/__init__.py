@@ -179,8 +179,11 @@ def edit_task(task_id=0):
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
+        d = {'display': 1 , 'hide' : 0 }
+        display = d[request.form['display']]
+
         interface.update_task(taskname, points, category, recur, 
-        json.dumps(attributes),task_id, get_user())
+        json.dumps(attributes),task_id,display, get_user())
         return redirect(url_for('show_month'))
     if task_id is not 0:
         task = interface.get_task(task_id, get_user())
