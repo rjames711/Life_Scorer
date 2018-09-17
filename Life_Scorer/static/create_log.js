@@ -3,6 +3,7 @@ select.focus();
 var t = 'test';
 var old_select=''
 
+
 //Adds a datestamp to form before submitting.
 //Needed because always want to use client local time instead of server
 function submitForm() {
@@ -56,6 +57,17 @@ function task_text() {
       } else {
           task.style.display = "none";
       }
+  }
+}
+
+//Loop over and restyle elements. Better to just use css but leaving it for now in case I want it later
+function re_style(){
+  var tasks = document.getElementsByClassName("inline button");
+  for (i = 0; i < tasks.length; i++) {
+    task = tasks[i];
+      if (task.id.split('_')[0] === "!"){
+          task.style.background = "red";
+      } 
   }
 }
 
