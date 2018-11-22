@@ -83,10 +83,10 @@ def create_log():
     if request.method == 'POST':
         form = dict(request.form)
         #print(form)
-        note = form.pop('notes')[0]
-        task_name = form.pop('selection')[0]
-        timestamp = int(form.pop('timestamp')[0]) #client local timestamp ms
-        tzoffset = int(form.pop('tzoffset')[0])   #for conversion from utc to client local
+        note = form.pop('notes')
+        task_name = form.pop('selection')
+        timestamp = int(form.pop('timestamp')) #client local timestamp ms
+        tzoffset = int(form.pop('tzoffset'))   #for conversion from utc to client local
         dt = tools.convert_timestamp(timestamp, tzoffset)
         date = dt[0]
         time = dt[1]
