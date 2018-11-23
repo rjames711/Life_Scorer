@@ -83,6 +83,7 @@ def create_log():
     if request.method == 'POST':
         form = dict(request.form)
         #print(form)
+        #debug(anerror) #error for sake of error to trigger debugger.
         note = form.pop('notes')
         task_name = form.pop('selection')
         timestamp = int(form.pop('timestamp')) #client local timestamp ms
@@ -94,7 +95,7 @@ def create_log():
         def get_number(s):
             n=float(s)
             return int(n) if n.is_integer() else n
-        form = { key:get_number(val[0]) for key, val in form.items() }
+        form = { key:get_number(val) for key, val in form.items() }
         attributes = json.dumps(form)
         #print(attributes)
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
