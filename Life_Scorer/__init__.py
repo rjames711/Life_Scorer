@@ -71,6 +71,13 @@ def show_log():
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
  
+@app.route('/show_log/<int:num_posts>')
+@login_required
+def show_log_part(num_posts):
+    log = interface.get_log(get_user())
+    log.reverse() #So it shows latest record first
+    log = log[0:num_posts]
+    return render_template('log.html', log=log)
     
 @app.route('/index')
 def index():
