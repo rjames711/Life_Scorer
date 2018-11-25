@@ -58,7 +58,7 @@ def create_task():
         category = request.form['category']
         interface.add_task(taskname, points, category, recur, 
         json.dumps(attributes), get_user())
-        return redirect(url_for('show_log'))
+        return redirect(url_for('show_month'))
 
     import sys #testing delate later
     return render_template('create_task.html',categories=categories, version =sys.version)
@@ -206,7 +206,7 @@ def create_category():
     if request.method == 'POST':
         new_category = request.form['category']
         interface.add_category(new_category,get_user())
-        return redirect(url_for('show_log'))
+        return redirect(url_for('show_month'))
     return render_template('create_category.html')
 
 @app.route('/show_month')
