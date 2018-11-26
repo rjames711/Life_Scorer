@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Edit Post{% endblock %}
+{% block content %}
+<form method="post" id='log_form'>
+    {% for item in a_log.keys() %}
+    <label for="{{ item }}">{{ item }}</label>
+    <br>
+    <input name="{{ item }}" value="{{ a_log[item] }}">
+    <br>
+    {% endfor %}
+</form>
+<br>
+<input type="submit" value="Submit" form="log_form">
+{% endblock %}

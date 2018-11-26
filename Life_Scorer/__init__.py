@@ -71,12 +71,12 @@ def show_log():
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
  
-@app.route('/show_log/<int:num_posts>')
+@app.route('/show_log/<int:num_logs>')
 @login_required
-def show_log_part(num_posts):
+def show_log_part(num_logs):
     log = interface.get_log(get_user())
     log.reverse() #So it shows latest record first
-    log = log[0:num_posts]
+    log = log[0:num_logs]
     return render_template('log.html', log=log)
     
 @app.route('/index')
@@ -220,3 +220,20 @@ def show_month():
     todays_score = scores[0]
     return render_template('show_month.html', 
     month = month, average = average, todays_score = todays_score)
+
+@app.route('/edit_log/<int:log_id>', methods=('GET','POST'))
+@login_required
+def edit_log(log_id):
+    a_log = interface.get_log_by_id(log_id, get_user())[0]
+    if request.method == 'POST':
+        form = dict(request.form)
+        #print(form)
+        #debug(anerror) #error for sake of error to trigger debugger.
+        note = form.pop('note')
+        task_id = form.pop('task_id')
+        date = form.pop('date')
+        time = form.pop('time')
+        attributes=form.pop('attributes')
+        interface.update_log(log_id,task_id,note,date,time,attributes,get_user())
+        return redirect(url_for('show_log_part',num_logs =50))
+    return render_template('edit_log.html', a_log =a_log)

@@ -20,6 +20,7 @@ placeholder="Type to filter" onkeyup="task_text()">
 <table>
   {% for item in log %}
     <tr id= "{{item[0]}}" class="inline buttons">
+      <td><a href="{{ url_for('edit_log',log_id=item[0])}}">edit</a></td>
       {% for field in item %}
       <td>{{ field }}</td>
       {% endfor %}

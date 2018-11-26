@@ -92,7 +92,7 @@ def log_task(task_id, attributes, note, date, time,user):
 def get_log(user):
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute("select tasks.name, log.attributes, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id")
+    c.execute("select log.id, tasks.name, log.attributes, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id")
     return c.fetchall()
 
 def show_log(user):
@@ -102,6 +102,12 @@ def show_log(user):
     for i in log: print(i[1],'\t', i[0],'\t',i[2])
     print()
 
+def get_log_by_id(id,user):
+    conn = get_task_db(user)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute("SELECT * FROM log where id=?",(id,))
+    return c.fetchall()
 
 def add_category(name,user):
     holder =(name,)
@@ -124,6 +130,13 @@ def update_task(name,points, category, recurring, attributes, display,id,user):
     conn = get_task_db(user)
     c = conn.cursor()
     c.execute('update tasks set name = ?, points = ?, categories_id = ?, recurring = ?, attributes = ?,display = ? where id = ?' ,holder)
+    conn.commit()
+
+def update_log(log_id, task_id, note,date,time,attributes,user):
+    holder = (task_id, note,date,time,attributes,log_id)
+    conn = get_task_db(user)
+    c = conn.cursor()
+    c.execute('UPDATE log SET task_id=?,note=?,date=?,time=?,attributes=? WHERE id=?',holder)
     conn.commit()
 
 def add_task(name,points, category, recurring, attributes, user):
