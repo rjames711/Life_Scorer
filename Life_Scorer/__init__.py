@@ -110,7 +110,9 @@ def create_log():
         interface.log_task(task_id, attributes, note, date, time, get_user())
         return redirect(url_for('show_month'))
         
-    tasks = interface.read_tasks(get_user())
+    #tasks = interface.read_tasks(get_user())
+    import Life_Scorer.rate_tasks as rate_tasks
+    tasks = rate_tasks.sort_tasks(250,get_user())
     attr = {task.name:task.attributes for task in tasks}
     attr = json.dumps(attr)
     return render_template('create_log.html', tasks=tasks, attr=attr)
