@@ -108,14 +108,16 @@ def create_log():
         #TODO Maybe change the working so the taskid stay with it instead of having to reconvert as below
         task_id = interface.get_task_by_name(task_name, get_user())
         interface.log_task(task_id, attributes, note, date, time, get_user())
-        return redirect(url_for('show_month'))
+        return redirect(url_for('create_log'))
         
     #tasks = interface.read_tasks(get_user())
     import Life_Scorer.rate_tasks as rate_tasks
     tasks = rate_tasks.sort_tasks(250,get_user())
     attr = {task.name:task.attributes for task in tasks}
     attr = json.dumps(attr)
-    return render_template('create_log.html', tasks=tasks, attr=attr)
+    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=4)
+    score = scoring.get_day_score(dt.date(),get_user())
+    return render_template('create_log.html', tasks=tasks, attr=attr, score=score)
     
 
 @app.route('/')
