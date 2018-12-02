@@ -28,3 +28,9 @@ function task_text() {
     }
   }
   }
+
+  function clear_sel(){
+    document.getElementById('selection').value = '';
+    
+    task_text();
+  }
