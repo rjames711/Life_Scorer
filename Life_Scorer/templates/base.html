@@ -1,7 +1,8 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} Day Scorer</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav class="top">
+<button onclick="toggleTop()" >nav toogle</button>
+<nav class="top" id="nav">
 
   <h1><a href="{{ url_for('show_month') }}">Day Scorer</a></h1>
   {% if session['username'] %}
@@ -28,3 +29,4 @@
   {% endfor %}
   {% block content %}{% endblock %}
 </section>
+<script type="text/javascript" src="{{ url_for('static', filename = 'base.js') }}"></script>

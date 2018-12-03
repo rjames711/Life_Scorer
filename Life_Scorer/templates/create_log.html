@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="top" >{% block title %}Log a Task {{session['username']}}, Today: {{score}}{% endblock %}</h1>
+  <h1 class="topple" >
+    {% block title %}
+    Log a Task {{session['username']}}, Today: {{score}}</h1>
+    {% endblock %}
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
