@@ -103,7 +103,6 @@ function populateForms(taskName){
     slider.value = task[attribute]['default'];
     numIn.value = task[attribute]['default'];
     label.textContent = attribute;
-    var submitBtn = document.getElementById("submitBtn").cloneNode(true);
     vForm.appendChild(label);
     vForm.appendChild(slider);
     vForm.appendChild(numIn);
@@ -119,7 +118,7 @@ function populateForms(taskName){
     slider.oninput = slide;
   }
   var notes = document.getElementById("tempNotes").cloneNode(true);
-  notes
+  var submitBtn = document.getElementById("submitBtn").cloneNode(true);
   vForm.appendChild(notes);
    vForm.appendChild(submitBtn);
 }
