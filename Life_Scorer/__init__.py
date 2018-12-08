@@ -228,7 +228,6 @@ def show_month():
 @app.route('/edit_log/<int:log_id>', methods=('GET','POST'))
 @login_required
 def edit_log(log_id):
-    a_log = interface.get_log_by_id(log_id, get_user())[0]
     if request.method == 'POST':
         form = dict(request.form)
         #print(form)
@@ -240,4 +239,5 @@ def edit_log(log_id):
         attributes=form.pop('attributes')
         interface.update_log(log_id,task_id,note,date,time,attributes,get_user())
         return redirect(url_for('show_log_part',num_logs =50))
+    a_log = interface.get_log_by_id(log_id, get_user())[0]
     return render_template('edit_log.html', a_log =a_log)

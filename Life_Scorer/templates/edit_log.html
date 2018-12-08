@@ -3,10 +3,17 @@
 {% block content %}
 <form method="post" id='log_form'>
     {% for item in a_log.keys() %}
-    <label for="{{ item }}">{{ item }}</label>
-    <br>
-    <input name="{{ item }}" value="{{ a_log[item] }}">
-    <br>
+    {% if item =="note" %}
+        <label for="{{ item }}">{{ item }}</label>
+        <br>
+        <textarea name="{{ item }}">{{ a_log[item] }}</textarea>
+        <br>
+    {% else %}
+        <label for="{{ item }}">{{ item }}</label>
+        <br>
+        <input name="{{ item }}" value="{{ a_log[item] }}">
+        <br>
+    {% endif %}
     {% endfor %}
 </form>
 <br>
