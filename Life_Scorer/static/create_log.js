@@ -102,11 +102,15 @@ function populateForms(taskName){
     slider.max = task[attribute]['max'];
     slider.value = task[attribute]['default'];
     numIn.value = task[attribute]['default'];
-    label.textContent = attribute;
+    label.textContent = attribute.toUpperCase();
     var submitBtn = document.getElementById("submitBtn").cloneNode(true);
-    vForm.appendChild(label);
-    vForm.appendChild(slider);
-    vForm.appendChild(numIn);
+    //Wrapping each form input in div to seperate.
+    var div = document.createElement("div");
+    vForm.appendChild(div);
+    div.appendChild(label);
+    div.appendChild(document.createElement('br'));
+    div.appendChild(slider);
+    div.appendChild(numIn);
     //Closure so slider function bind to right num input
     function makeFunc(numIn) {
       var numIn = numIn; 
