@@ -69,6 +69,7 @@ def create_task():
 def show_log():
     log = interface.get_log(get_user())
     log.reverse() #So it shows latest record first
+
     return render_template('log.html', log=log)
  
 @app.route('/show_log/<int:num_logs>')
@@ -76,7 +77,7 @@ def show_log():
 def show_log_part(num_logs):
     log = interface.get_log(get_user())
     log.reverse() #So it shows latest record first
-    log = log[0:num_logs]
+    log = log[0:num_logs]  
     return render_template('log.html', log=log)
     
 @app.route('/index')

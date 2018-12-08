@@ -65,10 +65,17 @@ li a:hover {
     background:red;
 }
 
+
 textarea{
     margin-top: 10px;
     margin-bottom: 10px;
     width: 50%;
     height: 10ch;
     
+}
+.tabletext{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 200ch;
+    height: 5ch;
 }
