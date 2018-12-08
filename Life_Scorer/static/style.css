@@ -71,6 +71,7 @@ textarea{
     margin-bottom: 10px;
     height:5ch;
     width: 90%;
+    text-size-adjust: none;
 }
 
 .log-item{
