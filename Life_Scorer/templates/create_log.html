@@ -32,7 +32,7 @@
   {% for task in tasks %}
     {% if task.display %}
     <input type = "button" id="{{task.name }}"  
-    class="inline button {{ '' if task.recurring else 'recur'}}" onclick="get_selection(this)" value="{{ task.name }}">  
+    class="picker button {{ '' if task.recurring else 'recur'}}" onclick="get_selection(this)" value="{{ task.name }}">  
     {% endif %}
   {% endfor %}
 

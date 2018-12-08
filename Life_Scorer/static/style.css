@@ -69,7 +69,8 @@ li a:hover {
 textarea{
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 50%;
+    height:5ch;
+    width: 90%;
 }
 
 .log-item{
@@ -98,4 +99,7 @@ textarea{
     margin-bottom: 0px;
     width: 75%;
     background-color:white !important ;
+}
+
+.picker{
 }

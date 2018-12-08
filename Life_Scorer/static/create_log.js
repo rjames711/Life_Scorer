@@ -48,7 +48,7 @@ function task_text() {
   input = document.getElementById('selection');
   filter = input.value.toUpperCase();
 
-  var tasks = document.getElementsByClassName("inline button");
+  var tasks = document.getElementsByClassName("picker button");
   // Loop through all list items, and hide those who don't match the search query
   for (i = 0; i < tasks.length; i++) {
     task = tasks[i];
