@@ -13,14 +13,16 @@
 <br><br><br>
 </div>
 <div class="inline">
-<input type="text" id="selection"
+<input type="text" id="selection" autocomplete="off"
 placeholder="Type to filter" onkeyup="task_text()">
 <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
 </div>
 <br>
 <div>
   {% for item in log %}
-    <div id= "{{item[1]}}" class="inline buttons">
+
+    <div id= "{{item[1]}}" >
+      <div class="inline buttons">
       <div><a href="{{ url_for('edit_log',log_id=item[0])}}">edit</a></div>
       {% for col in range(item | length) %}
         {% if col < (item |length) - 1 %}
@@ -32,7 +34,7 @@ placeholder="Type to filter" onkeyup="task_text()">
           {% endif %}
         {% endif %}
       {% endfor %}
-    
+    </div>
   {% endfor %}
   </div>
 <script type="text/javascript" src="{{ url_for('static', filename = 'show_log.js') }}"></script>

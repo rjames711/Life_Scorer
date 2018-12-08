@@ -19,7 +19,7 @@
 
 .inline {
     white-space: nowrap;
-    display: flex
+    display: flex;
 }
 
 .perc25{
@@ -72,13 +72,14 @@ textarea{
     margin-top: 10px;
     margin-bottom: 10px;
     width: 50%;
-    height: 10ch;
+    
     
 }
 .tabletext{
     margin-top: 0px;
     margin-bottom: 0px;
-    width: 200ch;
-    height: 5ch;
+    width: 75%;
+    min-height: 1ch;
+    max-height: 10ch;
     font-size: 12pt;
 }
