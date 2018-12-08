@@ -126,6 +126,7 @@ function populateForms(taskName){
   var notes = document.getElementById("tempNotes").cloneNode(true);
   var submitBtn = document.getElementById("submitBtn").cloneNode(true);
   vForm.appendChild(notes);
+  vForm.appendChild(document.createElement('br'));
    vForm.appendChild(submitBtn);
 }
 

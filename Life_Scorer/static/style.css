@@ -64,3 +64,11 @@ li a:hover {
 .recur{
     background:red;
 }
+
+textarea{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 10ch;
+    
+}
