@@ -6,7 +6,7 @@ function task_text() {
     filters = filters.split(",");
   
   
-    var tasks = document.getElementsByClassName("inline buttons");
+    var tasks = document.getElementsByClassName("log-item");
     // Loop through all list items, and hide those who don't match the search query
     for (i = 0; i < tasks.length; i++) {
       var task = tasks[i];
