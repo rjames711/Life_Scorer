@@ -10,7 +10,7 @@ echo $1
 if [ "$1" = "server" ]
 then
     echo running on server
-    flask run --host=0.0.0.0 --port=80 
+    flask run --host=0.0.0.0 --port=5000
 
 elif [ -z "$PORT" ]
 then

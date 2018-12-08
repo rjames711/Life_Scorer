@@ -9,3 +9,4 @@ venv/
 **.wsgi
 .idea/
 **-journal
+**.swp

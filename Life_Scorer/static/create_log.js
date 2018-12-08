@@ -111,6 +111,7 @@ function populateForms(taskName){
     div.appendChild(document.createElement('br'));
     div.appendChild(slider);
     div.appendChild(numIn);
+
     //Closure so slider function bind to right num input
     function makeFunc(numIn) {
       var numIn = numIn; 
@@ -123,7 +124,7 @@ function populateForms(taskName){
     slider.oninput = slide;
   }
   var notes = document.getElementById("tempNotes").cloneNode(true);
-  notes
+  var submitBtn = document.getElementById("submitBtn").cloneNode(true);
   vForm.appendChild(notes);
    vForm.appendChild(submitBtn);
 }
