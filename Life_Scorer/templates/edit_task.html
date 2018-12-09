@@ -4,9 +4,6 @@
 <script>
 var attrs = JSON.parse({{attr|tojson}});
 
-
-
-
 function initialize_fields() {
   unitQty=1;
 for(var attr in attrs){
@@ -26,6 +23,12 @@ for(var attr in attrs){
   }
   else{
     document.getElementById("nonrecurring").checked = true;
+  }
+  if ( "{{task.display}}" === "1"){
+    document.getElementById("display").checked = true;
+  }
+  else{
+    document.getElementById("hide").checked = true;
   }
   //Putting the jinja expression in double quotes and parseint to mollify linter
   btn = document.getElementById(parseInt("{{task.category}}"));
