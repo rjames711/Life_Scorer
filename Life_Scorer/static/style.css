@@ -1,11 +1,11 @@
 * {
     background-color: #1e0931;
     color: #02fda9;
-    font-size: 12pt;
+    font-size: 1rem;
 }
 
 .button, button,input[type="button"]{
-    font-size: 14pt;
+    font-size: 1rem;
 }
 
 .button:hover, button:hover,input[type="button"]:hover{
@@ -13,8 +13,8 @@
 }
 
 #selection{
-    margin-bottom: 14px;
-    font-size:16pt;
+    margin-bottom: 1rem;
+    font-size:1rem;
 }
 
 .inline {
@@ -54,7 +54,7 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 16px;
+    padding: 1rem;
     text-decoration: none;
 }
 
@@ -67,8 +67,8 @@ li a:hover {
 }
 
 textarea{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     height:5ch;
     width: 90%;
     text-size-adjust: none;
@@ -80,7 +80,7 @@ textarea{
 
 #log-container * {
     color: black;
-    font-size:30px;
+    font-size:1rem;
     text-size-adjust: none;
     border-style:solid;
     border-width:1px;
