@@ -9,7 +9,7 @@ def sort_tasks(history_len, user):
         for i in range(len(tasks)):
             if tasks[i].task_id == id:
                 return i
-    task_freq = get_task_freq(history_len)
+    task_freq = get_task_freq(history_len, user)
     tasks= interface.read_tasks(user)
     sorted_tasks = []
     for task in task_freq:
@@ -19,8 +19,8 @@ def sort_tasks(history_len, user):
     return sorted_tasks + tasks
 
 #Gets the frequency of different log items in a given history length
-def get_task_freq(history_len):
-    db = interface.get_task_db('Rob')
+def get_task_freq(history_len, user):
+    db = interface.get_task_db(user)
     c = db.cursor()
     c.execute('select * from log order by id desc limit ?',(history_len,))
     a=c.fetchall()
