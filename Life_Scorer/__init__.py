@@ -242,3 +242,8 @@ def edit_log(log_id):
         return redirect(url_for('show_log_part',num_logs =50))
     a_log = interface.get_log_by_id(log_id, get_user())[0]
     return render_template('edit_log.html', a_log =a_log)
+
+@app.route('/graph')
+def graph():
+    return render_template('graph.html')
+    
