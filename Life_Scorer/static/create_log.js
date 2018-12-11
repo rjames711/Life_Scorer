@@ -32,6 +32,7 @@ function get_selection(btn) {
   try{
     if(old_select){
     document.getElementById(old_select).style.background="#4170f4";
+    document.getElementById(old_select+'-edit').style.display = 'none';
     }
   }
   catch(error){
@@ -40,6 +41,10 @@ function get_selection(btn) {
   task_text()
   populateForms(taskName);
   old_select = taskName;
+    editBtnId = btn.id + '-edit'
+    editBtn =  document.getElementById(editBtnId);
+    editBtn.style.display = "inline";
+    console.log(btn.id)
 }
 
 function task_text() {
@@ -75,6 +80,11 @@ function clear_sel(){
   document.getElementById('selection').value = '';
   document.getElementById('variableForm').innerHTML='';
   task_text();
+   var elements = document.getElementsByClassName('edit');
+    for (var i = 0; i < elements.length; i++){
+        elements[i].style.display = 'none';
+    }
+   
 }
 
 function hideTop(){
