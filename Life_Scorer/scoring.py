@@ -39,7 +39,7 @@ def get_day_score(day, user):
 
 def get_month_scores(user):
     #TODO fix timezone hardcoding below
-    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=4)
+    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=5)
     scores = []
     for days in range(30):
         offdt = dt - datetime.timedelta(days = days)
@@ -47,6 +47,4 @@ def get_month_scores(user):
         score = get_day_score(date, user)
         scores.append((date, score))
     return scores
-
-
 
