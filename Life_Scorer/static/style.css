@@ -8,6 +8,11 @@
     font-size: 1rem;
 }
 
+#clear {
+    padding:.1rem;
+    height:100%;
+}
+
 .button:hover, button:hover,input[type="button"]:hover{
     background-color: rgb(214, 93, 93);
 }
@@ -104,3 +109,4 @@ textarea{
 
 .picker{
 }
+

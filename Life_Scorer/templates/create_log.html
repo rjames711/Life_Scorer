@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1 class="topple" >
     {% block title %}
-    Log a Task {{session['username']}}, Today: {{score}}</h1>
+    {{session['username']}}, Today: {{score}}
+    <h1 class="topple" hidden>
+    Log a Task </h1>
     {% endblock %}
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

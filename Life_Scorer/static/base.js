@@ -7,3 +7,7 @@ function toggleTop(){
         nav.style.display='none';
     }
 }
+
+window.onload = function(){
+        toggleTop();
+}
