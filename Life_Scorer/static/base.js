@@ -1,13 +1,9 @@
 function toggleTop(){
     navbar = document.getElementById('nav');
-    if (nav.style.display === "none"){
-        nav.style.display = '';
+    if (nav.style.display === "block"){
+        nav.style.display = 'none';
     }
     else{
-        nav.style.display='none';
+        nav.style.display='block';
     }
-}
-
-window.onload = function(){
-        toggleTop();
 }
