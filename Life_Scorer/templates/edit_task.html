@@ -18,6 +18,9 @@ for(var attr in attrs){
   document.getElementById("points").value = points;
   document.getElementById("taskname").value = "{{task.name}}";
   document.getElementById("taskname").value = "{{task.name}}";
+//line below will throw error if multiline 
+//Really this should just done in template html
+  document.getElementById("description").value = "{{ task.description }}";
   if ( "{{task.recurring}}" === "1"){
     document.getElementById("recurring").checked = true;
   }

@@ -11,6 +11,7 @@ CREATE TABLE tasks (
     recurring integer, 
     display integer default 1,
     attributes text,
+    description text,
     FOREIGN KEY(categories_id ) REFERENCES categories(id)
 );
 CREATE TABLE log(

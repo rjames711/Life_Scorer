@@ -8,7 +8,7 @@
 import sqlite3, os, json
 
 class Task:
-    def __init__(self, task_id, name, points, category, recurring, display, attributes):
+    def __init__(self, task_id, name, points, category, recurring, display, attributes, description):
         self.task_id = task_id
         self.name = name
         self.points = points
@@ -16,6 +16,7 @@ class Task:
         self.recurring = recurring
         self.display = display
         self.attributes = json.loads(attributes)
+        self.description = description
     
     def __repr__(self):
         return str(self.task_id) + ': ' + self.name
@@ -49,7 +50,7 @@ def read_tasks(user):
     conn = get_task_db(user)
     c = conn.cursor()
     c.execute('''select id,name,points,categories_id
-    ,recurring,display, attributes from tasks''')
+    ,recurring,display, attributes,description from tasks''')
     tasks = c.fetchall()
     task_list = [ Task(*x) for x in tasks ] 
     return task_list
@@ -125,11 +126,11 @@ def get_categories(user):
 
 
 #Update task attributes based on id
-def update_task(name,points, category, recurring, attributes, display,id,user):
-    holder =(name,points,category,recurring, attributes, id, display)
+def update_task(name,points, category, recurring, attributes, id, display, description ,user):
+    holder =(name,points,category,recurring, attributes, display, description, id)
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('update tasks set name = ?, points = ?, categories_id = ?, recurring = ?, attributes = ?,display = ? where id = ?' ,holder)
+    c.execute('update tasks set name = ?, points = ?, categories_id = ?, recurring = ?, attributes = ?,display = ?,description=? where id = ?' ,holder)
     conn.commit()
 
 def update_log(log_id, task_id, note,date,time,attributes,user):
@@ -139,11 +140,11 @@ def update_log(log_id, task_id, note,date,time,attributes,user):
     c.execute('UPDATE log SET task_id=?,note=?,date=?,time=?,attributes=? WHERE id=?',holder)
     conn.commit()
 
-def add_task(name,points, category, recurring, attributes, user):
-    holder =(name,points,category,recurring, attributes)
+def add_task(name,points, category, recurring, attributes,description, user):
+    holder =(name,points,category,recurring, attributes,description)
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('insert into tasks (name,points,categories_id, recurring, attributes) values(?,?,?,?,?)',holder)
+    c.execute('insert into tasks (name,points,categories_id, recurring, attributes,description) values(?,?,?,?,?)',holder)
     conn.commit()
 
 #Renames all the necessary log records when a rename is done on attribute

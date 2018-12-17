@@ -51,13 +51,14 @@ def create_task():
             #print(json.dumps(attributes))
             i+=1
         taskname = request.form['taskname']
+        description = request.form['description']
         points = request.form['points']
         #Need further testing or refactor of below (also error handling)
         r = {'recurring': 1 , 'non-recurring' : 0 }
         recur = r[request.form['recurring']]
         category = request.form['category']
         interface.add_task(taskname, points, category, recur, 
-        json.dumps(attributes), get_user())
+        json.dumps(attributes),description, get_user())
         return redirect(url_for('show_month'))
 
     import sys #testing delate later
@@ -187,6 +188,7 @@ def edit_task(task_id=0):
             #print(json.dumps(attributes))
             i+=1
         taskname = request.form['taskname']
+        description = request.form['description']
         points = request.form['points']
         #Need further testing or refactor of below (also error handling)
         r = {'recurring': 1 , 'non-recurring' : 0 }
@@ -194,9 +196,9 @@ def edit_task(task_id=0):
         category = request.form['category']
         d = {'display': 1 , 'hide' : 0 }
         display = d[request.form['display']]
-
+        
         interface.update_task(taskname, points, category, recur, 
-        json.dumps(attributes),task_id,display, get_user())
+        json.dumps(attributes),task_id,display,description, get_user())
         return redirect(url_for('show_month'))
     if task_id is not 0:
         task = interface.get_task(task_id, get_user())
