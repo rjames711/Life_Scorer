@@ -144,7 +144,7 @@ def add_task(name,points, category, recurring, attributes,description, user):
     holder =(name,points,category,recurring, attributes,description)
     conn = get_task_db(user)
     c = conn.cursor()
-    c.execute('insert into tasks (name,points,categories_id, recurring, attributes,description) values(?,?,?,?,?)',holder)
+    c.execute('insert into tasks (name,points,categories_id, recurring, attributes,description) values(?,?,?,?,?,?)',holder)
     conn.commit()
 
 #Renames all the necessary log records when a rename is done on attribute
