@@ -45,9 +45,9 @@ function addAttribute(name, min, max, deflt, scored){
     attr_num += 1;
     attr_string = '<label for="attribute_name-' + attr_num + '">Attribute-' + attr_num + ' Name </label><br>' +
                 '<input name="attribute_name-' + attr_num + '" id="attribute_name-' + attr_num + '" step="any" required><br>'+
-                '<label for="min-' + attr_num + '">Min Value</label><br>' +
+                '<label for="min-' + attr_num + '">Fine adjustment step</label><br>' +
                 '<input type="number" name="min-' + attr_num + '" id="min-' + attr_num + '" step="any" required><br>'+
-                '<label for="max-' + attr_num + '">Max Value</label><br>' +
+                '<label for="max-' + attr_num + '">Coarse adjustment step</label><br>' +
                 '<input type="number" name="max-' + attr_num + '" id="max-' + attr_num + '" step="any" required><br>'+
                 '<label for="default-' + attr_num + '" >Default Value</label><br>' +
                 '<input type="number" class="default" name="default-' + attr_num + '" id="default-' + attr_num + '" step="any" required onkeyup="updateLabel()"><br>'+
