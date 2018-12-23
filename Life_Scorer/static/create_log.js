@@ -114,23 +114,20 @@ function populateForms(taskName){
     var pp = document.getElementById("pp").cloneNode(true);
     var m = document.getElementById("m").cloneNode(true);
     var mm = document.getElementById("mm").cloneNode(true);
-    p.addEventListener('click', function(){
-        let newval=parseFloat(numIn.value) + parseFloat(task[attribute]['min']); 
-        numIn.value=newval;
-    });
-    pp.addEventListener('click', function(){
-        let newval=parseFloat(numIn.value) + parseFloat(task[attribute]['max']); 
-        numIn.value=newval;
-    });
-    m.addEventListener('click', function(){
-        let newval=parseFloat(numIn.value) - parseFloat(task[attribute]['min']); 
-        numIn.value=newval;
-    });
-    mm.addEventListener('click', function(){
-        let newval=parseFloat(numIn.value) - parseFloat(task[attribute]['max']); 
-        numIn.value=newval;
-    });
-    
+    //closure to bind button controls to right number input.
+    function connect_button(numin,attribute,minmax,posneg){
+        //var numin = numin; //apparrently unnecessary to bind variable
+    function connect(){
+        let newval=parseFloat(numin.value) + posneg * parseFloat(task[attribute][minmax]); 
+        numin.value=newval;
+    }
+   return connect; 
+    }        
+    p.addEventListener('click', connect_button(numIn,attribute, 'min', 1));
+    pp.addEventListener('click', connect_button(numIn,attribute,  'max', 1));
+    m.addEventListener('click', connect_button(numIn,attribute, 'min', -1));
+    mm.addEventListener('click', connect_button(numIn,attribute, 'max', -1));
+          
     //Wrapping each form input in div to seperate.
     var div = document.createElement("div");
     vForm.appendChild(div);
@@ -142,9 +139,7 @@ function populateForms(taskName){
     div.appendChild(p);
     div.appendChild(pp);
     
-    
-
-      }
+    }
   var notes = document.getElementById("tempNotes").cloneNode(true);
   var submitBtn = document.getElementById("submitBtn").cloneNode(true);
   vForm.appendChild(notes);

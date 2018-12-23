@@ -113,3 +113,7 @@ textarea{
 #nav{
     display:none;
 }
+
+.control{
+    width:7rem;
+}
