@@ -44,15 +44,15 @@ var attr_num = 0;
 function addAttribute(name, min, max, deflt, scored){
     attr_num += 1;
     attr_string = '<label for="attribute_name-' + attr_num + '">Attribute-' + attr_num + ' Name </label><br>' +
-                '<input name="attribute_name-' + attr_num + '" id="attribute_name-' + attr_num + '" required><br>'+
+                '<input name="attribute_name-' + attr_num + '" id="attribute_name-' + attr_num + '" step="any" required><br>'+
                 '<label for="min-' + attr_num + '">Min Value</label><br>' +
-                '<input type="number" name="min-' + attr_num + '" id="min-' + attr_num + '" required><br>'+
+                '<input type="number" name="min-' + attr_num + '" id="min-' + attr_num + '" step="any" required><br>'+
                 '<label for="max-' + attr_num + '">Max Value</label><br>' +
-                '<input type="number" name="max-' + attr_num + '" id="max-' + attr_num + '" required><br>'+
+                '<input type="number" name="max-' + attr_num + '" id="max-' + attr_num + '" step="any" required><br>'+
                 '<label for="default-' + attr_num + '" >Default Value</label><br>' +
-                '<input type="number" class="default" name="default-' + attr_num + '" id="default-' + attr_num + '" required onkeyup="updateLabel()"><br>'+
+                '<input type="number" class="default" name="default-' + attr_num + '" id="default-' + attr_num + '" step="any" required onkeyup="updateLabel()"><br>'+
                 '<label for="scored-' + attr_num + '">Scored?</label><br>' +
-                '<input type="number" class="scored" name="scored-' + attr_num + '" id="scored-' + attr_num + '" required><br>'+
+                '<input type="number" class="scored" name="scored-' + attr_num + '" id="scored-' + attr_num + '" step="any" required><br>'+
                 '<br>';
     
     document.getElementById('attributes').insertAdjacentHTML('beforeend', attr_string);

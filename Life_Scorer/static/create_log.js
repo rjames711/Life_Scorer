@@ -103,36 +103,48 @@ function populateForms(taskName){
     console.log(attribute);
     var label = document.getElementById("tempAttrLabel").cloneNode(true);
     label.id = "attrLabel"+attribute;
-    var slider = document.getElementById("tempSlider").cloneNode(true);
-    slider.id = "slider"+attribute;
     var numIn = document.getElementById("tempNumIn").cloneNode(true);
     numIn.id = "numIn"+attribute;
     numIn.name = attribute;
-    slider.min = task[attribute]['min'];
-    slider.max = task[attribute]['max'];
-    slider.value = task[attribute]['default'];
     numIn.value = task[attribute]['default'];
     label.textContent = attribute.toUpperCase();
     var submitBtn = document.getElementById("submitBtn").cloneNode(true);
+    //increment and decrement buttons
+    var p = document.getElementById("p").cloneNode(true);
+    var pp = document.getElementById("pp").cloneNode(true);
+    var m = document.getElementById("m").cloneNode(true);
+    var mm = document.getElementById("mm").cloneNode(true);
+    p.addEventListener('click', function(){
+        let newval=parseFloat(numIn.value) + parseFloat(task[attribute]['min']); 
+        numIn.value=newval;
+    });
+    pp.addEventListener('click', function(){
+        let newval=parseFloat(numIn.value) + parseFloat(task[attribute]['max']); 
+        numIn.value=newval;
+    });
+    m.addEventListener('click', function(){
+        let newval=parseFloat(numIn.value) - parseFloat(task[attribute]['min']); 
+        numIn.value=newval;
+    });
+    mm.addEventListener('click', function(){
+        let newval=parseFloat(numIn.value) - parseFloat(task[attribute]['max']); 
+        numIn.value=newval;
+    });
+    
     //Wrapping each form input in div to seperate.
     var div = document.createElement("div");
     vForm.appendChild(div);
     div.appendChild(label);
     div.appendChild(document.createElement('br'));
-    div.appendChild(slider);
+    div.appendChild(mm);
+    div.appendChild(m);
     div.appendChild(numIn);
+    div.appendChild(p);
+    div.appendChild(pp);
+    
+    
 
-    //Closure so slider function bind to right num input
-    function makeFunc(numIn) {
-      var numIn = numIn; 
-      function func() {
-        numIn.value = this.value;
       }
-      return func;
-    }
-    var slide = makeFunc(numIn);
-    slider.oninput = slide;
-  }
   var notes = document.getElementById("tempNotes").cloneNode(true);
   var submitBtn = document.getElementById("submitBtn").cloneNode(true);
   vForm.appendChild(notes);

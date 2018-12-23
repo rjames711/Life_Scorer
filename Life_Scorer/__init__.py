@@ -59,7 +59,7 @@ def create_task():
         category = request.form['category']
         interface.add_task(taskname, points, category, recur, 
         json.dumps(attributes),description, get_user())
-        return redirect(url_for('show_month'))
+        return redirect(url_for('create_log'))
 
     import sys #testing delate later
     return render_template('create_task.html',categories=categories, version =sys.version)
@@ -130,13 +130,13 @@ def hello_world():
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     if 'username' in session:
-        return redirect(url_for('show_month'))
+        return redirect(url_for('create_log'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         if user.validate_user (username,password):
             session['username'] = request.form['username']
-            return redirect(url_for('show_month'))
+            return redirect(url_for('create_log'))
     return render_template('auth/login.html')
 
 
@@ -199,7 +199,7 @@ def edit_task(task_id=0):
         
         interface.update_task(taskname, points, category, recur, 
         json.dumps(attributes),task_id,display,description, get_user())
-        return redirect(url_for('show_month'))
+        return redirect(url_for('create_log'))
     if task_id is not 0:
         task = interface.get_task(task_id, get_user())
     categories = interface.get_categories(get_user())
@@ -213,7 +213,7 @@ def create_category():
     if request.method == 'POST':
         new_category = request.form['category']
         interface.add_category(new_category,get_user())
-        return redirect(url_for('show_month'))
+        return redirect(url_for('create_log'))
     return render_template('create_category.html')
 
 @app.route('/show_month')
