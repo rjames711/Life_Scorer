@@ -9,6 +9,7 @@ from functools import wraps
 import datetime
 import Life_Scorer.tools as tools
 import Life_Scorer.scoring as scoring
+import Life_Scorer.sum_by_day as sum_by_day
 import json
 
 app = Flask(__name__)
@@ -249,3 +250,13 @@ def edit_log(log_id):
 def graph():
     return render_template('graph.html')
     
+@app.route('/day_sums')
+@login_required
+def day_sums():
+    days = tools.get_days(10)
+    days_sums={}
+    for day in days:
+        days_sums[day] = sum_by_day.get_sums_by_day(day, get_user())
+    return render_template('day_sums.html', days_sums=days_sums)
+
+

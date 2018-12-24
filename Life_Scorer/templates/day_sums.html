@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Daily Sums{% endblock %}</h1>
+  
+{% endblock %}
+
+{% block content %}
+{% for day in days_sums %}
+<div>
+        <h1>{{day}} </h1>
+        {% for item in days_sums[day] %}
+        <div>{{item}}: {{ days_sums[day][item] }} </div>
+        {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}

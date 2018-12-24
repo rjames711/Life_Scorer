@@ -7,3 +7,14 @@ def convert_timestamp(timestamp, offset):
     time = dt.strftime('%H:%M:%S')
     return date,time
 
+
+def get_days(history_len):
+    #TODO fix timezone hardcoding below
+    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=5)
+    dates = []
+    for days in range(history_len):
+        offdt = dt - datetime.timedelta(days = days)
+        date = str(offdt.date())
+        dates.append(date)
+    return dates
+
