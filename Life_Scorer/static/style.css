@@ -115,5 +115,9 @@ textarea{
 }
 
 .control{
+    width:3rem;
+}
+
+.numin{
     width:7rem;
 }
