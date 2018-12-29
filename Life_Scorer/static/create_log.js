@@ -119,6 +119,8 @@ function populateForms(taskName){
         //var numin = numin; //apparrently unnecessary to bind variable
     function connect(){
         let newval=parseFloat(numin.value) + posneg * parseFloat(task[attribute][minmax]); 
+        let prec=10000 //rounding precision
+        newval = Math.round(newval*prec)/prec; //prevents num readin x.999999999 after a few pushes
         numin.value=newval;
     }
    return connect; 

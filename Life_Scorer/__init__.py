@@ -118,7 +118,7 @@ def create_log():
     tasks = rate_tasks.sort_tasks(250,get_user())
     attr = {task.name:task.attributes for task in tasks}
     attr = json.dumps(attr)
-    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=4)
+    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=5)
     score = scoring.get_day_score(dt.date(),get_user())
     return render_template('create_log.html', tasks=tasks, attr=attr, score=score)
     
