@@ -166,7 +166,3 @@ def rename_attribute(task_name, old_name,new_name, user):
         print(item)
     conn.commit()
     return results
-
-
-
-

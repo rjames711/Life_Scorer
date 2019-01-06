@@ -260,3 +260,16 @@ def day_sums():
     return render_template('day_sums.html', days_sums=days_sums)
 
 
+
+@app.route('/create_log2')
+def create_log2():
+    tasks = interface.read_tasks(get_user())
+    tasks = [task.__dict__ for task in tasks]
+    return render_template('create_log2.html', tasks = tasks)
+
+
+@app.route('/api')
+def api():
+    tasks = interface.read_tasks(get_user())
+    tasks = [task.__dict__ for task in tasks]
+    return json.dumps(tasks)
