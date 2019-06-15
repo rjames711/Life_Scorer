@@ -11,7 +11,7 @@ function task_text() {
     for (i = 0; i < tasks.length; i++) {
       var task = tasks[i];
       var taskName = task.id.split('-')[0].toUpperCase()
-      console.log(taskName);
+//      console.log(taskName);
       var hide=true;
       for (var x in filters){
         var filter = filters[x];

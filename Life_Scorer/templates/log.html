@@ -7,6 +7,9 @@
 {% block content %}
 <div>
 <a href="{{ url_for('create_log') }}"><button type="button" >Log a new Record</button></a>
+<a href="{{ url_for('show_log_part',num_logs=50) }}"><button type="button" >show 50</button></a>
+<a href="{{ url_for('show_log_part',num_logs=250) }}"><button type="button" >show 250</button></a>
+<a href="{{ url_for('show_log_part',num_logs=1000) }}"><button type="button" >show 1000</button></a>
 {%if not request.path=="/show_log"%}
 <a href="{{ url_for('show_log') }}"><button type="button" >Show full log</button></a>
 {% endif %}
