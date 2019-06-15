@@ -270,6 +270,7 @@ def create_log2():
 
 @app.route('/api')
 def api():
-    tasks = interface.read_tasks(get_user())
+    #tasks = interface.read_tasks(get_user())
+    tasks = interface.read_tasks('Rob')
     tasks = [task.__dict__ for task in tasks]
     return json.dumps(tasks)
