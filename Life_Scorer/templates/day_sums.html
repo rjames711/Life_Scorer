@@ -10,13 +10,13 @@
   <a href="{{ url_for('create_log') }}"><button type="button" >Log a new Record</button></a>
 
   {%if not request.path=="/day_sums"%}
-  <a href="{{ url_for('day_sums') }}"><button type="button" >day_sums</button></a>
+  <a href="{{ url_for('day_sums', num_days=30) }}"><button type="button" >day_sums</button></a>
   {% endif %}
   {%if not request.path=="/week_sums"%}
-  <a href="{{ url_for('week_sums') }}"><button type="button" >week_sums</button></a>
+  <a href="{{ url_for('week_sums', num_weeks=16) }}"><button type="button" >week_sums</button></a>
   {% endif %}
   {%if not request.path=="/month_sums"%}
-  <a href="{{ url_for('month_sums') }}"><button type="button" >month_sums</button></a>
+  <a href="{{ url_for('month_sums', num_months=6) }}"><button type="button" >month_sums</button></a>
   {% endif %}
   <br><br>
   <div class="inline">

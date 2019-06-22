@@ -249,34 +249,35 @@ def edit_log(log_id):
 @app.route('/graph')
 def graph():
     return render_template('graph.html')
-    
-@app.route('/day_sums')
+
+
+@app.route('/day_sums/<int:num_days>')
 @login_required
-def day_sums():
-    days = tools.get_days(10,0)
+def day_sums(num_days):
+    days = tools.get_days(num_days,0)
     days_sums={}
     for day in days:
         days_sums[day] = sum_by_day.get_sums_by_day(day, get_user())
     return render_template('day_sums.html', days_sums=days_sums)
 
-@app.route('/week_sums')
+@app.route('/week_sums/<int:num_weeks>')
 @login_required
-def week_sums():
-    weeks = 8
+def week_sums(num_weeks):
     week_sums={}
-    for week in range(weeks):
+    for week in range(num_weeks):
         days = tools.get_days(7,7*week)
         week_range = days[0] + ' - ' + days[len(days)-1]
         week_sums[week_range] = sum_by_day.get_days_sums(days, get_user())
     #TODO below is kinda weird just using day sums template and variable
     return render_template('day_sums.html', days_sums=week_sums)
 
-@app.route('/month_sums')
+
+
+@app.route('/month_sums/<int:num_months>')
 @login_required
-def month_sums():
-    months = 4
+def month_sums(num_months):
     month_sums={}
-    for month in range(months):
+    for month in range(num_months):
         days = tools.get_days(30,30*month)
         month_range = days[0] + ' - ' + days[len(days)-1]
         month_sums[month_range] = sum_by_day.get_days_sums(days, get_user())
