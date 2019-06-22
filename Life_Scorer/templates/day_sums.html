@@ -6,13 +6,34 @@
 {% endblock %}
 
 {% block content %}
+<div>
+  <a href="{{ url_for('create_log') }}"><button type="button" >Log a new Record</button></a>
+
+  {%if not request.path=="/day_sums"%}
+  <a href="{{ url_for('day_sums') }}"><button type="button" >day_sums</button></a>
+  {% endif %}
+  {%if not request.path=="/week_sums"%}
+  <a href="{{ url_for('week_sums') }}"><button type="button" >week_sums</button></a>
+  {% endif %}
+  {%if not request.path=="/month_sums"%}
+  <a href="{{ url_for('month_sums') }}"><button type="button" >month_sums</button></a>
+  {% endif %}
+  <br><br>
+  <div class="inline">
+    <input type="text" id="selection" autocomplete="off"
+    placeholder="Type to filter" onkeyup="task_text()">
+    <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
+    </div>
+    <br>
+  </div>
+
 {% for day in days_sums %}
 <div>
         <h1>{{day}} </h1>
         {% for item in days_sums[day] %}
-        <div>{{item}}: {{ days_sums[day][item] }} </div>
+        <div class='log-item'>{{item}}: {{ days_sums[day][item] }} </div>
         {% endfor %}
 </div>
 {% endfor %}
-
+<script type="text/javascript" src="{{ url_for('static', filename = 'day_sums.js') }}"></script>
 {% endblock %}

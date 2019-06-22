@@ -266,7 +266,8 @@ def week_sums():
     week_sums={}
     for week in range(weeks):
         days = tools.get_days(7,7*week)
-        week_sums[week] = sum_by_day.get_days_sums(days, get_user())
+        week_range = days[0] + ' - ' + days[len(days)-1]
+        week_sums[week_range] = sum_by_day.get_days_sums(days, get_user())
     #TODO below is kinda weird just using day sums template and variable
     return render_template('day_sums.html', days_sums=week_sums)
 
@@ -277,7 +278,8 @@ def month_sums():
     month_sums={}
     for month in range(months):
         days = tools.get_days(30,30*month)
-        month_sums[month] = sum_by_day.get_days_sums(days, get_user())
+        month_range = days[0] + ' - ' + days[len(days)-1]
+        month_sums[month_range] = sum_by_day.get_days_sums(days, get_user())
     #TODO below is kinda weird just using day sums template and variable
     return render_template('day_sums.html', days_sums=month_sums)
 
