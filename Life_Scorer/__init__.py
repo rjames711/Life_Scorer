@@ -253,12 +253,33 @@ def graph():
 @app.route('/day_sums')
 @login_required
 def day_sums():
-    days = tools.get_days(10)
+    days = tools.get_days(10,0)
     days_sums={}
     for day in days:
         days_sums[day] = sum_by_day.get_sums_by_day(day, get_user())
     return render_template('day_sums.html', days_sums=days_sums)
 
+@app.route('/week_sums')
+@login_required
+def week_sums():
+    weeks = 8
+    week_sums={}
+    for week in range(weeks):
+        days = tools.get_days(7,7*week)
+        week_sums[week] = sum_by_day.get_days_sums(days, get_user())
+    #TODO below is kinda weird just using day sums template and variable
+    return render_template('day_sums.html', days_sums=week_sums)
+
+@app.route('/month_sums')
+@login_required
+def month_sums():
+    months = 4
+    month_sums={}
+    for month in range(months):
+        days = tools.get_days(30,30*month)
+        month_sums[month] = sum_by_day.get_days_sums(days, get_user())
+    #TODO below is kinda weird just using day sums template and variable
+    return render_template('day_sums.html', days_sums=month_sums)
 
 
 @app.route('/create_log2')

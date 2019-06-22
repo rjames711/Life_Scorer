@@ -8,9 +8,10 @@ def convert_timestamp(timestamp, offset):
     return date,time
 
 
-def get_days(history_len):
+def get_days(history_len, offset_days):
     #TODO fix timezone hardcoding below
     dt = datetime.datetime.utcnow() -datetime.timedelta(hours=5)
+    dt -= datetime.timedelta(days=offset_days)
     dates = []
     for days in range(history_len):
         offdt = dt - datetime.timedelta(days = days)

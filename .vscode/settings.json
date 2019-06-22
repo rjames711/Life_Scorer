@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "${workspaceFolder}/venv/bin/python"
+    "python.pythonPath": "C:\\Users\\Rob\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
