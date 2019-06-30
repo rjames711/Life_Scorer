@@ -13,9 +13,14 @@ import Life_Scorer.sum_by_day as sum_by_day
 import json
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/lsapi/*": {"origins": "*"}})
+
+import Life_Scorer.lsapi as lsapi
+app.register_blueprint(lsapi.bp)
+
 
 def debug(func):
     print('wrapped')
@@ -293,9 +298,3 @@ def create_log2():
     return render_template('create_log2.html', tasks = tasks)
 
 
-@app.route('/api')
-def api():
-    #tasks = interface.read_tasks(get_user())
-    tasks = interface.read_tasks('Rob')
-    tasks = [task.__dict__ for task in tasks]
-    return json.dumps(tasks)
