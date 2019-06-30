@@ -17,11 +17,12 @@ from flask_cors import CORS
 
 bp = Blueprint('lsapi', __name__, url_prefix='/lsapi')
 
-@bp.route('/<token>')
-def lsapi(token):
-    if token != 'aa5bbc26-9375-4952-9546-0a30cf5feeb8':
-        return "no love"
-    #tasks = interface.read_tasks(get_user())
-    tasks = interface.read_tasks('Rob')
-    tasks = [task.__dict__ for task in tasks]
-    return json.dumps(tasks)
+@bp.route('/<user>/<token>')
+def lsapi(user, token):
+   good_token = open('token.txt','r').read()
+   good_token = good_token.strip('\n')
+   if token != good_token:
+         return 'no love'
+   tasks = interface.read_tasks(user)
+   tasks = [task.__dict__ for task in tasks]
+   return json.dumps(tasks)

@@ -11,3 +11,4 @@ venv/
 **-journal
 **.swp
 backups/
+token.txt
