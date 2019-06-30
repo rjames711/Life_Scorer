@@ -11,10 +11,11 @@ import Life_Scorer.tools as tools
 import Life_Scorer.scoring as scoring
 import Life_Scorer.sum_by_day as sum_by_day
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
-
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 def debug(func):
     print('wrapped')
