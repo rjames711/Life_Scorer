@@ -296,5 +296,3 @@ def create_log2():
     tasks = interface.read_tasks(get_user())
     tasks = [task.__dict__ for task in tasks]
     return render_template('create_log2.html', tasks = tasks)
-
-

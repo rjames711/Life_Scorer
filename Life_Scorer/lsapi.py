@@ -17,12 +17,27 @@ from flask_cors import CORS
 
 bp = Blueprint('lsapi', __name__, url_prefix='/lsapi')
 
-@bp.route('/<user>/<token>')
-def lsapi(user, token):
-   good_token = open('token.txt','r').read()
-   good_token = good_token.strip('\n')
-   if token != good_token:
+def token_required(view):
+   @wraps(view)
+   def wrapped_view(**kwargs):
+      token = kwargs['token']
+      good_token = open('token.txt','r').read()
+      good_token = good_token.strip('\n')
+      if token != good_token:
          return 'no love'
+      return view(**kwargs)
+   return wrapped_view
+
+
+@bp.route('/<user>/tasks/<token>')
+@token_required
+def tasks(user, token):
    tasks = interface.read_tasks(user)
    tasks = [task.__dict__ for task in tasks]
    return json.dumps(tasks)
+
+
+@bp.route('/<user>/dayscore/<date>/<token>')
+def dayscore(user, date,token):
+   score = {'score': scoring.get_day_score(date,'Rob') }
+   return json.dumps(score)
