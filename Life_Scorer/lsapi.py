@@ -51,4 +51,18 @@ def log(user,token):
    log = [list(item) for item in log] 
    for item in log:
       item[2] = json.loads(item[2])
+   log.reverse()
    return json.dumps(log)
+
+@bp.route('/<user>/log/<int:num_logs>/<token>')
+@token_required
+def show_log_part(user, token, num_logs):
+   log = interface.get_log(user)
+   #TODO Only pull needed logs
+   log = log[0:num_logs]  
+   log = [list(item) for item in log] 
+   for item in log:
+      item[2] = json.loads(item[2])
+   log.reverse() #So it shows latest record first
+   return json.dumps(log)
+
