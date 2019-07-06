@@ -9,6 +9,7 @@ from functools import wraps
 import datetime
 import Life_Scorer.tools as tools
 import Life_Scorer.scoring as scoring
+import Life_Scorer.user as user
 import Life_Scorer.sum_by_day as sum_by_day
 import json
 from flask_cors import CORS
@@ -21,8 +22,7 @@ def token_required(view):
    @wraps(view)
    def wrapped_view(**kwargs):
       token = kwargs['token']
-      good_token = open('token.txt','r').read()
-      good_token = good_token.strip('\n')
+      good_token = user.get_token(kwargs['user'])
       if token != good_token:
          return 'no love'
       return view(**kwargs)

@@ -42,4 +42,9 @@ def validate_user(username, password):
         return False #Invalid usersame
     return check_password_hash(user_pw,password)
     
-    
+def get_token(username):
+    conn = get_db()
+    c = conn.cursor()
+    holder = (username,)
+    user_pw = c.execute('SELECT token FROM tokens WHERE user_id=(select id from users where username=?)',holder).fetchone()
+    return user_pw[0]

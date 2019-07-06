@@ -4,3 +4,11 @@ CREATE TABLE users (
     password text not null,
     email text
 );
+
+CREATE TABLE tokens (
+    id integer primary key,
+    user_id integer,
+    token text,
+    token_expiry integer,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
