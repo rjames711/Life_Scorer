@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}LOG{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for pic in pics %}
+    <img src="{pic}">
+  {% endfor %}
+{% endblock %}

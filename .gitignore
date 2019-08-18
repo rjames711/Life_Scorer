@@ -12,3 +12,5 @@ venv/
 **.swp
 backups/
 token.txt
+*.mp4
+*.jpg

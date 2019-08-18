@@ -20,6 +20,7 @@ cors = CORS(app, resources={r"/lsapi/*": {"origins": "*"}})
 
 import Life_Scorer.lsapi as lsapi
 app.register_blueprint(lsapi.bp)
+app.register_blueprint(catdog.bp)
 
 
 def debug(func):
