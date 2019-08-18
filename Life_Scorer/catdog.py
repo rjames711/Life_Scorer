@@ -30,11 +30,11 @@ def token_required(view):
 
 
 @bp.route('/')
-def catdog(user, token):
-    return render_template('catdog.html', pics = get_catdog_pics)
+def catdog():
+    return render_template('catdog.html', pics = get_catdog_pics())
 
 def get_catdog_pics():
-   pics = os.listdir('./catdogpics')
-   pics = [ os.path.join('./catdogpics',x) for x in pics]
+   pics = os.listdir('static/catdogpics')
+   pics = [ os.path.join('static/catdogpics',x) for x in pics]
    return pics
 
