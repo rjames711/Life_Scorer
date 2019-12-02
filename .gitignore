@@ -11,3 +11,6 @@ venv/
 **-journal
 **.swp
 backups/
+**.jpg
+**.mp4
+catdogpics/
