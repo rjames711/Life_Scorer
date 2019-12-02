@@ -55,10 +55,10 @@ function task_text() {
       var end = event.changedTouches.item(0).clientX;
 
       if(end > start + offset){
-              window.location.href="create_log";
+              window.location.href="/create_log";
       }
       if(end < start - offset ){
-              window.location.href="create_log";
+              window.location.href="/create_log";
       }
     }
   });

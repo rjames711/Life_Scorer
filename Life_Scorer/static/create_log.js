@@ -169,10 +169,10 @@ function populateForms(taskName){
       var end = event.changedTouches.item(0).clientX;
 
       if(end > start + offset){
-              window.location.href="show_log";
+              window.location.href="show_log/50";
       }
       if(end < start - offset ){
-              window.location.href="show_log";
+              window.location.href="show_log/50";
       }
     }
   });
