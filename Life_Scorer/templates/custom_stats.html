@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Custom Stats{% endblock %}</h1>
+  
+{% endblock %}
+
+{% block content %}
+<table>
+<tr><td> Exercise points this week</td> <td>{{exp}}</td></tr>
+<tr><td> Total points this week</td> <td>{{tp}}</td></tr>
+<tr><td> Average weight this week</td> <td>{{w1}}</td></tr>
+<tr><td> Average weight last week</td> <td>{{w2}}</td></tr>
+<tr><td> Average weight diff</td> <td>{{w1-w2}}</td></tr>
+</table>
+{% endblock %}

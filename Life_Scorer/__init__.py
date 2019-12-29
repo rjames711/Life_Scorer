@@ -298,3 +298,27 @@ def api():
     tasks = interface.read_tasks('Rob')
     tasks = [task.__dict__ for task in tasks]
     return json.dumps(tasks)
+
+@app.route('/custom_stats')
+def custom_stats():
+    def ave_weight(sums):
+        k = ('weight','qty') #key
+        return sums[0][k]/sums[1][k]
+    ave_weight_week1 = ave_weight(sum_by_day.get_days_sums_by_task(tools.get_days(7,0),'Rob',14))
+    ave_weight_week2 = ave_weight(sum_by_day.get_days_sums_by_task(tools.get_days(7,7),'Rob',14))
+    ave_weight_week1 = round(ave_weight_week1,1)
+    ave_weight_week2 = round(ave_weight_week2,1)
+    exercise_points_week = sum([scoring.get_day_score_by_category(x,get_user(),1) 
+        for x in tools.get_days(7,0)])
+    points_week_total = sum([scoring.get_day_score(x,get_user()) for x in tools.get_days(7,0)])
+    k=(    f'Exercise points this week: {exercise_points_week}<br>'
+                f'Total points this week: {points_week_total}<br>'
+                f'Average weight this week: {ave_weight_week1}<br>'
+                f'Average weight last week: {ave_weight_week2}<br>'
+                )
+    return render_template('custom_stats.html', w1=ave_weight_week1,
+    w2=ave_weight_week2,exp=exercise_points_week,tp=points_week_total,k=k)
+    
+
+
+    

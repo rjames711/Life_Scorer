@@ -19,26 +19,7 @@ def score_entry(task, log):
     return task.points * unit_qty
             
 
-#Takes date in str form YYYY-MM-DD
-def get_day_score(day, user):
-    conn = interface.get_task_db(user)
-    conn.row_factory = sqlite3.Row
-    c = conn.cursor()
-    c.execute('select * from log where date =?',(day,))
-    day_activity = c.fetchall()
-    score = 0
-    for log in day_activity:
-        task_id = log['task_id']
-        task = interface.get_task(task_id,user)
-        log = json.loads(log['attributes'])
-        try:
-            score += score_entry(task, log)
-        except Exception as e:
-            print("type error: " + str(e))
-    return round(score)
-
-#Takes date in str form YYYY-MM-DD
-#Calculates score only of logs in given category
+#Takes score in str form YYYY-MM-DD
 def get_day_score_by_category(day, user, cat_id):
     conn = interface.get_task_db(user)
     conn.row_factory = sqlite3.Row
