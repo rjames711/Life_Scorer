@@ -248,7 +248,17 @@ def edit_log(log_id):
 
 @app.route('/graph')
 def graph():
-    return render_template('graph.html')
+    conn = interface.get_task_db(get_user())
+    c = conn.cursor()
+    c.execute('select attributes, date from log where task_id = 14')
+    r = c.fetchall()
+    w = [json.loads(x[0])['qty'] for x in r]
+    d = [y[1] for y in r]
+    d = [datetime.datetime.strptime(x,'%Y-%m-%d') for x in d]
+    start=d[1]
+    d = [(x-start).days for x in d]
+#    w.pop()
+    return render_template('graph.html',w=w, d=d)
 
 
 @app.route('/day_sums/<int:num_days>')
@@ -323,6 +333,3 @@ def temp():
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
 
-
-
-    
