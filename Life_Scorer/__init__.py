@@ -254,10 +254,11 @@ def graph():
     r = c.fetchall()
     w = [json.loads(x[0])['qty'] for x in r]
     d = [y[1] for y in r]
-    d = [datetime.datetime.strptime(x,'%Y-%m-%d') for x in d]
-    start=d[1]
-    d = [(x-start).days for x in d]
-#    w.pop()
+    #d = [datetime.datetime.strptime(x,'%Y-%m-%d') for x in d]
+    #start=d[1]
+    #d = [(x-start).days for x in d]
+    #d=json.dumps(d)
+    print(d, type(d))
     return render_template('graph.html',w=w, d=d)
 
 
