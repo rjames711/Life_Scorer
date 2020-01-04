@@ -313,6 +313,16 @@ def custom_stats():
     return render_template('custom_stats.html', w1=ave_weight_week1,
     w2=ave_weight_week2,exp=exercise_points_week,tp=points_week_total)
     
+#For even more ephemeral purposes than custom stats.
+@app.route('/temp')
+def temp():
+    conn = interface.get_task_db(get_user())
+    c = conn.cursor()
+    c.execute("select log.id, tasks.name, log.attributes, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id where date='2019-01-01'")
+    log = c.fetchall()
+    log.reverse() #So it shows latest record first
+    return render_template('log.html', log=log)
+
 
 
     
