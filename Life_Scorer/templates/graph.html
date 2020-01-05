@@ -1,38 +1,34 @@
+
 <head>
         <!-- Plotly.js -->
          <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       </head>
       
       <body>
-        <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
-        <div>
+ 
         </div>
         <script>
-        var w= {{w}}
-        var d= {{d |tojson|safe}}
-        var trace1 = {
-                x: d,
-            y: w,
-            mode: 'lines'
-            };
-/*            
-            var trace2 = {
-            x: [2, 3, 4, 5],
-            y: [16, 5, 11, 10],
-            mode: 'markers'
-            };
-            
-            var trace3 = {
-            x: [1, 2, 3, 4],
-            y: [12, 9, 15, 12],
-            mode: 'lines+markers'
-            };
- */           
-  //          var data = [ trace1, trace2, trace3 ];
-            var data = [ trace1 ];
-            
-            var layout = {};
-            
-            Plotly.newPlot('myDiv', data, layout);
+        var attr= {{data|tojson|safe}}
+        var dates= {{dates |tojson|safe}}
+        Object.keys(attr).forEach(key=>{
+          
+          var trace1 = {
+            x: dates,
+            y: attr[key],
+        mode: 'markers'
+        };
+          var data = [ trace1 ];
+          var layout = {
+           
+            yaxis:{
+              title: {
+              text:key
+            }}
+          };
+          document.body.innerHTML += '<div id="' + key + '" </div> '
+          Plotly.newPlot(key, data, layout);
+        });
+
+
         </script>
       </body>

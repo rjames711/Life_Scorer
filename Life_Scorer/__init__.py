@@ -246,20 +246,27 @@ def edit_log(log_id):
     a_log = interface.get_log_by_id(log_id, get_user())[0]
     return render_template('edit_log.html', a_log =a_log)
 
-@app.route('/graph')
-def graph():
+@app.route('/graph/<int:task_id>')
+@login_required
+def graph(task_id):
     conn = interface.get_task_db(get_user())
     c = conn.cursor()
-    c.execute('select attributes, date from log where task_id = 14')
+    c.execute('select attributes, date from log where task_id =?',(task_id,))
     r = c.fetchall()
-    w = [json.loads(x[0])['qty'] for x in r]
-    d = [y[1] for y in r]
+    attrs = [json.loads(x[0]) for x in r]
+    data = {}
+    for dp in attrs:
+        for attr in dp:
+            if attr in data:
+                data[attr].append(dp[attr])
+            else:
+                data[attr] = [dp[attr]]
+    dates = [y[1] for y in r]
     #d = [datetime.datetime.strptime(x,'%Y-%m-%d') for x in d]
     #start=d[1]
     #d = [(x-start).days for x in d]
     #d=json.dumps(d)
-    print(d, type(d))
-    return render_template('graph.html',w=w, d=d)
+    return render_template('graph.html',data=data, dates=dates)
 
 
 @app.route('/day_sums/<int:num_days>')
