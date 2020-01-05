@@ -261,7 +261,13 @@ def graph(task_id):
                 data[attr].append(dp[attr])
             else:
                 data[attr] = [dp[attr]]
+    
     dates = [y[1] for y in r]
+    
+    data['points']=[]
+    for day in dates:
+        data['points'].append(scoring.get_day_score_by_task(day,get_user(),task_id))
+
     #d = [datetime.datetime.strptime(x,'%Y-%m-%d') for x in d]
     #start=d[1]
     #d = [(x-start).days for x in d]

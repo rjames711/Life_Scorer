@@ -1,34 +1,59 @@
-
 <head>
-        <!-- Plotly.js -->
-         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-      </head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+  </div>
+  <script>
+    var attr = {{ data| tojson | safe}}
+    var dates = {{ dates | tojson | safe}}
+    Object.keys(attr).forEach(key => {
+      console.log(key);
+      var type = ''
+      if (key === 'points') {
+        type = 'bar';
+        var duplicate = [];
+        for (var i = 1; i < dates.length; i++) {
+          if (dates[i] === dates[i - 1]) {
+            duplicate.push(i);
+          }
+        }
+        //console.log(duplicate);
+        //console.log(dates)
+        for (var i = 0; i < duplicate.length; i++) {
+          /*Basically just zeroing out duplicate day-scores so that
+          they don't stack in a bar graph. Really janky.
+          */
+          dates[duplicate[i]] = '';
+          attr['points'][duplicate[i]] = 0;
+        }
+        //console.log(dates)
+      }
+      var trace1 = {
+        x: dates,
+        y: attr[key],
+        mode: 'markers',
+        type: type
+      };
+      var data = [trace1];
+      var layout = {
+
+        yaxis: {
+          title: {
+            text: key
+          }
+        }
+      };
       
-      <body>
- 
-        </div>
-        <script>
-        var attr= {{data|tojson|safe}}
-        var dates= {{dates |tojson|safe}}
-        Object.keys(attr).forEach(key=>{
-          
-          var trace1 = {
-            x: dates,
-            y: attr[key],
-        mode: 'markers'
-        };
-          var data = [ trace1 ];
-          var layout = {
-           
-            yaxis:{
-              title: {
-              text:key
-            }}
-          };
-          document.body.innerHTML += '<div id="' + key + '" </div> '
-          Plotly.newPlot(key, data, layout);
-        });
-
-
-        </script>
-      </body>
+      document.body.innerHTML += '<div id="' + key + '" </div> '
+      Plotly.newPlot(key, data, layout);
+    });
+    //Now basically cut out the points graph and re-appennd it to the 
+    //body in case it came in out of order.
+    var points = document.getElementById('points');
+    points.remove();
+    document.body.append(points);
+  </script>
+</body>
