@@ -251,6 +251,19 @@ def edit_log(log_id):
 def graph(task_id):
     conn = interface.get_task_db(get_user())
     c = conn.cursor()
+    if task_id == 0:
+        c.execute('select date from log')
+        d = c.fetchall()
+        dates = [ x[0] for x in d]
+        dates = list(set(dates))
+        data =  {}
+        data['points']=[]
+        for day in dates:
+            data['points'].append(scoring.get_day_score(day,get_user()))
+
+        return render_template('graph.html',data=data, dates=dates)
+
+        return d
     c.execute('select attributes, date from log where task_id =?',(task_id,))
     r = c.fetchall()
     attrs = [json.loads(x[0]) for x in r]
@@ -263,11 +276,9 @@ def graph(task_id):
                 data[attr] = [dp[attr]]
     
     dates = [y[1] for y in r]
-    
     data['points']=[]
     for day in dates:
         data['points'].append(scoring.get_day_score_by_task(day,get_user(),task_id))
-
     #d = [datetime.datetime.strptime(x,'%Y-%m-%d') for x in d]
     #start=d[1]
     #d = [(x-start).days for x in d]
