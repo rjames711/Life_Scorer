@@ -1,50 +1,33 @@
 import sqlite3
 import datetime
-
-if __name__ == '__main__':
-    import interface # For testing as standalone file
-else:
-    import Life_Scorer.interface as interface
 import json
 
-def score_entry(task, log):
-    unit_qty = 1
-    attributes = task.attributes
-    #entry = json.loads(log['attributes'])
-    for attr in log:
-        #print(attr, attributes[attr]['scored'], )
-        if int(attributes[attr]['scored']) == 1:
-            unit_qty *= log[attr]
-    #print(task.points, unit_qty)
-    return task.points * unit_qty
-            
+try:
+    import Life_Scorer.interface as interface
+    import Life_Scorer.scoring as scoring
+except:
+    import interface # For testing as standalone file
+    import scoring
 
-#Takes score in str form YYYY-MM-DD
-def get_day_score_by_category(day, user, cat_id):
+#Returns list of scores for all days in log
+def get_alltime_day_scores(user):
     conn = interface.get_task_db(user)
-    conn.row_factory = sqlite3.Row
     c = conn.cursor()
-    c.execute("select * from  (select * from log where task_id in (select id from tasks where categories_id=?)) where date=?",(cat_id,day))
-    day_activity = c.fetchall()
-    score = 0
-    for log in day_activity:
-        task_id = log['task_id']
-        task = interface.get_task(task_id,user)
-        log = json.loads(log['attributes'])
-        try:
-            score += score_entry(task, log)
-        except Exception as e:
-            print("type error: " + str(e))
-    return round(score)
+    c.execute('select date from log')
+    d = c.fetchall()
+    dates = [ x[0] for x in d]
+    dates = list(set(dates))
+    data =  []
+    for day in dates:
+        data.append((scoring.get_day_score(day,user),day))
+    data.sort(key=lambda x: x[1],reverse=True)
+    return data
 
-def get_month_scores(user):
-    #TODO fix timezone hardcoding below
-    dt = datetime.datetime.utcnow() -datetime.timedelta(hours=5)
-    scores = []
-    for days in range(30):
-        offdt = dt - datetime.timedelta(days = days)
-        date = str(offdt.date())
-        score = get_day_score(date, user)
-        scores.append((date, score))
-    return scores
-
+#Returns user history in the weekly total scores
+#TODO write less obnoxiously
+def get_monthly_scores(user):
+    a = get_alltime_day_scores(user)
+    w = [7*(x+1) for x in range(len(a)//7)]
+    b = [(sum(x[0] for x in a[x-7:x]),a[x-7][1]) for x in w]
+    b.sort(key=lambda x: x[1], reverse=True)
+    return b

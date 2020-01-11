@@ -1,10 +1,10 @@
 import sqlite3
 import datetime
 
-if __name__ == '__main__':
-    import interface # For testing as standalone file
-else:
+try:
     import Life_Scorer.interface as interface
+except:
+    import interface # For testing as standalone file
 import json
 
 def score_entry(task, log):
