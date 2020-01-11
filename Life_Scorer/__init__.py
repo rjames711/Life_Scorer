@@ -10,6 +10,7 @@ import datetime
 import Life_Scorer.tools as tools
 import Life_Scorer.scoring as scoring
 import Life_Scorer.sum_by_day as sum_by_day
+import Life_Scorer.custom_stats as cus_stats_module
 import json
 
 app = Flask(__name__)
@@ -246,24 +247,27 @@ def edit_log(log_id):
     a_log = interface.get_log_by_id(log_id, get_user())[0]
     return render_template('edit_log.html', a_log =a_log)
 
-@app.route('/graph/<int:task_id>')
+@app.route('/graph/<task_id>')
 @login_required
 def graph(task_id):
+    task_id=int(task_id)
     conn = interface.get_task_db(get_user())
     c = conn.cursor()
-    if task_id == 0:
-        c.execute('select date from log')
-        d = c.fetchall()
-        dates = [ x[0] for x in d]
-        dates = list(set(dates))
-        data =  {}
-        data['points']=[]
-        for day in dates:
-            data['points'].append(scoring.get_day_score(day,get_user()))
-
+    if task_id ==-1:
+        data={}
+        data['points']=cus_stats_module.get_monthly_scores(get_user())
+        dates = [ d[1] for d in data['points']]
+        data['points'] = [x[0] for x in data['points']]
+        data['average'] = [ x/30 for x in data['points']]
         return render_template('graph.html',data=data, dates=dates)
 
-        return d
+    if task_id == 0:
+        data={}
+        data['points']=cus_stats_module.get_weekly_scores(get_user())
+        dates = [ d[1] for d in data['points']]
+        data['points'] = [x[0] for x in data['points']]
+        return render_template('graph.html',data=data, dates=dates)
+
     c.execute('select attributes, date from log where task_id =?',(task_id,))
     r = c.fetchall()
     attrs = [json.loads(x[0]) for x in r]
