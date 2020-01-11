@@ -290,6 +290,12 @@ def graph(task_id):
     return render_template('graph.html',data=data, dates=dates)
 
 
+@app.route('/choose_graph')
+@login_required
+def choose_graph():
+    tasks = interface.read_tasks(get_user())
+    return render_template('choose_graph.html',tasks=tasks)
+
 @app.route('/day_sums/<int:num_days>')
 @login_required
 def day_sums(num_days):

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Show  a graph{% endblock %}</h1>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{% endblock %}
+{% block content %}
+  
+  <input type = "button" input id="0"  class="btn btn-primary btn-lg btn btn-block" onclick="get_selection(this)"
+  value="All Time Scores">
+  <input type = "button" input id="-1"  class="btn btn-primary btn-lg btn btn-block" onclick="get_selection(this)"
+  value="All Time Scores Monthly">
+  {% for task in tasks %}
+  <input type = "button" input id="{{ task.task_id }}"  class="btn btn-primary btn-lg btn btn-block" onclick="get_selection(this)"
+  value="{{ task.name }}">
+  {% endfor %}
+  <script>
+    function get_selection(btn){
+      console.log(btn.id);
+      window.location = "graph/"+btn.id
+    }
+  </script>
+{% endblock %}
+
