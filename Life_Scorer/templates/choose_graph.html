@@ -16,9 +16,9 @@
         </div>
 
   <input type = "button" input id="0"  class="picker button" onclick="get_selection(this)"
-  value="All Time Scores">
-  <input type = "button" input id="-1"  class="picker button" onclick="get_selection(this)"
-  value="All Time Scores Monthly">
+  value="All Time Scores" data-id="-1">
+  <input type = "button" input id="0"  class="picker button" onclick="get_selection(this)"
+  value="All Time Scores Monthly" data-id="0">
   {% for task in tasks %}
   <input type = "button" input id="{{ task.name }}"  class="picker button" data-id="{{ task.task_id }}"  onclick="get_selection(this)"
   value="{{ task.name }}">
