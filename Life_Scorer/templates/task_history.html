@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}LOG{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div id="log-container">
+        {% for item in log %}
+        <div id= "{{item[1]}}" class="log-item">
+                <div class="inline buttons">
+                        {% for col in range(item | length) %}
+                        {% if col < (item |length) - 1 %}
+                        <div> {{ item[col] }} </div>
+                        {% else %}
+                        <div><a href="{{ url_for('edit_log',log_id=item[0])}}">edit</a></div>
+                </div>
+                {% if item[col] != '' %}
+                <div><textarea readonly class="tabletext">{{ item[col] }}</textarea></div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+        </div>
+        {% endfor %}
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename = 'show_log.js') }}"></script>
+{% endblock %}

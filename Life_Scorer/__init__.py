@@ -72,8 +72,14 @@ def create_task():
 def show_log():
     log = interface.get_log(get_user())
     log.reverse() #So it shows latest record first
-
     return render_template('log.html', log=log)
+
+@app.route('/show_task/<int:task_id>')
+@login_required
+def show_task(task_id):
+    log = interface.get_log_history(task_id, get_user())
+    log.reverse() #So it shows latest record first
+    return render_template('task_history.html', log=log)
  
 @app.route('/show_log/<int:num_logs>')
 @login_required
@@ -295,6 +301,12 @@ def graph(task_id):
 def choose_graph():
     tasks = interface.read_tasks(get_user())
     return render_template('choose_graph.html',tasks=tasks)
+
+@app.route('/choose_task')
+@login_required
+def choose_task():
+    tasks = interface.read_tasks(get_user())
+    return render_template('choose_task.html',tasks=tasks)
 
 @app.route('/day_sums/<int:num_days>')
 @login_required

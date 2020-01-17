@@ -96,6 +96,13 @@ def get_log(user):
     c.execute("select log.id, tasks.name, log.attributes, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id")
     return c.fetchall()
 
+def get_log_history(task_id, user):
+    conn = get_task_db(user)
+    c = conn.cursor()
+    c.execute("select log.id, tasks.name, log.attributes, log.date, log.time, log.note from tasks inner join log on log.task_id=tasks.id where task_id=?",(task_id,))
+    return c.fetchall()
+
+
 def show_log(user):
     log = get_log(user)
     print('Qty\tTask')
