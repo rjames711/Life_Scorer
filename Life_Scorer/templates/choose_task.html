@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Show a Task{% endblock %}</h1>
+  <h1>{% block title %}Show  a Task{% endblock %}</h1>
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 {% endblock %}
 {% block content %}
+      <div class='inline'>
+        <input type="text" id="selection" name="selection" value="" 
+        onkeyup="task_text()" onclick="hideTop()" class="perc75"
+        placeholder="Select below or type" autocomplete="off">
+        
+        <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
+        </div>
 
   <input type = "button" input id="0"  class="picker button" onclick="get_selection(this)"
   value="All Time Scores" data-id="-1">
