@@ -36,7 +36,9 @@
     <input type = "button" id="{{task.name }}"  
     class="picker button {{ '' if task.recurring else 'recur'}}" onclick="get_selection(this)" value="{{ task.name }}">  
 
-    <input type = "button" input id="{{task.name}}-edit"  class="btn btn-primary btn-lg btn btn-block edit" onclick="editTask(this)" value="edit->" hidden>
+    <input type = "button" input id="{{task.name}}-edit"  class="btn btn-primary btn-lg btn btn-block edit" onclick="editTask(this)" value="edit >>" hidden >
+    <input type = "button" input id="{{task.name}}-history"  class="btn btn-primary btn-lg btn btn-block edit" onclick="history(this)" value="history >>" hidden >
+    <input type = "button" input id="{{task.name}}-graph"  class="btn btn-primary btn-lg btn btn-block edit" onclick="graph(this)" value="graph >>" hidden >
     
     {% endif %}
   {% endfor %}
@@ -58,6 +60,15 @@
       window.location = "{{url_for('edit_task')}}/"+(name).toString();  
   }
   
+  function history(btn){
+    var name = btn.id.split('-')[0];
+      window.location = "{{url_for('show_task')}}/"+(name).toString();  
+  }
+
+  function graph(btn){
+    var name = btn.id.split('-')[0];
+      window.location = "{{url_for('graph')}}/"+(name).toString();  
+  }
 </script>
 
 {% endblock %}

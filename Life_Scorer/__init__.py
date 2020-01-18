@@ -74,9 +74,15 @@ def show_log():
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
 
-@app.route('/show_task/<int:task_id>')
+@app.route('/show_task/<task_id>')
+@app.route('/show_task')
 @login_required
 def show_task(task_id):
+    name=task_id
+    name = interface.get_task_by_name(name,get_user())
+    #really confusing, basicaly getting task_id if task_name is passed in instead
+    if name:
+        task_id = name 
     log = interface.get_log_history(task_id, get_user())
     log.reverse() #So it shows latest record first
     return render_template('task_history.html', log=log)
@@ -254,8 +260,15 @@ def edit_log(log_id):
     return render_template('edit_log.html', a_log =a_log)
 
 @app.route('/graph/<task_id>')
+@app.route('/graph')
 @login_required
 def graph(task_id):
+    name=task_id
+    name = interface.get_task_by_name(name,get_user())
+    #really confusing, basicaly getting task_id if task_name is passed in instead
+    if name:
+        task_id = name 
+
     task_id=int(task_id)
     conn = interface.get_task_db(get_user())
     c = conn.cursor()
