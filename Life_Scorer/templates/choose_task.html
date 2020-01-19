@@ -1,34 +1,36 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Show  a Task{% endblock %}</h1>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<h1>{% block title %}Show a Task{% endblock %}</h1>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 {% endblock %}
 {% block content %}
-      <div class='inline'>
-        <input type="text" id="selection" name="selection" value="" 
-        onkeyup="task_text()" onclick="hideTop()" class="perc75"
-        placeholder="Select below or type" autocomplete="off">
-        
-        <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
-        </div>
+<div class='inline'>
+  <input type="text" id="selection" name="selection" value="" onkeyup="task_text()" onclick="hideTop()" class="perc75"
+    placeholder="Select below or type" autocomplete="off">
 
-  <input type = "button" input id="0"  class="picker button" onclick="get_selection(this)"
-  value="All Time Scores" data-id="-1">
-  <input type = "button" input id="0"  class="picker button" onclick="get_selection(this)"
-  value="All Time Scores Monthly" data-id="0">
-  {% for task in tasks %}
-  <input type = "button" input id="{{ task.name }}"  class="picker button" data-id="{{ task.task_id }}"  onclick="get_selection(this)"
-  value="{{ task.name }}">
-  {% endfor %}
-  <script>
-    function get_selection(btn){
-      console.log(btn);
-      window.location = "show_task/"+btn.getAttribute('data-id');
-    }
-  </script>
+  <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
+</div>
+
+<input type="button" input id="0" class="picker button" onclick="get_selection(this)" value="All Time Scores"
+  data-id="-1">
+<input type="button" input id="0" class="picker button" onclick="get_selection(this)" value="All Time Scores Monthly"
+  data-id="0">
+{% for task in tasks %}
+<input type="button" input id="{{ task.name }}" class="picker button" data-id="{{ task.task_id }}"
+  onclick="selectTask(this)" value="{{ task.name }}">
+{% endfor %}
+<input type="button" input id="add_task" onclick="multitask(this)" value="Add Task" style="background-color: brown;">
+<br><br>
+<input type="button" input id="show_history" onclick="get_selection(this)" value="Show History" style="background-color: green;">
+<script>
+  function get_selection(btn) {
+    console.log(btn);
+    window.location = "show_task/" + document.getElementById("selection").value; 
+  }
+</script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'filter.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'multitask.js') }}"></script>
 {% endblock %}
-

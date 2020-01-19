@@ -9,7 +9,8 @@ function task_text() {
   var input, filter;
   input = document.getElementById('selection');
   filter = input.value.toUpperCase();
-
+  filter = filter.split('&');
+  filter = filter[filter.length-1]; //Get last in selection list
   var tasks = document.getElementsByClassName("picker button");
   // Loop through all list items, and hide those who don't match the search query
   for (i = 0; i < tasks.length; i++) {
@@ -41,3 +42,4 @@ function hideTop(){
         elements[i].style.display = 'none';
     }
 }
+
