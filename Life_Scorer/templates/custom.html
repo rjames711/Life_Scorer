@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css" /> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/show-hint.css" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/show-hint.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/javascript-hint.js"></script>
+    </head>
+    <body style="background-color:black">
+        <div id="res"></div>
+        <textarea id="editor"></textarea>
+        <button onclick='run()' >run</button>
+
+        <script type="text/javascript" language="javascript">
+            var atest='hey Ima string';
+            function run(){
+                eval(myCodeMirror.getValue());
+            }
+            var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('editor'), {
+        mode:  "javascript",
+        value: "", //can't get this to work here.
+        extraKeys: {"Ctrl-Space": "autocomplete"},
+        lineNumbers: true});
+myCodeMirror.setValue(`function getAjax(url, success) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        xhr.open('GET', url);
+        xhr.onreadystatechange = function() {
+                    if (xhr.readyState>3 && xhr.status==200) success(xhr.responseText);
+                };
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.send();
+        return xhr;
+}
+
+// example request
+getAjax('http://singlepoint.space:5000/api', function(data){ console.log(data); });`)
+        </script>
+    </body>
+</html>

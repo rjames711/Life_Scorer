@@ -399,3 +399,6 @@ def temp():
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
 
+@app.route('/custom')
+def custom():
+    return render_template('custom.html')
