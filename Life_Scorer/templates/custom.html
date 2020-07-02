@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block header %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +12,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/show-hint.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/javascript-hint.js"></script>
     </head>
-    <body style="background-color:black">
+    <body style="background-color:green">
         <div id="res"></div>
         <textarea id="editor"></textarea>
         <button onclick='run()' >run</button>
@@ -25,7 +27,8 @@
         value: "", //can't get this to work here.
         extraKeys: {"Ctrl-Space": "autocomplete"},
         lineNumbers: true});
-myCodeMirror.setValue(`function getAjax(url, success) {
+myCodeMirror.setValue(`
+function getAjax(url, success) {
     var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         xhr.open('GET', url);
         xhr.onreadystatechange = function() {
@@ -37,7 +40,44 @@ myCodeMirror.setValue(`function getAjax(url, success) {
 }
 
 // example request
-getAjax('http://singlepoint.space:5000/api', function(data){ console.log(data); });`)
+getAjax('http://singlepoint.space:5000/api', function(data){ console.log(data); temp='test' });
+
+var d3script = document.createElement('script');  
+d3script.setAttribute('src','https://cdn.plot.ly/plotly-latest.min.js');
+document.head.appendChild(d3script);
+
+var b = document.getElementsByTagName('body')[0]
+var d = document.createElement("div")
+d.id = "graphdiv2"
+b.append(d)
+
+var trace1 = {
+  x: [1, 2, 3, 4],
+  y: [10, 15, 13, 17],
+  mode: 'markers',
+  type: 'scatter'
+};
+
+var trace2 = {
+  x: [2, 3, 4, 5],
+  y: [16, 5, 11, 9],
+  mode: 'lines',
+  type: 'scatter'
+};
+
+var trace3 = {
+  x: [1, 2, 3, 4],
+  y: [12, 9, 15, 12],
+  mode: 'lines+markers',
+  type: 'scatter'
+};
+
+var data = [trace1, trace2, trace3];
+
+setTimeout(function(){ Plotly.newPlot('graphdiv2', data)}, 500);
+   `)
         </script>
     </body>
 </html>
+
+{% endblock %}
