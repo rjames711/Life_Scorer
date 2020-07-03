@@ -24,3 +24,8 @@ CREATE TABLE log(
     attributes text,
     FOREIGN KEY(task_id) REFERENCES tasks(id)
     );
+CREATE TABLE scripts(
+    id INTEGER PRIMARY KEY,
+    script_name TEXT NOT NULL,
+    script TEXT NOT NULL 
+    );

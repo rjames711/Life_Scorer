@@ -403,13 +403,16 @@ def temp():
 def choose_script():
     scripts = interface.get_scripts(get_user())
     scripts = [x[0] for x in scripts] # just need names
+    if len(scripts)==0:
+        scripts.append('first_script')
+        interface.add_edit_script(get_user(),scripts[0],'console.log("edit me")')
     print(scripts)
     return render_template('choose_script.html',scripts=scripts)
 
 @app.route('/custom/<script_name>')
 def custom(script_name):
     print(script_name)
-    script = interface.get_script('Rob', script_name)
+    script = interface.get_script(get_user(), script_name)
     return render_template('custom.html', script_name=script_name, script=script)
 
 @app.route('/save_script',methods=('POST',))
