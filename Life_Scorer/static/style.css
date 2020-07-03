@@ -11,6 +11,10 @@ textarea, body, button, input, h1,a {
     font-size: .75rem;
 }
 
+.CodeMirror-cursor {
+  border-left: 1px solid #02fda9 !important;
+}
+
 @media screen 
  and (max-device-width: 1400px) {
    *{

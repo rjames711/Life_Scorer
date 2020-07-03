@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block header %}
+<ul> 
+{% for script in scripts%}
+    <li><a href="{{ url_for('custom',script_name=script) }}">{{script}}</a>
+{% endfor%}
+{% endblock %}

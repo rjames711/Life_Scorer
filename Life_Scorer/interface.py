@@ -173,3 +173,29 @@ def rename_attribute(task_name, old_name,new_name, user):
         print(item)
     conn.commit()
     return results
+
+def get_scripts(user):
+    conn = get_task_db(user)
+    c = conn.cursor()
+    c.execute("SELECT script_name, script from scripts")
+    log = c.fetchall()
+    return log
+
+def add_edit_script(user,script_name, script):
+    conn = get_task_db(user)
+    c = conn.cursor()
+    try:#script exists: edit 
+        get_script(user, script_name)
+        c.execute("UPDATE scripts SET script=? where script_name=?",(script,script_name))
+    except: #script doesn't exist: add    
+        c.execute("INSERT INTO scripts (script_name, script ) VALUES (?,?)",(script_name,script))
+    conn.commit()
+
+def get_script(user, script_name):
+    conn = get_task_db(user)
+    c = conn.cursor()
+    c.execute("SELECT script from scripts where script_name=?",(script_name,))
+    return c.fetchall()[0][0]
+
+
+    

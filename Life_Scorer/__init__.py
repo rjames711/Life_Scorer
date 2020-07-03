@@ -399,9 +399,28 @@ def temp():
     log.reverse() #So it shows latest record first
     return render_template('log.html', log=log)
 
-@app.route('/custom')
-def custom():
-    return render_template('custom.html')
+@app.route('/choose_script')
+def choose_script():
+    scripts = interface.get_scripts(get_user())
+    scripts = [x[0] for x in scripts] # just need names
+    print(scripts)
+    return render_template('choose_script.html',scripts=scripts)
+
+@app.route('/custom/<script_name>')
+def custom(script_name):
+    print(script_name)
+    script = interface.get_script('Rob', script_name)
+    return render_template('custom.html', script_name=script_name, script=script)
+
+@app.route('/save_script',methods=('POST',))
+def save_script():
+    name = request.form['script_name']
+    script = request.form['script']
+    interface.add_edit_script(get_user(),name,script)
+    print(name)
+    #return redirect(url_for('custom',script_name=name))
+    return redirect(url_for('misc'))
+
 
 @app.route('/misc')
 def misc():
