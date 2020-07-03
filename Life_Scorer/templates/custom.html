@@ -16,11 +16,12 @@
 </head>
 
 <body style="background-color:grey">
-    <div id="res"></div>
     <textarea id="editor"></textarea>
     <button onclick='run()'>run</button>
     <input id="script_name" placeholder="Script Name" value={{script_name}}>
     <button onclick="save_script()">save</button>
+    <button onclick="toggle_editor()">toggle editor</button>
+    <div id="res"></div>
     <script type="text/javascript" language="javascript">
         var atest = 'hey Ima string';
         function run() {
@@ -48,6 +49,9 @@
                 }
               });
 
+            }
+        function toggle_editor(){
+            $('.CodeMirror').toggle();
             }
     </script>
 </body>

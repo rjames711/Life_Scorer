@@ -20,6 +20,9 @@ textarea, body, button, input, h1,a {
    *{
         font-size:1.1rem;
    }    
+  .CodeMirror-code * {
+      font-size: .75rem;
+  }
 }
 
 .button, button,input[type="button"]{
