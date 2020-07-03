@@ -1,9 +1,16 @@
-body, button, input, h1, a {
+textarea, body, button, input, h1,a {
     background-color: #1e0931;
     color: #02fda9;
     font-size: 1rem;
     text-size-adjust: none;
 }
+
+.CodeMirror-code {
+    background-color: #1e0931;
+    color: #02fda9;
+    font-size: .75rem;
+}
+
 @media screen 
  and (max-device-width: 1400px) {
    *{

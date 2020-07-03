@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Misc{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <li><a href="{{ url_for('custom') }}">Custom Page</a>
+{% endblock %}

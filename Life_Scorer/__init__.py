@@ -402,3 +402,7 @@ def temp():
 @app.route('/custom')
 def custom():
     return render_template('custom.html')
+
+@app.route('/misc')
+def misc():
+    return render_template('misc.html')
