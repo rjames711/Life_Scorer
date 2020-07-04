@@ -13,6 +13,26 @@ textarea, body, button, input, h1,a {
 
 .CodeMirror-cursor {
   border-left: 1px solid #02fda9 !important;
+
+}
+
+#controls {
+    background-color: slategray;
+    padding: .1rem;
+    display: flex; 
+    justify-content: flex-end;
+    font-size: .75rem;
+}
+
+#controls *{
+    font-size: .75rem;
+}
+
+#script_name{
+
+    background-color:white;
+    color:black;
+    font-weight:bold
 }
 
 @media screen 
@@ -22,6 +42,9 @@ textarea, body, button, input, h1,a {
    }    
   .CodeMirror-code * {
       font-size: .75rem;
+  }
+  #script_name{
+      width: 7rem;
   }
 }
 
