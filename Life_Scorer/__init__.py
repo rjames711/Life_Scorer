@@ -1,5 +1,6 @@
 from flask import (
-   Flask, Blueprint, flash, g, redirect, render_template, request, url_for, session
+   Flask, Blueprint, flash, g, redirect, render_template, 
+   request, url_for, session
 )
 import os 
 print (os.getcwd())
@@ -12,10 +13,11 @@ import Life_Scorer.scoring as scoring
 import Life_Scorer.sum_by_day as sum_by_day
 import Life_Scorer.custom_stats as cus_stats_module
 import json
+from Life_Scorer.api_nocor import noncors_api
 
 app = Flask(__name__)
 app.secret_key =  'K%=y(Ta4'
-
+app.register_blueprint(noncors_api, url_prefix='/api')
 
 def debug(func):
     print('wrapped')
