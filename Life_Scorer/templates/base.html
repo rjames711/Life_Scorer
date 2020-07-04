@@ -6,8 +6,8 @@
 <nav class="top" id="nav">
 
   <h1><a href="{{ url_for('show_month') }}">Day Scorer</a></h1>
-  {% if session['username'] %}
   <ul> 
+  {% if session['username'] %}
       <li><a href="{{ url_for('logout') }}">Log Out</a>
       <li><a href="{{ url_for('create_log') }}">Create Log</a>
       <li><a href="{{ url_for('show_log_part',num_logs=50) }}">Show Log</a>
