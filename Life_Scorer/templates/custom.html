@@ -51,8 +51,19 @@
                     window.location.href = "../custom/"+name
                 }
               });
-
             }
+
+        function proxyGet(r_url,callback){
+            console.log('getting');
+            console.log(r_url);
+            $.ajax({
+                type : 'GET',
+                url : "{{url_for('proxy_get')}}",
+                data : {'r_url':r_url},
+                success: callback
+              });
+            }
+
         function toggle_editor(){
             $('.CodeMirror').toggle();
             if ($('#tbut')[0].textContent==='☐'){

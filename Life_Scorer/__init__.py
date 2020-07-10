@@ -426,6 +426,14 @@ def save_script():
     #return redirect(url_for('custom',script_name=name))
     return redirect(url_for('misc'))
 
+@app.route('/proxyget')
+def proxy_get():
+    url = request.args['r_url']
+    print('here I am again on my own again')
+    import requests as req
+    r = req.get(url)
+    return  r.text
+   
 
 @app.route('/misc')
 def misc():
