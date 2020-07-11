@@ -24,18 +24,30 @@ def login_required(view):
 def get_user():
     return session['username']
 
-@noncors_api.route("/test")
+@noncors_api.route("/dayscores_cat")
 @login_required
 def get_category_scores():
     cat_id= int(request.args.get('cat_id'))
     numdays= int(request.args.get('numdays'))
     offset= int(request.args.get('offset'))
-    print(cat_id, numdays, offset)
     days = tools.get_days(numdays,offset)
     dayscores=[]
     for day in days:
         dayscores.append(scoring.get_day_score_by_category( day, get_user(), cat_id))
-    print(days)
-    print(dayscores)
     res = [ dayscores , days ]
     return json.dumps(res)
+
+@noncors_api.route("/dayscores")
+@login_required
+def get_day_scores():
+    cat_id= int(request.args.get('cat_id'))
+    numdays= int(request.args.get('numdays'))
+    offset= int(request.args.get('offset'))
+    days = tools.get_days(numdays,offset)
+    dayscores=[]
+    for day in days:
+        dayscores.append(scoring.get_day_score( day, get_user()))
+    res = [ dayscores , days ]
+    return json.dumps(res)
+
+
