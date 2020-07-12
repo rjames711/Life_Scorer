@@ -28,6 +28,8 @@ def get_user():
 @login_required
 def get_category_scores():
     cat_id= int(request.args.get('cat_id'))
+    if cat_id == 0:
+        return get_day_scores()
     numdays= int(request.args.get('numdays'))
     offset= int(request.args.get('offset'))
     days = tools.get_days(numdays,offset)
