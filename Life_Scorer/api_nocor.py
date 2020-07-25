@@ -42,7 +42,6 @@ def get_category_scores():
 @noncors_api.route("/dayscores")
 @login_required
 def get_day_scores():
-    cat_id= int(request.args.get('cat_id'))
     numdays= int(request.args.get('numdays'))
     offset= int(request.args.get('offset'))
     days = tools.get_days(numdays,offset)
