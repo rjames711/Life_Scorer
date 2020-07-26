@@ -438,3 +438,11 @@ def proxy_get():
 @app.route('/misc')
 def misc():
     return render_template('misc.html')
+
+@app.route('/react')
+def react():
+    return render_template("react/react_test.html")
+
+@app.route('/react2')
+def react2():
+    return render_template("LifeScorerFrontend/build/index.html")

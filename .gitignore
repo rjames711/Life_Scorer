@@ -14,3 +14,4 @@ backups/
 **.jpg
 **.mp4
 catdogpics/
+node_modules/
