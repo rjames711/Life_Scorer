@@ -51,4 +51,9 @@ def get_day_scores():
     res = [ dayscores , days ]
     return json.dumps(res)
 
-
+@noncors_api.route("/tasks")
+@login_required
+def tasks():
+    tasks = interface.read_tasks(get_user())
+    tasks = [task.__dict__ for task in tasks]
+    return json.dumps(tasks)

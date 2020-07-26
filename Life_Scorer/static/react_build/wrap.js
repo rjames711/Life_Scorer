@@ -8,51 +8,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-console.log('from jsx compile edit2');
+import LikeButton from './jsx_test.js';
+import TaskList from './TaskList.js';
+console.log('from wrapper');
 
-var LikeButton = function (_React$Component) {
-  _inherits(LikeButton, _React$Component);
+var LikeButtonW = function (_React$Component) {
+  _inherits(LikeButtonW, _React$Component);
 
-  function LikeButton(props) {
-    _classCallCheck(this, LikeButton);
+  function LikeButtonW(props) {
+    _classCallCheck(this, LikeButtonW);
 
-    var _this = _possibleConstructorReturn(this, (LikeButton.__proto__ || Object.getPrototypeOf(LikeButton)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (LikeButtonW.__proto__ || Object.getPrototypeOf(LikeButtonW)).call(this, props));
 
     _this.state = { liked: false };
     return _this;
   }
 
-  _createClass(LikeButton, [{
+  _createClass(LikeButtonW, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      if (this.state.liked) {
-        return 'You liked this.';
-      }
 
       return React.createElement(
         'div',
         null,
+        React.createElement(TaskList, null),
         React.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this2.setState({ liked: true });
-            } },
-          'Like'
-        ),
-        React.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this2.setState({ liked: true });
-            } },
-          'Like'
+          'p',
+          null,
+          'some added stuff'
         )
       );
     }
   }]);
 
-  return LikeButton;
+  return LikeButtonW;
 }(React.Component);
 
-export default LikeButton;
+var domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(React.createElement(LikeButtonW, null), domContainer);
