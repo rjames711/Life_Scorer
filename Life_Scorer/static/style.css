@@ -5,6 +5,12 @@ textarea, body, button, input, h1,a {
     text-size-adjust: none;
 }
 
+body{
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .CodeMirror{
     resize:both;
     overflow:auto; /* something other than visible */
@@ -171,3 +177,4 @@ textarea{
 .numin{
     width:7rem;
 }
+
