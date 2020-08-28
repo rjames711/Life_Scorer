@@ -183,3 +183,18 @@ window.addEventListener("touchend",function(event){
     }
 });
 //End swipe implementation
+
+
+$(window).keydown(function(event) {
+  if(event.ctrlKey && event.keyCode == 13) {  //cntrl-enter
+    console.log("Cntrl-enter caught, submitting form");
+    event.preventDefault(); 
+  	submitForm();
+  }});
+
+$(window).keydown(function(event) {
+  if(event.ctrlKey && event.keyCode == 49) {  //cntrl-enter
+    console.log("Cntrl-1 caught, toggling");
+    event.preventDefault(); 
+    toggleTop();
+}}); 
