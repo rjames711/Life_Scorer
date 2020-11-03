@@ -186,15 +186,31 @@ window.addEventListener("touchend",function(event){
 
 
 $(window).keydown(function(event) {
-  if(event.ctrlKey && event.keyCode == 13) {  //cntrl-enter
-    console.log("Cntrl-enter caught, submitting form");
+  if(event.altKey && event.keyCode == 13) {  //cntrl-enter
+    console.log("Alt-enter caught, submitting form");
     event.preventDefault(); 
   	submitForm();
   }});
 
 $(window).keydown(function(event) {
-  if(event.ctrlKey && event.keyCode == 49) {  //cntrl-enter
-    console.log("Cntrl-1 caught, toggling");
+  if(event.altKey && event.keyCode == 49) {  //cntrl-enter
+    console.log("Alt-1 caught, toggling");
     event.preventDefault(); 
     toggleTop();
 }}); 
+
+$(window).keydown(function(event) {
+  if(event.altKey && event.keyCode == 50) {  //cntrl-enter
+    console.log("Alt-2 caught, show log");
+    event.preventDefault(); 
+    window.location.href="show_log/50";
+}}); 
+
+$(window).keydown(function(event) {
+  if(event.altKey && event.keyCode == 115) {  //cntrl-enter
+    console.log("Alt-s caught, show log");
+    event.preventDefault(); 
+    event.stopPropagation();
+    window.location.href="show_log/50";
+}});
+
