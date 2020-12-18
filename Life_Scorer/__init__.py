@@ -364,6 +364,7 @@ def month_sums(num_months):
 
 
 @app.route('/create_log2')
+@login_required
 def create_log2():
     tasks = interface.read_tasks(get_user())
     tasks = [task.__dict__ for task in tasks]
@@ -371,6 +372,7 @@ def create_log2():
 
 
 @app.route('/api')
+@login_required
 def api():
     #tasks = interface.read_tasks(get_user())
     tasks = interface.read_tasks('Rob')
@@ -379,6 +381,7 @@ def api():
 
 #Custom statistic page with potentially hardcoded values for personal use
 @app.route('/custom_stats')
+@login_required
 def custom_stats():
     def ave_weight(sums):
         k = ('weight','qty') #key
@@ -393,6 +396,7 @@ def custom_stats():
     
 #For even more ephemeral purposes than custom stats.
 @app.route('/temp')
+@login_required
 def temp():
     conn = interface.get_task_db(get_user())
     c = conn.cursor()
@@ -402,6 +406,7 @@ def temp():
     return render_template('log.html', log=log)
 
 @app.route('/choose_script')
+@login_required
 def choose_script():
     scripts = interface.get_scripts(get_user())
     scripts = [x[0] for x in scripts] # just need names
@@ -412,12 +417,14 @@ def choose_script():
     return render_template('choose_script.html',scripts=scripts)
 
 @app.route('/custom/<script_name>')
+@login_required
 def custom(script_name):
     print(script_name)
     script = interface.get_script(get_user(), script_name)
     return render_template('custom.html', script_name=script_name, script=script)
 
 @app.route('/save_script',methods=('POST',))
+@login_required
 def save_script():
     name = request.form['script_name']
     script = request.form['script']
@@ -433,8 +440,8 @@ def proxy_get():
     import requests as req
     r = req.get(url)
     return  r.text
-   
 
 @app.route('/misc')
+@login_required
 def misc():
     return render_template('misc.html')
