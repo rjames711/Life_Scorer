@@ -24,13 +24,7 @@
 </div>
 
   <form method="post" id = "logForm">
-    <div class='inline'>
-        <input type="text" id="selection" name="selection" value="" 
-        onkeyup="task_text()" onclick="hideTop()" class="perc75"
-        placeholder="Select below or type" autocomplete="off">
-        
-        <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
-        </div>
+
   {% for task in tasks %}
     {% if task.display %}
     <input type = "button" id="{{task.name }}"  
@@ -42,7 +36,13 @@
     
     {% endif %}
   {% endfor %}
-
+    <div class='inline'>
+        <input type="text" id="selection" name="selection" value="" 
+        onkeyup="task_text()" onclick="hideTop()" class="perc75"
+        placeholder="Select below or type" autocomplete="off">
+        
+        <button type="button" id='clear' class="perc25" onclick="clear_sel()">CLEAR</button>
+        </div>
   
   <div id="variableForm">
      <!-- Place holder for variable form content -->

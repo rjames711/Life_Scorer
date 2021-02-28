@@ -445,3 +445,7 @@ def proxy_get():
 @login_required
 def misc():
     return render_template('misc.html')
+
+@app.route('/camera')
+def camera():
+    return render_template('camera.html')
