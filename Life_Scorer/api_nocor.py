@@ -51,4 +51,18 @@ def get_day_scores():
     res = [ dayscores , days ]
     return json.dumps(res)
 
-
+'''
+@noncors_api.route("/dayscores_task")
+@login_required
+def get_task_scores():
+    numdays= int(request.args.get('numdays'))
+    offset= int(request.args.get('offset'))
+    task = request.args.get('task')
+    task_id = interface.get_task_by_name(task,get_user()):
+    days = tools.get_days(numdays,offset)
+    dayscores=[]
+    for day in days:
+        dayscores.append(get_day_score_by_task(day, get_user(),task_id))
+    res = [ dayscores , days ]
+    return json.dumps(res)
+'''
