@@ -42,4 +42,11 @@ def validate_user(username, password):
         return False #Invalid usersame
     return check_password_hash(user_pw,password)
     
-    
+def change_password(username, password):
+    conn = get_db()
+    c = conn.cursor()
+    password = generate_password_hash(password)
+    holder=(password, username)
+    c.execute("UPDATE users SET password = ? WHERE username = ?", holder)
+    conn.commit()
+
